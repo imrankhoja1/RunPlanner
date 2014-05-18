@@ -34,8 +34,18 @@ class TapController < UIViewController
 
     @map_view = MKMapView.alloc.initWithFrame(CGRectZero)
     @map_view.bounds = CGRectMake(0, 0, self.view.frame.size.width, map_height)
-    @map_view.center = CGPointMake(self.view.frame.size.width / 2, 20 + btn_height + selectors_height + (map_height / 2))
+    @map_view.center = CGPointMake(self.view.frame.size.width / 2, 43 + btn_height + selectors_height + (map_height / 2))
     self.view.addSubview(@map_view)
+
+    @pin_label = UILabel.alloc.initWithFrame(CGRectZero)
+    @pin_label.text = "Drop a Pin"
+    @pin_label.color = UIColor.blackColor
+    @pin_label.backgroundColor = UIColor.whiteColor
+    @pin_label.textAlignment = NSTextAlignmentCenter
+    @pin_label.sizeToFit
+    @pin_label.bounds = CGRectMake(0, 0, self.view.frame.size.width, btn_height/2)
+    @pin_label.center = CGPointMake(self.view.frame.size.width / 2, 32 + btn_height + selectors_height + btn_height / 2)
+    self.view.addSubview(@pin_label)
 
     @r_button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
     @r_button.setTitle("Runners", forState: UIControlStateNormal)
