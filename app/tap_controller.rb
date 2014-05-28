@@ -1,14 +1,10 @@
 class TapController < UIViewController
-  #def loadView
-  #end
-
   def viewDidLoad
     super
 
     self.view.backgroundColor = UIColor.whiteColor
 
     # ask user for permission to access the address book
-    ab = AddressBook::AddrBook.new
     if AddressBook.authorized?
         puts "this app is authorized!"
     else
@@ -19,16 +15,7 @@ class TapController < UIViewController
     @invite_picker.peoplePickerDelegate = self
     props = [KABPersonFirstNameProperty, KABPersonLastNameProperty, KABPersonPhoneMainLabel, KABPersonPhoneProperty]
     @invite_picker.displayedProperties = props
-    # self.view(addSubview(@invite_picker))
     self.presentModalViewController(@invite_picker,animated:true)
-
-    # AddressBook.pick do |person|
-    #     if person
-    #         puts person
-    #     else
-    #         puts "something went wrong"
-    #     end
-    # end
 
     status_bar_height = 20
     btn_height = 50
@@ -68,17 +55,6 @@ class TapController < UIViewController
     @run_distance_selector.addTarget(self, action:'presentDistancePicker', forControlEvents:UIControlEventTouchUpInside)
     self.view.addSubview(@run_distance_selector)
    
-    # @selectors_sv = UIView.alloc.initWithFrame(CGRectZero)
-    # @selectors_sv.bounds = CGRectMake(0, 0, 200, 200)
-    # @selectors_sv.center = CGPointMake(100, 100, 100, 100)
-    # @selectors_sv.backgroundColor = UIColor.grayColor
-    # self.view.addSubview(@selectors_sv)
-
-    # @map_view = MKMapView.alloc.initWithFrame(CGRectZero)
-    # @map_view.bounds = CGRectMake(0, 0, self.view.frame.size.width, map_height)
-    # @map_view.center = CGPointMake(self.view.frame.size.width / 2, 43 + btn_height + selectors_height + (map_height / 2))
-    # self.view.addSubview(@map_view)
-
     #add the selector options for runners / meeting point
     options = ["Runners","Meeting Point"]
     @option_selector = UISegmentedControl.alloc.initWithItems(options)
@@ -97,22 +73,6 @@ class TapController < UIViewController
     @pin_label.bounds = CGRectMake(0, 0, self.view.frame.size.width, btn_height/2)
     @pin_label.center = CGPointMake(self.view.frame.size.width / 2, 32 + btn_height + selectors_height + btn_height / 2)
     self.view.addSubview(@pin_label)
-
-    # @r_button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
-    # @r_button.setTitle("Runners", forState: UIControlStateNormal)
-    # @r_button.bounds = CGRectMake(0, 0, self.view.frame.size.width / 2, btn_height / 2)
-    # @r_button.center = CGPointMake(self.view.frame.size.width / 4, 20 + btn_height + selectors_height + (small_button_height / 2))
-    # @r_button.setTitleColor(UIColor.whiteColor, forState: UIControlStateNormal)
-    # @r_button.backgroundColor = UIColor.grayColor
-    # self.view.addSubview(@r_button)
-    
-    # @m_button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
-    # @m_button.setTitle("Meeting Point", forState: UIControlStateNormal)
-    # @m_button.bounds = CGRectMake(0, 0, self.view.frame.size.width / 2, btn_height / 2)
-    # @m_button.center = CGPointMake(3 * self.view.frame.size.width / 4, 20 + btn_height + selectors_height + (small_button_height / 2))
-    # @m_button.setTitleColor(UIColor.whiteColor, forState: UIControlStateNormal)
-    # @m_button.backgroundColor = UIColor.grayColor
-    # self.view.addSubview(@m_button)
 
     @map_view = MKMapView.alloc.initWithFrame(CGRectZero)
     @map_view.bounds = CGRectMake(0, 0, self.view.frame.size.width, map_height)
