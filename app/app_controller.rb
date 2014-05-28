@@ -33,13 +33,9 @@ class AppController < UIViewController
     self.view.addSubview(label)
 
     #add the date picker
-    @run_time_selector_trigger = UIButton.buttonWithType(UIButtonTypeRoundedRect)
-    @run_time_selector_trigger.setTitle("Pick a Time:", forState: UIControlStateNormal)
-    @run_time_selector_trigger.bounds = CGRectMake(0, 0, self.view.frame.size.width / 2, btn_height / 2)
-    @run_time_selector_trigger.center = CGPointMake(self.view.frame.size.width / 2, status_bar_height + btn_height + btn_height / 2)
-    #connects the presentDatePicker method to the button-press action
-    @run_time_selector_trigger.addTarget(self, action:'presentDatePicker', forControlEvents:UIControlEventTouchUpInside)
-    self.view.addSubview(@run_time_selector_trigger)
+    run_time_button = vf.run_time_button
+    run_time_button.addTarget(self, action: 'presentDatePicker', forControlEvents: UIControlEventTouchUpInside)
+    self.view.addSubview(run_time_button)
 
     #add the selector picker
     @run_distance_selector = UIButton.buttonWithType(UIButtonTypeRoundedRect)

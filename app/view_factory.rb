@@ -26,4 +26,14 @@ class ViewFactory
     label
   end
 
+  def run_time_button
+    height = Dims[:status_bar_height] + Dims[:btn_height] + Dims[:btn_height] / 2
+
+    button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
+    button.setTitle("Pick a Time:", forState: UIControlStateNormal)
+    button.bounds = CGRectMake(0, 0, @frame.size.width / 2, Dims[:btn_height] / 2)
+    button.center = CGPointMake(@frame.size.width / 2, height)
+    button
+  end
+
 end
