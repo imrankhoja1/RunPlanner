@@ -17,15 +17,6 @@ class AppController < UIViewController
     @invite_picker.displayedProperties = props
     self.presentModalViewController(@invite_picker,animated:true)
 
-    status_bar_height = 20
-    btn_height = 50
-    selector_height = 35
-    selectors_height = selector_height * 3
-    small_button_height = 24
-    map_height = 300
-    send_run_cont_height = 70
-    medium_btn_height = 40
-
     vf = ViewFactory.new(self.view.frame)
 
     label = vf.top_label
