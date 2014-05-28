@@ -1,4 +1,4 @@
-class MainController < UIViewController
+class AppController < UIViewController
   def viewDidLoad
     super
 
