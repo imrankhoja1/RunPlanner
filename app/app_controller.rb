@@ -38,14 +38,9 @@ class AppController < UIViewController
     self.view.addSubview(run_time_button)
 
     #add the selector picker
-    @run_distance_selector = UIButton.buttonWithType(UIButtonTypeRoundedRect)
-    @run_distance_selector.setTitle("Pick your Distance:", forState: UIControlStateNormal)
-    @run_distance_selector.bounds = CGRectMake(0, 0, self.view.frame.size.width / 2, btn_height / 2)
-    @run_distance_selector.center = CGPointMake(self.view.frame.size.width / 2, status_bar_height + btn_height + btn_height + btn_height / 2)
-    
-    #connects the presentDatePicker method to the button-press action
-    @run_distance_selector.addTarget(self, action:'presentDistancePicker', forControlEvents:UIControlEventTouchUpInside)
-    self.view.addSubview(@run_distance_selector)
+    distance_button = vf.distance_button
+    distance_button.addTarget(self, action:'presentDistancePicker', forControlEvents:UIControlEventTouchUpInside)
+    self.view.addSubview(distance_button)
    
     #add the selector options for runners / meeting point
     options = ["Runners","Meeting Point"]
