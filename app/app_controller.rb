@@ -48,15 +48,8 @@ class AppController < UIViewController
     option_selector.selectedSegmentIndex = 0
     self.view.addSubview(option_selector)
 
-    @pin_label = UILabel.alloc.initWithFrame(CGRectZero)
-    @pin_label.text = "Drop a Pin"
-    @pin_label.color = UIColor.blackColor
-    @pin_label.backgroundColor = UIColor.whiteColor
-    @pin_label.textAlignment = NSTextAlignmentCenter
-    @pin_label.sizeToFit
-    @pin_label.bounds = CGRectMake(0, 0, self.view.frame.size.width, btn_height/2)
-    @pin_label.center = CGPointMake(self.view.frame.size.width / 2, 32 + btn_height + selectors_height + btn_height / 2)
-    self.view.addSubview(@pin_label)
+    pin_label = vf.pin_label
+    self.view.addSubview(pin_label)
 
     @map_view = MKMapView.alloc.initWithFrame(CGRectZero)
     @map_view.bounds = CGRectMake(0, 0, self.view.frame.size.width, map_height)

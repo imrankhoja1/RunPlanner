@@ -58,4 +58,18 @@ class ViewFactory
     selector
   end
 
+  def pin_label
+    btn_height = Dims[:btn_height]
+
+    label = UILabel.alloc.initWithFrame(CGRectZero)
+    label.text = "Drop a Pin"
+    label.color = UIColor.blackColor
+    label.backgroundColor = UIColor.whiteColor
+    label.textAlignment = NSTextAlignmentCenter
+    label.sizeToFit
+    label.bounds = CGRectMake(0, 0, @frame.size.width, btn_height/2)
+    label.center = CGPointMake(@frame.size.width / 2, 32 + btn_height + Dims[:selectors_height] + btn_height / 2)
+    label
+  end
+
 end
