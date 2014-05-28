@@ -26,15 +26,11 @@ class MainController < UIViewController
     send_run_cont_height = 70
     medium_btn_height = 40
 
-    @label = UILabel.alloc.initWithFrame(CGRectZero)
-    @label.text = "Plan Your Run"
-    @label.color = UIColor.whiteColor
-    @label.backgroundColor = UIColor.grayColor
-    @label.textAlignment = NSTextAlignmentCenter
-    @label.sizeToFit
-    @label.bounds = CGRectMake(0, 0, self.view.frame.size.width, btn_height)
-    @label.center = CGPointMake(self.view.frame.size.width / 2, status_bar_height + btn_height / 2)
-    self.view.addSubview(@label)
+    vf = ViewFactory.new(self.view.frame)
+
+    label = vf.top_label
+
+    self.view.addSubview(label)
 
     #add the date picker
     @run_time_selector_trigger = UIButton.buttonWithType(UIButtonTypeRoundedRect)
