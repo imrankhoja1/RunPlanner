@@ -1,4 +1,4 @@
-class TapController < UIViewController
+class MainController < UIViewController
   def viewDidLoad
     super
 

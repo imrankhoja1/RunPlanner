@@ -4,7 +4,7 @@ class AppDelegate
     @window.makeKeyAndVisible
 
     # This is our new line!
-    @window.rootViewController = TapController.alloc.initWithNibName(nil, bundle: nil)
+    @window.rootViewController = MainController.alloc.initWithNibName(nil, bundle: nil)
 
     true
   end
