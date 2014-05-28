@@ -72,4 +72,11 @@ class ViewFactory
     label
   end
 
+  def map_view
+    map_view = MKMapView.alloc.initWithFrame(CGRectZero)
+    map_view.bounds = CGRectMake(0, 0, @frame.size.width, Dims[:map_height])
+    map_view.center = CGPointMake(@frame.size.width / 2, 43 + Dims[:btn_height] + Dims[:selectors_height] + (Dims[:map_height] / 2))
+    map_view
+  end
+
 end

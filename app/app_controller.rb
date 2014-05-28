@@ -51,9 +51,7 @@ class AppController < UIViewController
     pin_label = vf.pin_label
     self.view.addSubview(pin_label)
 
-    @map_view = MKMapView.alloc.initWithFrame(CGRectZero)
-    @map_view.bounds = CGRectMake(0, 0, self.view.frame.size.width, map_height)
-    @map_view.center = CGPointMake(self.view.frame.size.width / 2, 43 + btn_height + selectors_height + (map_height / 2))
+    map_view = vf.map_view
 
     @button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
     @button.setTitle("Send Run Invite", forState: UIControlStateNormal)
@@ -90,7 +88,7 @@ class AppController < UIViewController
         index = sender.selectedSegmentIndex
         puts "this is the index: #{index}"
         if (index == 1)
-            self.view.addSubview(@map_view)
+            self.view.addSubview(map_view)
         end
         #add address book here
         if (index == 0)
