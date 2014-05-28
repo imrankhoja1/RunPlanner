@@ -53,20 +53,10 @@ class AppController < UIViewController
 
     map_view = vf.map_view
 
-    @button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
-    @button.setTitle("Send Run Invite", forState: UIControlStateNormal)
-    @button.bounds = CGRectMake(0, 0, self.view.frame.size.width - 20, medium_btn_height)
-    #@button.sizeToFit
-    @button.center = CGPointMake(self.view.frame.size.width / 2, send_run_cont_height / 2)
-    #@button.cornerRadius = 30.0
-    @button.setTitleColor(UIColor.whiteColor, forState: UIControlStateNormal)
-    @button.backgroundColor = UIColor.colorWithRed(0.169, green: 0.561, blue: 0.329, alpha: 1.0)
-    @button_container = UIView.alloc.initWithFrame(CGRectZero)
-    @button_container.bounds = CGRectMake(0, 0, self.view.frame.size.width, send_run_cont_height)
-    @button_container.center = CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height - (send_run_cont_height / 2))
-    #@button_container.backgroundColor = UIColor.whiteColor
-    @button_container.addSubview(@button)
-    self.view.addSubview(@button_container)
+    invite_button = vf.invite_button
+    invite_button_container = vf.invite_button_container
+    invite_button_container.addSubview(invite_button)
+    self.view.addSubview(invite_button_container)
   end
 
   def presentDatePicker

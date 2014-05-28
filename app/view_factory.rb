@@ -79,4 +79,21 @@ class ViewFactory
     map_view
   end
 
+  def invite_button
+    button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
+    button.setTitle("Send Run Invite", forState: UIControlStateNormal)
+    button.bounds = CGRectMake(0, 0, @frame.size.width - 20, Dims[:medium_btn_height])
+    button.center = CGPointMake(@frame.size.width / 2, Dims[:send_run_cont_height] / 2)
+    button.setTitleColor(UIColor.whiteColor, forState: UIControlStateNormal)
+    button.backgroundColor = UIColor.colorWithRed(0.169, green: 0.561, blue: 0.329, alpha: 1.0)
+    button
+  end
+
+  def invite_button_container
+    container = UIView.alloc.initWithFrame(CGRectZero)
+    container.bounds = CGRectMake(0, 0, @frame.size.width, Dims[:send_run_cont_height])
+    container.center = CGPointMake(@frame.size.width / 2, @frame.size.height - (Dims[:send_run_cont_height] / 2))
+    container
+  end
+
 end
