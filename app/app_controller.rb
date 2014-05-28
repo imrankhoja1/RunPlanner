@@ -43,6 +43,8 @@ class AppController < UIViewController
     self.view.addSubview(@pin_label)
 
     @map_view = vf.map_view
+    @map_view.hidden = true
+    self.view.addSubview(@map_view)
 
     @invite_button = vf.invite_button
     @invite_button_container = vf.invite_button_container
@@ -66,15 +68,15 @@ class AppController < UIViewController
   def option_changed(sender)
     puts "option_changed #{sender}"
     if (sender == @option_selector)
-        index = sender.selectedSegmentIndex
-        puts "this is the index: #{index}"
-        if (index == 1)
-            self.view.addSubview(@map_view)
-        end
-        #add address book here
-        if (index == 0)
-            self.view(addSubview(@invite_picker))
-        end
+      index = sender.selectedSegmentIndex
+      puts "this is the index: #{index}"
+      if (index == 1)
+        @map_view.hidden = false
+      end
+      #add address book here
+      if (index == 0)
+        self.view(addSubview(@invite_picker))
+      end
     end
   end
 
