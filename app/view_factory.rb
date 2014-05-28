@@ -47,4 +47,15 @@ class ViewFactory
     button
   end
 
+  def option_selector
+    btn_height = Dims[:btn_height]
+    top = 20 + btn_height + Dims[:selectors_height] + (Dims[:small_button_height] / 2)
+
+    options = ["Runners", "Meeting Point"]
+    selector = UISegmentedControl.alloc.initWithItems(options)
+    selector.center = CGPointMake(@frame.size.width/2, top)
+    selector.bounds = CGRectMake(0, 0, @frame.size.width, btn_height / 2)
+    selector
+  end
+
 end

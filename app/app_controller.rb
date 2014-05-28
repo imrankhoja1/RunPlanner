@@ -39,17 +39,14 @@ class AppController < UIViewController
 
     #add the selector picker
     distance_button = vf.distance_button
-    distance_button.addTarget(self, action:'presentDistancePicker', forControlEvents:UIControlEventTouchUpInside)
+    distance_button.addTarget(self, action: 'presentDistancePicker', forControlEvents: UIControlEventTouchUpInside)
     self.view.addSubview(distance_button)
    
     #add the selector options for runners / meeting point
-    options = ["Runners","Meeting Point"]
-    @option_selector = UISegmentedControl.alloc.initWithItems(options)
-    @option_selector.center = CGPointMake(self.view.frame.size.width/2, 20 + btn_height + selectors_height + (small_button_height / 2))
-    @option_selector.bounds = CGRectMake(0, 0, self.view.frame.size.width, btn_height / 2)
-    @option_selector.addTarget(self, action: 'option_changed:', forControlEvents:UIControlEventValueChanged)
-    @option_selector.selectedSegmentIndex = 0
-    self.view.addSubview(@option_selector)
+    option_selector = vf.option_selector
+    option_selector.addTarget(self, action: 'option_changed:', forControlEvents: UIControlEventValueChanged)
+    option_selector.selectedSegmentIndex = 0
+    self.view.addSubview(option_selector)
 
     @pin_label = UILabel.alloc.initWithFrame(CGRectZero)
     @pin_label.text = "Drop a Pin"
@@ -96,7 +93,7 @@ class AppController < UIViewController
 
   def option_changed(sender)
     puts "option_changed #{sender}"
-    if (sender == @option_selector)
+    if (sender == option_selector)
         index = sender.selectedSegmentIndex
         puts "this is the index: #{index}"
         if (index == 1)
