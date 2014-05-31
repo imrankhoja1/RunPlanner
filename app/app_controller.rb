@@ -19,6 +19,9 @@ class AppController < UIViewController
 
     vf = ViewFactory.new(self.view.frame)
 
+    #top_view = vf.top_view
+    #self.view.addSubview(top_view)
+
     @top_label = vf.top_label
 
     self.view.addSubview(@top_label)
@@ -44,17 +47,26 @@ class AppController < UIViewController
 
     @map_view = vf.map_view
     @map_view.hidden = true
-    self.view.addSubview(@map_view)
+    #self.view.addSubview(@map_view)
 
     @invite_button = vf.invite_button
     @invite_button_container = vf.invite_button_container
     @invite_button_container.addSubview(@invite_button)
-    self.view.addSubview(@invite_button_container)
+    #self.view.addSubview(@invite_button_container)
   end
 
   def presentDatePicker
-    controller = UIDatePicker.alloc.init
-    self.view.addSubview(controller, animated: true)
+    #controller = UIDatePicker.alloc.init
+    #self.view.addSubview(controller, animated: true)
+    UIView.animateWithDuration(0.5, animations: lambda {
+      frame = @option_selector.frame
+      frame.origin = [100, 100]
+      @option_selector.frame = frame
+
+      frame = @pin_label.frame
+      frame.origin = [50, 50]
+      @pin_label.frame = frame
+    })
   end
 
   def presentDistancePicker

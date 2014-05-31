@@ -14,6 +14,14 @@ class ViewFactory
     @frame = frame
   end
 
+  def top_view
+    frame = UIView.alloc.initWithFrame(CGRectZero)
+    frame.backgroundColor = UIColor.lightGrayColor
+    frame.bounds = CGRectMake(0, 0, @frame.size.width, 300)
+    frame.center = CGPointMake(@frame.size.width / 2, 200)
+    frame
+  end
+
   def top_label
     label = UILabel.alloc.initWithFrame(CGRectZero)
     label.text = "Plan Your Run"
