@@ -5,6 +5,9 @@ class ViewFactory
     run_time_button: 30,
     distance_button: 30,
     pace_button: 30,
+    option_selector: 24,
+    pin_label: 50,
+    map: 334,
     selector_height: 35,
     selectors_height: 35*3,
     small_button_height: 24,
@@ -63,34 +66,32 @@ class ViewFactory
   end
 
   def option_selector
-    btn_height = H[:btn_height]
-    top = 20 + btn_height + H[:selectors_height] + (H[:small_button_height] / 2)
-
     options = ["Runners", "Meeting Point"]
     selector = UISegmentedControl.alloc.initWithItems(options)
-    selector.center = CGPointMake(@frame.size.width/2, top)
-    selector.bounds = CGRectMake(0, 0, @frame.size.width, btn_height / 2)
+    selector.bounds = rect(:option_selector)
+    selector.center = center(:option_selector, 5)
     selector
   end
 
   def pin_label
-    btn_height = H[:btn_height]
-
     label = UILabel.alloc.initWithFrame(CGRectZero)
     label.text = "Drop a Pin"
     label.color = UIColor.blackColor
     label.backgroundColor = UIColor.whiteColor
     label.textAlignment = NSTextAlignmentCenter
     label.sizeToFit
-    label.bounds = CGRectMake(0, 0, @frame.size.width, btn_height/2)
-    label.center = CGPointMake(@frame.size.width / 2, 32 + btn_height + H[:selectors_height] + btn_height / 2)
+    label.bounds = rect(:pin_label)
+    label.center = center(:pin_label, 6)
     label
   end
 
   def map_view
-    map_view = MKMapView.alloc.initWithFrame(CGRectZero)
-    map_view.bounds = CGRectMake(0, 0, @frame.size.width, H[:map_height])
-    map_view.center = CGPointMake(@frame.size.width / 2, 43 + H[:btn_height] + H[:selectors_height] + (H[:map_height] / 2))
+    #map_view = MKMapView.alloc.initWithFrame(CGRectZero)
+    map_view = UILabel.alloc.initWithFrame(CGRectZero)
+    map_view.text = "Map View"
+    map_view.backgroundColor = UIColor.lightGrayColor
+    map_view.bounds = rect(:map)
+    map_view.center = center(:map, 7)
     map_view
   end
 

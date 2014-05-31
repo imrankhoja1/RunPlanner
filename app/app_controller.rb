@@ -47,13 +47,13 @@ class AppController < UIViewController
     self.view.addSubview(@pin_label)
 
     @map_view = vf.map_view
-    @map_view.hidden = true
-    #self.view.addSubview(@map_view)
+    #@map_view.hidden = true
+    self.view.addSubview(@map_view)
 
     @invite_button = vf.invite_button
     @invite_button_container = vf.invite_button_container
     @invite_button_container.addSubview(@invite_button)
-    #self.view.addSubview(@invite_button_container)
+    self.view.addSubview(@invite_button_container)
   end
 
   def presentDatePicker
