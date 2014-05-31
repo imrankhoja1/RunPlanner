@@ -11,20 +11,14 @@ class AppController < UIViewController
       puts "This app is not authorized!"
       AddressBook.request_authorization
     end
-    @invite_picker = ABPeoplePickerNavigationController.alloc.init
-    @invite_picker.peoplePickerDelegate = self
-    props = [KABPersonFirstNameProperty, KABPersonLastNameProperty, KABPersonPhoneMainLabel, KABPersonPhoneProperty]
-    @invite_picker.displayedProperties = props
-    self.presentModalViewController(@invite_picker, animated: true)
+    #@invite_picker = ABPeoplePickerNavigationController.alloc.init
+    #@invite_picker.peoplePickerDelegate = self
+    #props = [KABPersonFirstNameProperty, KABPersonLastNameProperty, KABPersonPhoneMainLabel, KABPersonPhoneProperty]
+    #@invite_picker.displayedProperties = props
+    #self.presentModalViewController(@invite_picker, animated: true)
 
     vf = ViewFactory.new(self.view.frame)
 
-    #top_view = vf.top_view
-    #self.view.addSubview(top_view)
-
-    @top_label = vf.top_label
-
-    self.view.addSubview(@top_label)
 
     #add the date picker
     @run_time_button = vf.run_time_button
@@ -79,32 +73,6 @@ class AppController < UIViewController
 
   def option_changed(sender)
     puts "option_changed #{sender}"
-    if (sender == @option_selector)
-      index = sender.selectedSegmentIndex
-      puts "this is the index: #{index}"
-      if (index == 1)
-        @map_view.hidden = false
-      end
-      #add address book here
-      if (index == 0)
-        self.view(addSubview(@invite_picker))
-      end
-    end
   end
 
-  # Necessary to implement these methods in order to be a datasource
-  # - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView;
-  def numberOfComponentsInPickerView pickerView
-    1 
-  end
-
-  # - (NSInteger)pickerView:(UIPickerView *)pickerView
-  # numberOfRowsInComponent:(NSInteger)component;
-  def pickerView(pickerView, numberOfRowsInComponent: component)
-    20
-  end
-
-  def pickerView(pickerView, titleForRow: row, forComponent: component)
-    "#{0.5 + row*0.5} mi"
-  end
 end
