@@ -23,16 +23,20 @@ class AppController < UIViewController
     @top_label = vf.top_label
     self.view.addSubview(@top_label)
 
-    #add the date picker
+    # run time
     @run_time_button = vf.run_time_button
     @run_time_button.addTarget(self, action: 'presentDatePicker', forControlEvents: UIControlEventTouchUpInside)
     self.view.addSubview(@run_time_button)
 
-    #add the selector picker
+    # distance
     @distance_button = vf.distance_button
     @distance_button.addTarget(self, action: 'presentDistancePicker', forControlEvents: UIControlEventTouchUpInside)
     self.view.addSubview(@distance_button)
-   
+
+    # pace
+    @pace_button = vf.pace_button
+    self.view.addSubview(@pace_button)
+
     #add the selector options for runners / meeting point
     @option_selector = vf.option_selector
     @option_selector.addTarget(self, action: 'option_changed:', forControlEvents: UIControlEventValueChanged)

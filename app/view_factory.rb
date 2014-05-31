@@ -3,6 +3,8 @@ class ViewFactory
     status_bar: 20,
     top_label: 50,
     run_time_button: 30,
+    distance_button: 30,
+    pace_button: 30,
     selector_height: 35,
     selectors_height: 35*3,
     small_button_height: 24,
@@ -40,23 +42,24 @@ class ViewFactory
     label
   end
 
-  def run_time_button
+  def picker_button(title, id, n)
     button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
-    button.setTitle("Pick a Time:", forState: UIControlStateNormal)
+    button.setTitle(title, forState: UIControlStateNormal)
     button.bounds = rect(:run_time_button)
-    button.center = center(:run_time_button, 2)
+    button.center = center(id, n)
     button
   end
 
+  def run_time_button
+    picker_button("Pick a Time:", :run_time_button, 2)
+  end
+
   def distance_button
-    btn_height = H[:btn_height]
-    top = H[:status_bar] + btn_height + btn_height + btn_height / 2
-    
-    button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
-    button.setTitle("Pick your Distance:", forState: UIControlStateNormal)
-    button.bounds = CGRectMake(0, 0, @frame.size.width / 2, btn_height / 2)
-    button.center = CGPointMake(@frame.size.width / 2, top)
-    button
+    picker_button("Pick your Distance:", :distance_button, 3)
+  end
+
+  def pace_button
+    picker_button("Pick your Pace:", :pace_button, 4)
   end
 
   def option_selector
