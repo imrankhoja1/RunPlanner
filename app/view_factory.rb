@@ -1,29 +1,31 @@
 class ViewFactory
   H = {
-    status_bar_height: 20,
-    btn_height: 50,
+    status_bar: 20,
+    top_label: 50,
+    run_time_button: 30,
     selector_height: 35,
     selectors_height: 35*3,
     small_button_height: 24,
     map_height: 300,
     send_run_cont_height: 70,
-    medium_btn_height: 40
+    medium_btn_height: 40,
+    btn_height: 50
   }
 
   def initialize(frame)
     @frame = frame
   end
 
-  def top(n)
-    puts H.to_a.first(n).reduce(0){|sum,x| sum + x[1]}
+  def top(id, n)
+    H.to_a.first(n).reduce(0){|sum,x| sum + x[1]} + H[id] / 2
   end
 
-  def top_view
-    frame = UIView.alloc.initWithFrame(CGRectZero)
-    frame.backgroundColor = UIColor.lightGrayColor
-    frame.bounds = CGRectMake(0, 0, @frame.size.width, 300)
-    frame.center = CGPointMake(@frame.size.width / 2, 200)
-    frame
+  def rect(id)
+    CGRectMake(0, 0, @frame.size.width, H[id])
+  end
+
+  def center(id, n)
+    CGPointMake(@frame.size.width / 2, top(id, n))
   end
 
   def top_label
@@ -33,24 +35,22 @@ class ViewFactory
     label.backgroundColor = UIColor.grayColor
     label.textAlignment = NSTextAlignmentCenter
     label.sizeToFit
-    label.bounds = CGRectMake(0, 0, @frame.size.width, H[:btn_height])
-    label.center = CGPointMake(@frame.size.width / 2, H[:status_bar_height] + H[:btn_height] / 2)
+    label.bounds = rect(:top_label)
+    label.center = center(:top_label, 1)
     label
   end
 
   def run_time_button
-    top = H[:status_bar_height] + H[:btn_height] + H[:btn_height] / 2
-
     button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
     button.setTitle("Pick a Time:", forState: UIControlStateNormal)
-    button.bounds = CGRectMake(0, 0, @frame.size.width / 2, H[:btn_height] / 2)
-    button.center = CGPointMake(@frame.size.width / 2, top)
+    button.bounds = rect(:run_time_button)
+    button.center = center(:run_time_button, 2)
     button
   end
 
   def distance_button
     btn_height = H[:btn_height]
-    top = H[:status_bar_height] + btn_height + btn_height + btn_height / 2
+    top = H[:status_bar] + btn_height + btn_height + btn_height / 2
     
     button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
     button.setTitle("Pick your Distance:", forState: UIControlStateNormal)

@@ -19,6 +19,9 @@ class AppController < UIViewController
 
     vf = ViewFactory.new(self.view.frame)
 
+    # top label
+    @top_label = vf.top_label
+    self.view.addSubview(@top_label)
 
     #add the date picker
     @run_time_button = vf.run_time_button
