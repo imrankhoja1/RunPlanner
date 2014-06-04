@@ -17,6 +17,24 @@ class ViewFactory
     btn_height: 50
   }
 
+  H2 = {
+    status_bar: 20,
+    top_label: 50,
+    run_time_button: 364,
+    distance_button: 30,
+    pace_button: 30,
+    option_selector: 24,
+    pin_label: 50,
+    map: 334,
+    selector_height: 35,
+    selectors_height: 35*3,
+    small_button_height: 24,
+    map_height: 0,
+    send_run_cont_height: 70,
+    medium_btn_height: 40,
+    btn_height: 50
+  }
+
   def initialize(frame)
     @frame = frame
   end
