@@ -57,21 +57,12 @@ class AppController < UIViewController
   end
 
   def presentDatePicker
-    #controller = UIDatePicker.alloc.init
-    #self.view.addSubview(controller, animated: true)
     UIView.animateWithDuration(0.5, animations: lambda {
-      #self.subviews.each do |x|
-      #  frame = x.frame
-      #  frame.
-      #end
-
-      frame = @option_selector.frame
-      frame.origin = @vf.center(:option_selector, 5)
-      @option_selector.frame = frame
-
-      #frame = @pin_label.frame
-      #frame.origin = [50, 50]
-      #@pin_label.frame = frame
+      i = 0
+      self.view.subviews.zip(ViewFactory::H2.keys).each do |x,k|
+        x.center = @vf.center2(k, i)
+        i += 1
+      end
     })
   end
 

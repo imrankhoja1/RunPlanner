@@ -43,12 +43,20 @@ class ViewFactory
     H.to_a.first(n).reduce(0){|sum,x| sum + x[1]} + H[id] / 2
   end
 
+  def top2(id, n)
+    H2.to_a.first(n).reduce(0){|sum,x| sum + x[1]} + H2[id] / 2
+  end
+
   def rect(id)
     CGRectMake(0, 0, @frame.size.width, H[id])
   end
 
   def center(id, n)
     CGPointMake(@frame.size.width / 2, top(id, n))
+  end
+
+  def center2(id, n)
+    CGPointMake(@frame.size.width / 2, top2(id, n))
   end
 
   def top_label
