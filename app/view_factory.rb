@@ -8,10 +8,6 @@ class ViewFactory
     option_selector: 24,
     pin_label: 50,
     map: 334,
-    selector_height: 35,
-    selectors_height: 35*3,
-    small_button_height: 24,
-    map_height: 300,
     send_run_cont_height: 70,
     medium_btn_height: 40,
     btn_height: 50
@@ -25,14 +21,10 @@ class ViewFactory
     pace_button: 30,
     option_selector: 24,
     pin_label: 50,
-    map: 334,
-    selector_height: 35,
-    selectors_height: 35*3,
-    small_button_height: 24,
-    map_height: 0,
-    send_run_cont_height: 70,
-    medium_btn_height: 40,
-    btn_height: 50
+    map: 0,
+    send_run_cont_height: 0,
+    medium_btn_height: 0,
+    btn_height: 0
   }
 
   def initialize(frame)
@@ -57,6 +49,13 @@ class ViewFactory
 
   def center2(id, n)
     CGPointMake(@frame.size.width / 2, top2(id, n))
+  end
+
+  def status_bar
+    bar = UIView.alloc.initWithFrame(CGRectZero)
+    bar.bounds = rect(:status_bar)
+    bar.center = center(:status_bar, 0)
+    bar
   end
 
   def top_label

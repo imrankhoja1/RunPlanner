@@ -11,13 +11,12 @@ class AppController < UIViewController
       puts "This app is not authorized!"
       AddressBook.request_authorization
     end
-    #@invite_picker = ABPeoplePickerNavigationController.alloc.init
-    #@invite_picker.peoplePickerDelegate = self
-    #props = [KABPersonFirstNameProperty, KABPersonLastNameProperty, KABPersonPhoneMainLabel, KABPersonPhoneProperty]
-    #@invite_picker.displayedProperties = props
-    #self.presentModalViewController(@invite_picker, animated: true)
 
     @vf = ViewFactory.new(self.view.frame)
+
+    # status bar
+    @status_bar = @vf.status_bar
+    self.view.addSubview(@status_bar)
 
     # top label
     @top_label = @vf.top_label
