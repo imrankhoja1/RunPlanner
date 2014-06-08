@@ -76,7 +76,6 @@ class AppController < UIViewController
       UITableViewCell.alloc.initWithStyle(UITableViewCellStyleDefault, reuseIdentifier:@reuseIdentifier)
     end
     cell.textLabel.text = @data[indexPath.row]
-
     cell
   end
 
