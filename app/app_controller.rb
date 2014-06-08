@@ -21,6 +21,8 @@ class AppController < UIViewController
     @status_bar = @vf.status_bar
     self.view.addSubview(@status_bar)
 
+    @x = 0
+
     # # run time
     # @run_time_button = @vf.run_time_button
     # @run_time_button.addTarget(self, action: 'presentDatePicker', forControlEvents: UIControlEventTouchUpInside)
@@ -38,7 +40,7 @@ class AppController < UIViewController
     # f = self.view.frame
     # puts f.position.y
 
-    f = CGRectMake(0, 65, self.view.frame.size.width, self.view.frame.size.height)
+    f = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height)
 
     @table = UITableView.alloc.initWithFrame(f)
     self.view.addSubview @table
@@ -75,8 +77,6 @@ class AppController < UIViewController
     end
     cell.textLabel.text = @data[indexPath.row]
 
-
-    @data.count
     cell
   end
 
@@ -85,16 +85,48 @@ class AppController < UIViewController
     @data.count
   end
 
-  def tableView(tableView, didSelectRowAtIndexPath:indexPath)
-    tableView.deselectRowAtIndexPath(indexPath, animated: true)
+  def tableView(tableView, heightForRowAtIndexPath: indexPath)
+    # puts indexPath.row
+    # if indexPath.row == 0
+    #   return 20
+    # elsif indexPath.row == 1
+    #   return 50
+    # else
+    #   return 100
+    # end
+    return 50
+  end
 
+  def tableView(tableView, didSelectRowAtIndexPath: indexPath)
+    tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    to_delete = @data.include? "Hey!"
+    @data.delete ("Hey!")
+    tableView.numberOfRowsInSection(0)
+    cell = @table.cellForRowAtIndexPath(indexPath)
 
     UIView.animateWithDuration(0.5, animations: lambda {
-      cell = @table.cellForRowAtIndexPath(indexPath)
 
-      cell.backgroundColor = UIColor.redColor
-      cell.frame.size.height = cell.frame.size.height * 2
+      tableView.deleteRowsAtIndexPaths([@adding_at], withRowAnimation: UITableViewRowAnimationFade) if to_delete && @adding_at
+      @new_index = NSIndexPath.indexPathForRow(indexPath.row+1, inSection: 0)
+      tableView.numberOfRowsInSection(0)
+      if @new_index.row < 4
+        @data.insert(@new_index.row, "Hey!")
+      else
+        @data << "Hey!"
+      end
+
+      @table.cellForRowAtIndexPath(@new_index)
+      puts @data
+      # NSIndexPath* newIndexPath = [NSIndexPath indexPathForRow:oldIndexPath.row+1 inSection:oldIndexPath.section];
+      tableView.insertRowsAtIndexPaths([@new_index], withRowAnimation: UITableViewRowAnimationTop)
+      # @table.insertRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimationTop)
+      # frame = cell.frame
+      # frame.size.height = cell.frame.size.height * 2
+      # cell.frame = frame
+      # cell.rowHeight = 200
+      # cell.frame.size.height = cell.frame.size.height * 2
     })
+    @adding_at = @new_index
   end
 
   def presentDatePicker
