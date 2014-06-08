@@ -14,13 +14,12 @@ class AppController < UIViewController
 
     @vf = ViewFactory.new(self.view.frame)
 
+    # navigation bar
+    self.title = "Plan Your Run"
+
     # status bar
     @status_bar = @vf.status_bar
     self.view.addSubview(@status_bar)
-
-    # top label
-    @top_label = @vf.top_label
-    self.view.addSubview(@top_label)
 
     # run time
     @run_time_button = @vf.run_time_button

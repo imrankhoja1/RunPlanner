@@ -39,16 +39,6 @@ class TapController < UIViewController
     send_run_cont_height = 70
     medium_btn_height = 40
 
-    @label = UILabel.alloc.initWithFrame(CGRectZero)
-    @label.text = "Plan Your Run"
-    @label.color = UIColor.whiteColor
-    @label.backgroundColor = UIColor.grayColor
-    @label.textAlignment = NSTextAlignmentCenter
-    @label.sizeToFit
-    @label.bounds = CGRectMake(0, 0, self.view.frame.size.width, btn_height)
-    @label.center = CGPointMake(self.view.frame.size.width / 2, status_bar_height + btn_height / 2)
-    self.view.addSubview(@label)
-
     #add the date picker
     @run_time_selector_trigger = UIButton.buttonWithType(UIButtonTypeRoundedRect)
     @run_time_selector_trigger.setTitle("Pick a Time:", forState: UIControlStateNormal)
@@ -63,11 +53,11 @@ class TapController < UIViewController
     @run_distance_selector.setTitle("Pick your Distance:", forState: UIControlStateNormal)
     @run_distance_selector.bounds = CGRectMake(0, 0, self.view.frame.size.width / 2, btn_height / 2)
     @run_distance_selector.center = CGPointMake(self.view.frame.size.width / 2, status_bar_height + btn_height + btn_height + btn_height / 2)
-    
+
     #connects the presentDatePicker method to the button-press action
     @run_distance_selector.addTarget(self, action:'presentDistancePicker', forControlEvents:UIControlEventTouchUpInside)
     self.view.addSubview(@run_distance_selector)
-   
+
     # @selectors_sv = UIView.alloc.initWithFrame(CGRectZero)
     # @selectors_sv.bounds = CGRectMake(0, 0, 200, 200)
     # @selectors_sv.center = CGPointMake(100, 100, 100, 100)
@@ -105,7 +95,7 @@ class TapController < UIViewController
     # @r_button.setTitleColor(UIColor.whiteColor, forState: UIControlStateNormal)
     # @r_button.backgroundColor = UIColor.grayColor
     # self.view.addSubview(@r_button)
-    
+
     # @m_button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
     # @m_button.setTitle("Meeting Point", forState: UIControlStateNormal)
     # @m_button.bounds = CGRectMake(0, 0, self.view.frame.size.width / 2, btn_height / 2)
@@ -164,7 +154,7 @@ class TapController < UIViewController
  # Necessary to implement these methods in order to be a datasource
   # - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView;
   def numberOfComponentsInPickerView pickerView
-    1 
+    1
   end
 
   # - (NSInteger)pickerView:(UIPickerView *)pickerView
