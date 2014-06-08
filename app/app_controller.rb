@@ -21,37 +21,80 @@ class AppController < UIViewController
     @status_bar = @vf.status_bar
     self.view.addSubview(@status_bar)
 
-    # run time
-    @run_time_button = @vf.run_time_button
-    @run_time_button.addTarget(self, action: 'presentDatePicker', forControlEvents: UIControlEventTouchUpInside)
-    self.view.addSubview(@run_time_button)
+    # # run time
+    # @run_time_button = @vf.run_time_button
+    # @run_time_button.addTarget(self, action: 'presentDatePicker', forControlEvents: UIControlEventTouchUpInside)
+    # self.view.addSubview(@run_time_button)
 
-    # distance
-    @distance_button = @vf.distance_button
-    @distance_button.addTarget(self, action: 'presentDistancePicker', forControlEvents: UIControlEventTouchUpInside)
-    self.view.addSubview(@distance_button)
+    # # distance
+    # @distance_button = @vf.distance_button
+    # @distance_button.addTarget(self, action: 'presentDistancePicker', forControlEvents: UIControlEventTouchUpInside)
+    # self.view.addSubview(@distance_button)
 
-    # pace
-    @pace_button = @vf.pace_button
-    self.view.addSubview(@pace_button)
+    # # pace
+    # @pace_button = @vf.pace_button
+    # self.view.addSubview(@pace_button)
 
-    #add the selector options for runners / meeting point
-    @option_selector = @vf.option_selector
-    @option_selector.addTarget(self, action: 'option_changed:', forControlEvents: UIControlEventValueChanged)
-    @option_selector.selectedSegmentIndex = 0
-    self.view.addSubview(@option_selector)
+    # f = self.view.frame
+    # puts f.position.y
 
-    @pin_label = @vf.pin_label
-    self.view.addSubview(@pin_label)
+    f = CGRectMake(0, 65, self.view.frame.size.width, self.view.frame.size.height)
 
-    @map_view = @vf.map_view
-    #@map_view.hidden = true
-    self.view.addSubview(@map_view)
+    @table = UITableView.alloc.initWithFrame(f)
+    self.view.addSubview @table
+
+    # #add the selector options for runners / meeting point
+    # @option_selector = @vf.option_selector
+    # @option_selector.addTarget(self, action: 'option_changed:', forControlEvents: UIControlEventValueChanged)
+    # @option_selector.selectedSegmentIndex = 0
+    # self.view.addSubview(@option_selector)
+
+    # @pin_label = @vf.pin_label
+    # self.view.addSubview(@pin_label)
+
+    # @map_view = @vf.map_view
+    # #@map_view.hidden = true
+    # self.view.addSubview(@map_view)
 
     @invite_button = @vf.invite_button
     @invite_button_container = @vf.invite_button_container
     @invite_button_container.addSubview(@invite_button)
     self.view.addSubview(@invite_button_container)
+
+    @table.dataSource = self
+    @table.delegate = self
+    @data = ['Starts', 'Distance', 'Target Pace']
+  end
+
+  def tableView(tableView, cellForRowAtIndexPath: indexPath)
+    # return the UITableViewCell for the row
+    @reuseIdentifier ||= "CELL_IDENTIFIER"
+
+    cell = tableView.dequeueReusableCellWithIdentifier(@reuseIdentifier) || begin
+      UITableViewCell.alloc.initWithStyle(UITableViewCellStyleDefault, reuseIdentifier:@reuseIdentifier)
+    end
+    cell.textLabel.text = @data[indexPath.row]
+
+
+    @data.count
+    cell
+  end
+
+  def tableView(tableView, numberOfRowsInSection: section)
+    # return the number of rows
+    @data.count
+  end
+
+  def tableView(tableView, didSelectRowAtIndexPath:indexPath)
+    tableView.deselectRowAtIndexPath(indexPath, animated: true)
+
+
+    UIView.animateWithDuration(0.5, animations: lambda {
+      cell = @table.cellForRowAtIndexPath(indexPath)
+
+      cell.backgroundColor = UIColor.redColor
+      cell.frame.size.height = cell.frame.size.height * 2
+    })
   end
 
   def presentDatePicker
