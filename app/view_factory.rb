@@ -58,18 +58,6 @@ class ViewFactory
     bar
   end
 
-  def top_label
-    label = UILabel.alloc.initWithFrame(CGRectZero)
-    label.text = "Plan Your Run"
-    label.color = UIColor.whiteColor
-    label.backgroundColor = UIColor.grayColor
-    label.textAlignment = NSTextAlignmentCenter
-    label.sizeToFit
-    label.bounds = rect(:top_label)
-    label.center = center(:top_label, 1)
-    label
-  end
-
   def picker_button(title, id, n)
     button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
     button.setTitle(title, forState: UIControlStateNormal)

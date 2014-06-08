@@ -4,7 +4,9 @@ class AppDelegate
     @window.makeKeyAndVisible
 
     # This is our new line!
-    @window.rootViewController = AppController.alloc.initWithNibName(nil, bundle: nil)
+    controller = AppController.alloc.initWithNibName(nil, bundle: nil)
+    nav_controller = UINavigationController.alloc.initWithRootViewController(controller)
+    @window.rootViewController = nav_controller
 
     true
   end
