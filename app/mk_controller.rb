@@ -34,7 +34,7 @@ class SimpleLayout < MK::Layout
       background_color UIColor.whiteColor
       text "Starts"
       sizeToFit
-      frame [[0,64],['34%',30]]
+      frame [[0,64],['33%',30]]
     end
 
     @label01 = add UILabel, :label01 do
@@ -42,7 +42,7 @@ class SimpleLayout < MK::Layout
       text "Today"
       sizeToFit
       text_alignment UITextAlignmentCenter
-      frame [['34%',64],['33%',30]]
+      frame [['33%',64],['33%',30]]
     end
 
     @label02 = add UILabel, :label02 do
@@ -50,7 +50,7 @@ class SimpleLayout < MK::Layout
       text "3:00 PM"
       text_alignment UITextAlignmentRight
       sizeToFit
-      frame [['67%',64],['33%',30]]
+      frame [['66%',64],['34%',30]]
     end
 
     @label10 = add UILabel, :label10 do
@@ -80,7 +80,7 @@ class SimpleLayout < MK::Layout
       text "Runners"
       text_alignment UITextAlignmentCenter
       sizeToFit
-      frame [[0,30 + 30 + 64 + 1 + 1 + 30 + 1],['50%',30]]
+      frame [[0,30 + 30 + 64 + 1 + 1 + 30 + 1],['50%',24]]
     end
 
     @label4 = add UILabel, :label4 do
@@ -96,20 +96,20 @@ class SimpleLayout < MK::Layout
       text "Drop a Pin"
       text_alignment UITextAlignmentCenter
       sizeToFit
-      frame [[0,30 + 30 + 64 + 1 + 1 + 30 + 1 + 24 + 1 + 1 + 1 + 1 + 1 + 1 + 1],['100%',50]]
+      frame [[0,30 + 30 + 64 + 1 + 1 + 30 + 1 + 24 + 1],['100%',50]]
     end
 
     @map = add UILabel, :map do
       background_color UIColor.blueColor
       text "Map!"
       sizeToFit
-      frame [[0,30 + 30 + 64 + 1 + 1 + 30 + 1 + 24 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 50 + 1],['100%',258]]
+      frame [[0,30 + 30 + 64 + 1 + 1 + 30 + 1 + 24 + 50 + 1],['100%',264]]
     end
 
     @invite_cont = add UILabel, :invite_cont do
       background_color UIColor.whiteColor
       sizeToFit
-      frame [[0,30 + 30 + 64 + 1 + 1 + 30 + 1 + 24 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 50 + 1 + 258 + 1],['100%',70]]
+      frame [[0,30 + 30 + 64 + 1 + 1 + 30 + 1 + 24 + 50 + 1 + 264 + 1],['100%',70]]
     end
 
     @invite = add UILabel, :invite do
@@ -117,7 +117,7 @@ class SimpleLayout < MK::Layout
       text "Send Run Invite"
       text_alignment UITextAlignmentCenter
       sizeToFit
-      asdf = 30 + 30 + 64 + 1 + 1 + 30 + 1 + 24 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 50 + 1 + 258 + 1
+      asdf = 30 + 30 + 64 + 1 + 1 + 30 + 1 + 24 + 50 + 1 + 258 + 1
       frame [['5%',asdf + 10],['90%',50]]
     end
 
