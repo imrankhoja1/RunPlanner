@@ -16,19 +16,45 @@ class SimpleLayout < MK::Layout
   # won't get nil, and layout.view will be built.
   view :button
 
+  def slide_vert(view, pixels)
+    center = view.center
+    center.y = center.y + pixels
+    view.center = center
+  end
+
+  def animate_date
+    pixels = 300
+
+    @map.hide if @state == :fresh
+    UIView.animateWithDuration(0.2, animations: lambda {
+      if @state == :fresh
+        slide_vert(@button10, pixels);
+        slide_vert(@button11, pixels);
+        slide_vert(@button2, pixels);
+        slide_vert(@button3, pixels);
+        slide_vert(@button4, pixels);
+        slide_vert(@button5, pixels);
+        @state = :date_showing
+      else
+        pixels = 0 - pixels
+        slide_vert(@button10, pixels);
+        slide_vert(@button11, pixels);
+        slide_vert(@button2, pixels);
+        slide_vert(@button3, pixels);
+        slide_vert(@button4, pixels);
+        slide_vert(@button5, pixels);
+        @state = :fresh
+      end
+    }, completion: lambda { |x|
+      puts "asdf: #{x}"
+      @map.show if @state == :fresh
+    })
+  end
+
   def layout
-    #@label = add UILabel, :label
-    #add UILabel, :label2
     #add UIDatePicker, :datepicker
 
-    #@button = add UIButton, :button
-    #@button.on(:touch) {
-    #  UIView.animateWithDuration(0.5, animations: lambda {
-    #    frame = @label.frame
-    #    frame.size.height = @label.frame.size.height + 50
-    #    @label.frame = frame
-    #  })
-    #}
+    @state = :fresh
 
     @button00 = add UIButton, :button00 do
       background_color UIColor.whiteColor
@@ -39,6 +65,7 @@ class SimpleLayout < MK::Layout
     end
     @button00.on(:touch) {
       puts "button00"
+      animate_date
     }
 
     @button01 = add UIButton, :button01 do
@@ -50,6 +77,7 @@ class SimpleLayout < MK::Layout
     end
     @button01.on(:touch) {
       puts "button01"
+      animate_date
     }
 
     @button02 = add UIButton, :button02 do
@@ -61,6 +89,7 @@ class SimpleLayout < MK::Layout
     end
     @button02.on(:touch) {
       puts "button02"
+      animate_date
     }
 
 
