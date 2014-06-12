@@ -23,10 +23,10 @@ class SimpleLayout < MK::Layout
   end
 
   def animate_date
-    pixels = 300
+    pixels = 216
 
     @map.hide if @state == :fresh
-    UIView.animateWithDuration(0.2, animations: lambda {
+    UIView.animateWithDuration(0.35, delay: 0, options: UIViewAnimationOptionCurveEaseInOut, animations: lambda {
       if @state == :fresh
         slide_vert(@button10, pixels);
         slide_vert(@button11, pixels);
@@ -52,7 +52,12 @@ class SimpleLayout < MK::Layout
   end
 
   def layout
-    #add UIDatePicker, :datepicker
+    @datepicker = add UIDatePicker, :datepicker do
+      background_color UIColor.whiteColor
+      frame [[0,64 + 30],['100%','100%']]
+    end
+
+#puts @datepicker.frame.y
 
     @state = :fresh
 
