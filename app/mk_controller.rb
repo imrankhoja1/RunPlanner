@@ -30,78 +30,120 @@ class SimpleLayout < MK::Layout
     #  })
     #}
 
-    @label00 = add UILabel, :label00 do
+    @button00 = add UIButton, :button00 do
       background_color UIColor.whiteColor
-      text "Starts"
+      title "Starts"
+      title_color UIColor.blackColor
       sizeToFit
       frame [[0,64],['33%',30]]
     end
+    @button00.on(:touch) {
+      puts "button00"
+    }
 
-    @label01 = add UILabel, :label01 do
+    @button01 = add UIButton, :button01 do
       background_color UIColor.whiteColor
-      text "Today"
+      title "Today"
+      title_color UIColor.blackColor
       sizeToFit
-      text_alignment UITextAlignmentCenter
       frame [['33%',64],['33%',30]]
     end
+    @button01.on(:touch) {
+      puts "button01"
+    }
 
-    @label02 = add UILabel, :label02 do
+    @button02 = add UIButton, :button02 do
       background_color UIColor.whiteColor
-      text "3:00 PM"
-      text_alignment UITextAlignmentRight
+      title "3:00 PM"
+      title_color UIColor.blackColor
       sizeToFit
       frame [['66%',64],['34%',30]]
     end
+    @button02.on(:touch) {
+      puts "button02"
+    }
 
-    @label10 = add UILabel, :label10 do
+
+    @button10 = add UIButton, :button10 do
       background_color UIColor.whiteColor
-      text "Distance"
+      title "Distance"
+      title_color UIColor.blackColor
       sizeToFit
       frame [[0,30 + 64 + 1],['50%',30]]
     end
+    @button10.on(:touch) {
+      puts "button10"
+    }
 
-    @label11 = add UILabel, :label11 do
+
+    @button11 = add UIButton, :button11 do
       background_color UIColor.whiteColor
-      text "5.5 mi"
+      title "5.5 mi"
+      title_color UIColor.blackColor
       sizeToFit
-      text_alignment UITextAlignmentRight
+      #text_alignment UITextAlignmentRight
       frame [['50%',30 + 64 + 1],['50%',30]]
     end
+    @button11.on(:touch) {
+      puts "button11"
+    }
 
-    @label2 = add UILabel, :label2 do
+
+    @button2 = add UIButton, :button2 do
       background_color UIColor.whiteColor
-      text "Target Pace"
+      title "Target Pace"
+      title_color UIColor.blackColor
       sizeToFit
       frame [[0,30 + 30 + 64 + 1 + 1],['100%',30]]
     end
+    @button2.on(:touch) {
+      puts "button2"
+    }
 
-    @label3 = add UILabel, :label3 do
+
+    @button3 = add UIButton, :button3 do
       background_color UIColor.whiteColor
-      text "Runners"
-      text_alignment UITextAlignmentCenter
+      title "Runners"
+      title_color UIColor.blackColor
+      #text_alignment UITextAlignmentCenter
       sizeToFit
       frame [[0,30 + 30 + 64 + 1 + 1 + 30 + 1],['50%',24]]
     end
+    @button3.on(:touch) {
+      puts "button3"
+    }
 
-    @label4 = add UILabel, :label4 do
+
+    @button4 = add UIButton, :button4 do
       background_color UIColor.grayColor
-      text "Meeting Point"
-      text_alignment UITextAlignmentCenter
+      title "Meeting Point"
+      title_color UIColor.blackColor
+      #text_alignment UITextAlignmentCenter
       sizeToFit
       frame [['50%',30 + 30 + 64 + 1 + 1 + 30 + 1],['50%',24]]
     end
+    @button4.on(:touch) {
+      puts "button4"
+    }
 
-    @label5 = add UILabel, :label5 do
+
+    @button5 = add UIButton, :button5 do
       background_color UIColor.whiteColor
-      text "Drop a Pin"
-      text_alignment UITextAlignmentCenter
+      title "Drop a Pin"
+      title_color UIColor.blackColor
+      #text_alignment UITextAlignmentCenter
       sizeToFit
       frame [[0,30 + 30 + 64 + 1 + 1 + 30 + 1 + 24 + 1],['100%',50]]
     end
+    @button5.on(:touch) {
+      puts "button05"
+    }
 
-    @map = add UILabel, :map do
+
+    @map = add UIButton, :map do
       background_color UIColor.blueColor
-      text "Map!"
+      title "Map!"
+      title_color UIColor.blackColor
       sizeToFit
       frame [[0,30 + 30 + 64 + 1 + 1 + 30 + 1 + 24 + 50 + 1],['100%',264]]
     end
@@ -112,14 +154,19 @@ class SimpleLayout < MK::Layout
       frame [[0,30 + 30 + 64 + 1 + 1 + 30 + 1 + 24 + 50 + 1 + 264 + 1],['100%',70]]
     end
 
-    @invite = add UILabel, :invite do
+    @invite = add UIButton, :invite do
       background_color UIColor.greenColor
-      text "Send Run Invite"
-      text_alignment UITextAlignmentCenter
+      title "Send Run Invite"
+      title_color UIColor.blackColor
+      #text_alignment UITextAlignmentCenter
       sizeToFit
       asdf = 30 + 30 + 64 + 1 + 1 + 30 + 1 + 24 + 50 + 1 + 258 + 1
       frame [['5%',asdf + 10],['90%',50]]
     end
+    @invite.on(:touch) {
+      puts "invite"
+    }
+
 
     background_color UIColor.grayColor
   end
@@ -131,7 +178,7 @@ class SimpleLayout < MK::Layout
 
     # note: there are better ways to set the center, see the frame helpers below
     center [CGRectGetMidX(superview.bounds), CGRectGetMidY(superview.bounds)]
-    text_alignment UITextAlignmentCenter
+    #text_alignment UITextAlignmentCenter
     text_color UIColor.whiteColor
 
     # if you prefer to use shorthands from another gem, you certainly can!
