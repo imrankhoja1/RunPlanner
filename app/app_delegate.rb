@@ -4,7 +4,7 @@ class AppDelegate
     @window.makeKeyAndVisible
 
     # This is our new line!
-    controller = AppController.alloc.initWithNibName(nil, bundle: nil)
+    controller = InvitePageController.alloc.initWithNibName(nil, bundle: nil)
     nav_controller = UINavigationController.alloc.initWithRootViewController(controller)
     @window.rootViewController = nav_controller
 
