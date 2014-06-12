@@ -2,6 +2,8 @@
 $:.unshift("/Library/RubyMotion/lib")
 require 'motion/project/template/ios'
 require 'bubble-wrap'
+require 'bubble-wrap/location'
+require 'map-kit-wrapper'
 
 begin
   require 'bundler'
