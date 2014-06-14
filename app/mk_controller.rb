@@ -8,6 +8,31 @@ class MkController < UIViewController
 end
 
 class SimpleLayout < MK::Layout
+
+  Tops = {
+    default: {
+      button00: 64,
+      button01: 64,
+      button02: 64,
+      button10: 64 + 1 + 30,
+      button11: 64 + 1 + 30,
+      button2:  64 + 1 + 30 + 1 + 30,
+      button3:  64 + 1 + 30 + 1 + 30 + 1 + 30,
+      button4:  64 + 1 + 30 + 1 + 30 + 1 + 30,
+      button5:  64 + 1 + 30 + 1 + 30 + 1 + 30 + 24 + 1,
+    },
+    date_clicked: {
+    },
+    distance_clicked: {
+    },
+    pace_clicked: {
+    }
+  }
+
+  def top(element, state=:default)
+    Tops[state][element] || Tops[:default][element]
+  end
+
   # this is a special attr method that calls `layout` if the view hasn't been
   # created yet. So you can call `layout.button` before `layout.view` and you
   # won't get nil, and layout.view will be built.
@@ -19,32 +44,28 @@ class SimpleLayout < MK::Layout
     view.center = center
   end
 
-  def animate_date
+  def slide_elements(element_clicked)
     pixels = 216
 
-    @map.hide if @state == :fresh
+    @map.hide if @state == :default
     UIView.animateWithDuration(0.35, delay: 0, options: UIViewAnimationOptionCurveEaseInOut, animations: lambda {
-      if @state == :fresh
-        slide_vert(@button10, pixels);
-        slide_vert(@button11, pixels);
-        slide_vert(@button2, pixels);
-        slide_vert(@button3, pixels);
-        slide_vert(@button4, pixels);
-        slide_vert(@button5, pixels);
+      if @state == :default
         @state = :date_showing
       else
         pixels = 0 - pixels
-        slide_vert(@button10, pixels);
-        slide_vert(@button11, pixels);
-        slide_vert(@button2, pixels);
-        slide_vert(@button3, pixels);
-        slide_vert(@button4, pixels);
-        slide_vert(@button5, pixels);
-        @state = :fresh
+        @state = :default
       end
+
+      slide_vert(@button10, pixels)
+      slide_vert(@button10, pixels) if element_clicked != :button10 && element_clicked != :button11
+      slide_vert(@button11, pixels) if element_clicked != :button10 && element_clicked != :button11
+      slide_vert(@button2, pixels)
+      slide_vert(@button3, pixels)
+      slide_vert(@button4, pixels)
+      slide_vert(@button5, pixels)
     }, completion: lambda { |x|
       puts "asdf: #{x}"
-      @map.show if @state == :fresh
+      @map.show if @state == :default
     })
   end
 
@@ -54,18 +75,18 @@ class SimpleLayout < MK::Layout
       frame [[0,64 + 30],['100%','100%']]
     end
 
-    @state = :fresh
+    @state = :default
 
     @button00 = add UIButton, :button00 do
       background_color UIColor.whiteColor
       title "Starts"
       title_color UIColor.blackColor
       sizeToFit
-      frame [[0,64],['33%',30]]
+      frame [[0,top(:button00)],['33%',30]]
     end
     @button00.on(:touch) {
       puts "button00"
-      animate_date
+      slide_elements(:button00)
     }
 
     @button01 = add UIButton, :button01 do
@@ -73,11 +94,11 @@ class SimpleLayout < MK::Layout
       title "Today"
       title_color UIColor.blackColor
       sizeToFit
-      frame [['33%',64],['33%',30]]
+      frame [['33%',top(:button01)],['33%',30]]
     end
     @button01.on(:touch) {
       puts "button01"
-      animate_date
+      slide_elements(:button01)
     }
 
     @button02 = add UIButton, :button02 do
@@ -85,11 +106,11 @@ class SimpleLayout < MK::Layout
       title "3:00 PM"
       title_color UIColor.blackColor
       sizeToFit
-      frame [['66%',64],['34%',30]]
+      frame [['66%',top(:button02)],['34%',30]]
     end
     @button02.on(:touch) {
       puts "button02"
-      animate_date
+      slide_elements(:button02)
     }
 
 
@@ -98,10 +119,11 @@ class SimpleLayout < MK::Layout
       title "Distance"
       title_color UIColor.blackColor
       sizeToFit
-      frame [[0,30 + 64 + 1],['50%',30]]
+      frame [[0,top(:button10)],['50%',30]]
     end
     @button10.on(:touch) {
       puts "button10"
+      slide_elements(:button10)
     }
 
 
@@ -111,10 +133,11 @@ class SimpleLayout < MK::Layout
       title_color UIColor.blackColor
       sizeToFit
       #text_alignment UITextAlignmentRight
-      frame [['50%',30 + 64 + 1],['50%',30]]
+      frame [['50%',top(:button11)],['50%',30]]
     end
     @button11.on(:touch) {
       puts "button11"
+      slide_elements(:button11)
     }
 
 
@@ -123,7 +146,7 @@ class SimpleLayout < MK::Layout
       title "Target Pace"
       title_color UIColor.blackColor
       sizeToFit
-      frame [[0,30 + 30 + 64 + 1 + 1],['100%',30]]
+      frame [[0,top(:button2)],['100%',30]]
     end
     @button2.on(:touch) {
       puts "button2"
@@ -136,7 +159,7 @@ class SimpleLayout < MK::Layout
       title_color UIColor.blackColor
       #text_alignment UITextAlignmentCenter
       sizeToFit
-      frame [[0,30 + 30 + 64 + 1 + 1 + 30 + 1],['50%',24]]
+      frame [[0,top(:button3)],['50%',24]]
     end
     @button3.on(:touch) {
       puts "button3"
@@ -149,7 +172,7 @@ class SimpleLayout < MK::Layout
       title_color UIColor.blackColor
       #text_alignment UITextAlignmentCenter
       sizeToFit
-      frame [['50%',30 + 30 + 64 + 1 + 1 + 30 + 1],['50%',24]]
+      frame [['50%',top(:button4)],['50%',24]]
     end
     @button4.on(:touch) {
       puts "button4"
@@ -162,7 +185,7 @@ class SimpleLayout < MK::Layout
       title_color UIColor.blackColor
       #text_alignment UITextAlignmentCenter
       sizeToFit
-      frame [[0,30 + 30 + 64 + 1 + 1 + 30 + 1 + 24 + 1],['100%',50]]
+      frame [[0,top(:button5)],['100%',50]]
     end
     @button5.on(:touch) {
       puts "button05"
