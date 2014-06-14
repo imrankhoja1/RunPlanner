@@ -17,31 +17,31 @@ class SimpleLayout < MK::Layout
         button00: 64,
         button01: 64,
         button02: 64,
-        button10: 64 + 1 + 30,
-        button11: 64 + 1 + 30,
-        button2:  64 + 1 + 30 + 1 + 30,
-        button3:  64 + 1 + 30 + 1 + 30 + 1 + 30,
-        button4:  64 + 1 + 30 + 1 + 30 + 1 + 30,
-        button5:  64 + 1 + 30 + 1 + 30 + 1 + 30 + 24 + 1
+        button10: 64 + 30,
+        button11: 64 + 30,
+        button2:  64 + 30 + 30,
+        button3:  64 + 30 + 30 + 30,
+        button4:  64 + 30 + 30 + 30,
+        button5:  64 + 30 + 30 + 30 + 24 + 1
       },
       date_clicked: {
-        button10: 64 + 1 + 30 + px,
-        button11: 64 + 1 + 30 + px,
-        button2:  64 + 1 + 30 + 1 + 30 + px,
-        button3:  64 + 1 + 30 + 1 + 30 + 1 + 30 + px,
-        button4:  64 + 1 + 30 + 1 + 30 + 1 + 30 + px,
-        button5:  64 + 1 + 30 + 1 + 30 + 1 + 30 + 24 + 1 + px
+        button10: 64 + 30 + px,
+        button11: 64 + 30 + px,
+        button2:  64 + 30 + 30 + px,
+        button3:  64 + 30 + 30 + 30 + px,
+        button4:  64 + 30 + 30 + 30 + px,
+        button5:  64 + 30 + 30 + 30 + 24 + px
       },
       distance_clicked: {
-        button2:  64 + 1 + 30 + 1 + 30 + px,
-        button3:  64 + 1 + 30 + 1 + 30 + 1 + 30 + px,
-        button4:  64 + 1 + 30 + 1 + 30 + 1 + 30 + px,
-        button5:  64 + 1 + 30 + 1 + 30 + 1 + 30 + 24 + 1 + px
+        button2:  64 + 30 + 30 + px,
+        button3:  64 + 30 + 30 + 30 + px,
+        button4:  64 + 30 + 30 + 30 + px,
+        button5:  64 + 30 + 30 + 30 + 24 + px
       },
       pace_clicked: {
-        button3:  64 + 1 + 30 + 1 + 30 + 1 + 30 + px,
-        button4:  64 + 1 + 30 + 1 + 30 + 1 + 30 + px,
-        button5:  64 + 1 + 30 + 1 + 30 + 1 + 30 + 24 + 1 + px
+        button3:  64 + 30 + 30 + 1 + 30 + px,
+        button4:  64 + 30 + 30 + 1 + 30 + px,
+        button5:  64 + 30 + 30 + 1 + 30 + 24 + px
       }
     }
 
