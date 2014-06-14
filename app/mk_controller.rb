@@ -9,28 +9,43 @@ end
 
 class SimpleLayout < MK::Layout
 
-  Tops = {
-    default: {
-      button00: 64,
-      button01: 64,
-      button02: 64,
-      button10: 64 + 1 + 30,
-      button11: 64 + 1 + 30,
-      button2:  64 + 1 + 30 + 1 + 30,
-      button3:  64 + 1 + 30 + 1 + 30 + 1 + 30,
-      button4:  64 + 1 + 30 + 1 + 30 + 1 + 30,
-      button5:  64 + 1 + 30 + 1 + 30 + 1 + 30 + 24 + 1,
-    },
-    date_clicked: {
-    },
-    distance_clicked: {
-    },
-    pace_clicked: {
-    }
-  }
+  def top(element)
+    px = 216
 
-  def top(element, state=:default)
-    Tops[state][element] || Tops[:default][element]
+    tops = {
+      default: {
+        button00: 64,
+        button01: 64,
+        button02: 64,
+        button10: 64 + 1 + 30,
+        button11: 64 + 1 + 30,
+        button2:  64 + 1 + 30 + 1 + 30,
+        button3:  64 + 1 + 30 + 1 + 30 + 1 + 30,
+        button4:  64 + 1 + 30 + 1 + 30 + 1 + 30,
+        button5:  64 + 1 + 30 + 1 + 30 + 1 + 30 + 24 + 1
+      },
+      date_clicked: {
+        button10: 64 + 1 + 30 + px,
+        button11: 64 + 1 + 30 + px,
+        button2:  64 + 1 + 30 + 1 + 30 + px,
+        button3:  64 + 1 + 30 + 1 + 30 + 1 + 30 + px,
+        button4:  64 + 1 + 30 + 1 + 30 + 1 + 30 + px,
+        button5:  64 + 1 + 30 + 1 + 30 + 1 + 30 + 24 + 1 + px
+      },
+      distance_clicked: {
+        button2:  64 + 1 + 30 + 1 + 30 + px,
+        button3:  64 + 1 + 30 + 1 + 30 + 1 + 30 + px,
+        button4:  64 + 1 + 30 + 1 + 30 + 1 + 30 + px,
+        button5:  64 + 1 + 30 + 1 + 30 + 1 + 30 + 24 + 1 + px
+      },
+      pace_clicked: {
+        button3:  64 + 1 + 30 + 1 + 30 + 1 + 30 + px,
+        button4:  64 + 1 + 30 + 1 + 30 + 1 + 30 + px,
+        button5:  64 + 1 + 30 + 1 + 30 + 1 + 30 + 24 + 1 + px
+      }
+    }
+
+    tops[@state][element] || tops[:default][element]
   end
 
   # this is a special attr method that calls `layout` if the view hasn't been
@@ -38,34 +53,28 @@ class SimpleLayout < MK::Layout
   # won't get nil, and layout.view will be built.
   view :button
 
-  def slide_vert(view, pixels)
+  def toggle_state(new_state)
+    @state = @state == new_state ? :default : new_state
+  end
+
+  def slide_vert(view, new_top)
     center = view.center
-    center.y = center.y + pixels
+    center.y = new_top + (view.frame.size.height / 2)
     view.center = center
   end
 
   def slide_elements(element_clicked)
-    pixels = 216
-
-    @map.hide if @state == :default
+    #@map.hide if @state == :default
     UIView.animateWithDuration(0.35, delay: 0, options: UIViewAnimationOptionCurveEaseInOut, animations: lambda {
-      if @state == :default
-        @state = :date_showing
-      else
-        pixels = 0 - pixels
-        @state = :default
-      end
-
-      slide_vert(@button10, pixels)
-      slide_vert(@button10, pixels) if element_clicked != :button10 && element_clicked != :button11
-      slide_vert(@button11, pixels) if element_clicked != :button10 && element_clicked != :button11
-      slide_vert(@button2, pixels)
-      slide_vert(@button3, pixels)
-      slide_vert(@button4, pixels)
-      slide_vert(@button5, pixels)
+      slide_vert(@button10, top(:button10))
+      slide_vert(@button10, top(:button10))
+      slide_vert(@button11, top(:button11))
+      slide_vert(@button2, top(:button2))
+      slide_vert(@button3, top(:button3))
+      slide_vert(@button4, top(:button4))
+      slide_vert(@button5, top(:button5))
     }, completion: lambda { |x|
-      puts "asdf: #{x}"
-      @map.show if @state == :default
+      #@map.show if @state == :default
     })
   end
 
@@ -86,6 +95,7 @@ class SimpleLayout < MK::Layout
     end
     @button00.on(:touch) {
       puts "button00"
+      toggle_state(:date_clicked)
       slide_elements(:button00)
     }
 
@@ -98,6 +108,7 @@ class SimpleLayout < MK::Layout
     end
     @button01.on(:touch) {
       puts "button01"
+      toggle_state(:date_clicked)
       slide_elements(:button01)
     }
 
@@ -110,6 +121,7 @@ class SimpleLayout < MK::Layout
     end
     @button02.on(:touch) {
       puts "button02"
+      toggle_state(:date_clicked)
       slide_elements(:button02)
     }
 
@@ -123,6 +135,7 @@ class SimpleLayout < MK::Layout
     end
     @button10.on(:touch) {
       puts "button10"
+      toggle_state(:distance_clicked)
       slide_elements(:button10)
     }
 
@@ -137,6 +150,7 @@ class SimpleLayout < MK::Layout
     end
     @button11.on(:touch) {
       puts "button11"
+      toggle_state(:distance_clicked)
       slide_elements(:button11)
     }
 
@@ -150,6 +164,8 @@ class SimpleLayout < MK::Layout
     end
     @button2.on(:touch) {
       puts "button2"
+      toggle_state(:pace_clicked)
+      slide_elements(:button2)
     }
 
 
@@ -199,6 +215,7 @@ class SimpleLayout < MK::Layout
       sizeToFit
       frame [[0,30 + 30 + 64 + 1 + 1 + 30 + 1 + 24 + 50 + 1],['100%',264]]
     end
+@map.hide
 
     @invite_cont = add UILabel, :invite_cont do
       background_color UIColor.whiteColor
