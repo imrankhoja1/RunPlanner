@@ -2,9 +2,6 @@ class MkController < UIViewController
   def loadView
     @layout = SimpleLayout.new
     self.view = @layout.view
-
-    #@button = @layout.get(:button)  # This will be created in our layout (below)
-
     self.title = "Plan Your Run"
   end
 
@@ -56,8 +53,6 @@ class SimpleLayout < MK::Layout
       background_color UIColor.whiteColor
       frame [[0,64 + 30],['100%','100%']]
     end
-
-#puts @datepicker.frame.y
 
     @state = :fresh
 
