@@ -78,11 +78,22 @@ class SimpleLayout < MK::Layout
     })
   end
 
+  def update_date
+    puts "update date"
+    # Ruby Motion automatically converts NSDate objects into Ruby Time objects
+    date = @datepicker.date.strftime("%a %b %e")
+    puts date
+    time = @datepicker.date.strftime("%l:%M %p")
+    puts time
+    
+  end
+
   def layout
     @datepicker = add UIDatePicker, :datepicker do
       background_color UIColor.whiteColor
       frame [[0,64 + 30],['100%','100%']]
     end
+    @datepicker.addTarget(self, action: 'update_date', forControlEvents: UIControlEventValueChanged)
 
     @state = :default
 
