@@ -18,7 +18,7 @@ class SimpleLayout < MK::Layout
         button_starts_time: 64,
         button_distance: 64 + 30,
         button_distance_value: 64 + 30,
-        button2:  64 + 30 + 30,
+        button_pace:  64 + 30 + 30,
         button3:  64 + 30 + 30 + 30,
         button4:  64 + 30 + 30 + 30,
         button5:  64 + 30 + 30 + 30 + 24,
@@ -27,14 +27,14 @@ class SimpleLayout < MK::Layout
       date_clicked: {
         button_distance: 64 + 30 + px,
         button_distance_value: 64 + 30 + px,
-        button2:  64 + 30 + 30 + px,
+        button_pace:  64 + 30 + 30 + px,
         button3:  64 + 30 + 30 + 30 + px,
         button4:  64 + 30 + 30 + 30 + px,
         button5:  64 + 30 + 30 + 30 + 24 + px,
         map:      64 + 30 + 30 + 30 + 24 + 50 + px
       },
       distance_clicked: {
-        button2:  64 + 30 + 30 + px,
+        button_pace:  64 + 30 + 30 + px,
         button3:  64 + 30 + 30 + 30 + px,
         button4:  64 + 30 + 30 + 30 + px,
         button5:  64 + 30 + 30 + 30 + 24 + px,
@@ -106,7 +106,7 @@ class SimpleLayout < MK::Layout
       slide_vert(@button_distance, top(:button_distance))
       slide_vert(@button_distance, top(:button_distance))
       slide_vert(@button_distance_value, top(:button_distance_value))
-      slide_vert(@button2, top(:button2))
+      slide_vert(@button_pace, top(:button_pace))
       slide_vert(@button3, top(:button3))
       slide_vert(@button4, top(:button4))
       slide_vert(@button5, top(:button5))
@@ -225,15 +225,15 @@ class SimpleLayout < MK::Layout
     }
 
 
-    @button2 = add UIButton, :button2 do
+    @button_pace = add UIButton, :button_pace do
       background_color UIColor.whiteColor
       title "Target Pace"
       title_color UIColor.blackColor
       sizeToFit
-      frame [[0,top(:button2)],['100%',30]]
+      frame [[0,top(:button_pace)],['100%',30]]
     end
-    @button2.on(:touch) {
-      puts "button2"
+    @button_pace.on(:touch) {
+      puts "button_pace"
       toggle_state(:pace_clicked)
       slide_elements
     }
