@@ -98,7 +98,8 @@ class SimpleLayout < MK::Layout
       background_color UIColor.whiteColor
       frame [[0,64 + 30 + 30],['100%','100%']]
     end
-    @distance_picker.delegate = @distance_picker.dataSource = DistancePickerDelegate.new
+    #@distance_picker.delegate = @distance_picker.dataSource = DistancePickerDelegate.new
+    @distance_picker.delegate = @distance_picker.dataSource = self
 
     @state = :default
 
@@ -254,6 +255,26 @@ class SimpleLayout < MK::Layout
 
 
     background_color UIColor.grayColor
+  end
+
+
+  # picker view methods (ran into memory issues when trying to do this in a delegate class)
+  def numberOfComponentsInPickerView(picker_view)
+    1
+  end
+
+  def pickerView(picker_view, numberOfRowsInComponent: component)
+    10
+  end
+
+  def pickerView(picker_view, viewForRow: row, forComponent: component, reusingView: old_view)
+    #@refs ||= []
+    #new_view = DistancePickerView.new if not old_view
+    #@refs << WeakRef.new(new_view) if not old_view
+    (old_view || DistancePickerView.new).tap do |asdf|
+      asdf.label.text = "asdfasdf"
+      asdf
+    end
   end
 
 end
