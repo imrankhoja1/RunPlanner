@@ -297,7 +297,7 @@ class SimpleLayout < MK::Layout
       frame [['50%',top(:button_pace_value)],['50%',30]]
     end
     @button_pace_value.tap do |b|
-      b.setTitle("7:45 min/mi", forState:UIControlStateNormal)
+      b.setTitle("9:00 min/mi", forState:UIControlStateNormal)
       b.setTitleColor(UIColor.blackColor, forState: UIControlStateNormal)
       b.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight
       b.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 6)
