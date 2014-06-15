@@ -319,6 +319,9 @@ class SimpleLayout < MK::Layout
       sizeToFit
       frame [[0,top(:button_drop)],['100%',50]]
     end
+    @button_drop.tap do |b|
+      b.titleLabel.font = UIFont.fontWithName("Helvetica-Bold", size: 18)
+    end
     @button_drop.on(:touch) {
       puts "button05"
       @state = :default
