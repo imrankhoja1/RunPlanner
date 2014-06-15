@@ -23,6 +23,7 @@ class SimpleLayout < MK::Layout
         button_runners:        64 + 30 + 30 + 30,
         button_meeting:        64 + 30 + 30 + 30,
         button_drop:           64 + 30 + 30 + 30 + 24,
+        view_runners:          64 + 30 + 30 + 30 + 24 + 50,
         map:                   64 + 30 + 30 + 30 + 24 + 50,
         invite_cont:           64 + 30 + 30 + 30 + 24 + 50 + 270,
         invite:                64 + 30 + 30 + 30 + 24 + 50 + 280
@@ -35,6 +36,7 @@ class SimpleLayout < MK::Layout
         button_runners:        64 + 30 + 30 + 30 + px,
         button_meeting:        64 + 30 + 30 + 30 + px,
         button_drop:           64 + 30 + 30 + 30 + 24 + px,
+        view_runners:          64 + 30 + 30 + 30 + 24 + 50 + px,
         map:                   64 + 30 + 30 + 30 + 24 + 50 + px
       },
       distance_clicked: {
@@ -43,12 +45,14 @@ class SimpleLayout < MK::Layout
         button_runners:    64 + 30 + 30 + 30 + px,
         button_meeting:    64 + 30 + 30 + 30 + px,
         button_drop:       64 + 30 + 30 + 30 + 24 + px,
+        view_runners:      64 + 30 + 30 + 30 + 24 + 50 + px,
         map:               64 + 30 + 30 + 30 + 24 + 50 + px
       },
       pace_clicked: {
         button_runners: 64 + 30 + 30 + 30 + px,
         button_meeting: 64 + 30 + 30 + 30 + px,
         button_drop:    64 + 30 + 30 + 30 + 24 + px,
+        view_runners:   64 + 30 + 30 + 30 + 24 + 50 + px,
         map:            64 + 30 + 30 + 30 + 24 + 50 + px
       }
     }
@@ -117,6 +121,7 @@ class SimpleLayout < MK::Layout
       slide_vert(@button_meeting, top(:button_meeting))
       slide_vert(@button_drop, top(:button_drop))
       slide_vert(@map, top(:map))
+      slide_vert(@view_runners, top(:view_runners))
     }, completion: lambda { |x|
     })
   end
@@ -130,8 +135,24 @@ class SimpleLayout < MK::Layout
     @button_starts_time.setTitle(time, forState: UIControlStateNormal)
   end
 
+  def update_mode
+    if @mode == :runners
+      @button_runners.backgroundColor = UIColor.grayColor
+      @button_meeting.backgroundColor = UIColor.whiteColor
+      @map.hide
+      @view_runners.show
+    else
+      @button_runners.backgroundColor = UIColor.whiteColor
+      @button_meeting.backgroundColor = UIColor.grayColor
+      @view_runners.hide
+      @map.show
+    end
+  end
+
   def layout
+    # these variables are poorly named
     @state = :default
+    @mode = :runners # possible modes: :runners, :meeting
 
     @starts_picker = add UIDatePicker, :starts_picker do
       background_color UIColor.whiteColor
@@ -303,6 +324,8 @@ class SimpleLayout < MK::Layout
       puts "button_runners"
       @state = :default
       slide_elements
+      @mode = :runners
+      update_mode
     }
 
 
@@ -321,8 +344,9 @@ class SimpleLayout < MK::Layout
       puts "button_meeting"
       @state = :default
       slide_elements
+      @mode = :meeting
+      update_mode
     }
-
 
     @button_drop = add UIButton, :button_drop do
       background_color UIColor.whiteColor
@@ -346,6 +370,17 @@ class SimpleLayout < MK::Layout
       sizeToFit
       frame [[0,top(:map)],['100%','100%']]
     end
+
+    @view_runners = add UIView, :view_runners do
+      frame [[0,top(:view_runners)],['100%','100%']]
+    end
+    @view_runners.tap do |v|
+      v.backgroundColor = UIColor.blueColor
+      v.hide
+    end
+
+    # highlight runners/meeting
+    update_mode
 
 
     @invite_cont = add UILabel, :invite_cont do
