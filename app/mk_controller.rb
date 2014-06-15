@@ -149,18 +149,24 @@ class SimpleLayout < MK::Layout
     @pace_picker.hide
 
     @button_starts = add UIButton, :button_starts do
-      background_color UIColor.whiteColor
-      title "Starts"
-      title_color UIColor.blackColor
       sizeToFit
       frame [[0,top(:button_starts)],['33%',30]]
     end
-    @button_starts.on(:touch) {
-      puts "button_starts"
-      toggle_state(:date_clicked)
-      @datepicker.show
-      slide_elements
-    }
+    @button_starts.tap do |b|
+      b.setTitle("Starts", forState:UIControlStateNormal)
+      b.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft
+      b.contentEdgeInsets = UIEdgeInsetsMake(0, 6, 0, 0)
+      b.titleLabel.font = UIFont.fontWithName("Helvetica-Bold", size: 16)
+      b.titleLabel.color = UIColor.blackColor
+      b.titleLabel.textAlignment = UITextAlignmentLeft
+      b.on(:touch) {
+        puts "button_starts"
+        toggle_state(:date_clicked)
+        @datepicker.show
+        slide_elements
+      }
+      b
+    end
 
     @button_starts_date = add UIButton, :button_starts_date do
       background_color UIColor.whiteColor
