@@ -19,6 +19,7 @@ class SimpleLayout < MK::Layout
         button_distance:       64 + 30,
         button_distance_value: 64 + 30,
         button_pace:           64 + 30 + 30,
+        button_pace_value:     64 + 30 + 30,
         button_runners:        64 + 30 + 30 + 30,
         button_meeting:        64 + 30 + 30 + 30,
         button_drop:           64 + 30 + 30 + 30 + 24,
@@ -28,17 +29,19 @@ class SimpleLayout < MK::Layout
         button_distance:       64 + 30 + px,
         button_distance_value: 64 + 30 + px,
         button_pace:           64 + 30 + 30 + px,
+        button_pace_value:     64 + 30 + 30 + px,
         button_runners:        64 + 30 + 30 + 30 + px,
         button_meeting:        64 + 30 + 30 + 30 + px,
         button_drop:           64 + 30 + 30 + 30 + 24 + px,
         map:                   64 + 30 + 30 + 30 + 24 + 50 + px
       },
       distance_clicked: {
-        button_pace:    64 + 30 + 30 + px,
-        button_runners: 64 + 30 + 30 + 30 + px,
-        button_meeting: 64 + 30 + 30 + 30 + px,
-        button_drop:    64 + 30 + 30 + 30 + 24 + px,
-        map:            64 + 30 + 30 + 30 + 24 + 50 + px
+        button_pace:       64 + 30 + 30 + px,
+        button_pace_value: 64 + 30 + 30 + px,
+        button_runners:    64 + 30 + 30 + 30 + px,
+        button_meeting:    64 + 30 + 30 + 30 + px,
+        button_drop:       64 + 30 + 30 + 30 + 24 + px,
+        map:               64 + 30 + 30 + 30 + 24 + 50 + px
       },
       pace_clicked: {
         button_runners: 64 + 30 + 30 + 30 + px,
@@ -107,6 +110,7 @@ class SimpleLayout < MK::Layout
       slide_vert(@button_distance, top(:button_distance))
       slide_vert(@button_distance_value, top(:button_distance_value))
       slide_vert(@button_pace, top(:button_pace))
+      slide_vert(@button_pace_value, top(:button_pace_value))
       slide_vert(@button_runners, top(:button_runners))
       slide_vert(@button_meeting, top(:button_meeting))
       slide_vert(@button_drop, top(:button_drop))
@@ -188,6 +192,10 @@ class SimpleLayout < MK::Layout
       sizeToFit
       frame [['66%',top(:button_starts_time)],['34%',30]]
     end
+    @button_starts_time.tap do |b|
+      b.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight
+      b.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 6)
+    end
     @button_starts_time.on(:touch) {
       puts "button_starts_time"
       toggle_state(:date_clicked)
@@ -223,6 +231,10 @@ class SimpleLayout < MK::Layout
       sizeToFit
       frame [['50%',top(:button_distance_value)],['50%',30]]
     end
+    @button_distance_value.tap do |b|
+      b.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight
+      b.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 6)
+    end
     @button_distance_value.on(:touch) {
       puts "button_distance_value"
       toggle_state(:distance_clicked)
@@ -235,7 +247,7 @@ class SimpleLayout < MK::Layout
       title "Target Pace"
       title_color UIColor.blackColor
       sizeToFit
-      frame [[0,top(:button_pace)],['100%',30]]
+      frame [[0,top(:button_pace)],['50%',30]]
     end
     @button_pace.tap do |b|
       b.setTitle("Target Pace", forState:UIControlStateNormal)
@@ -247,6 +259,23 @@ class SimpleLayout < MK::Layout
     end
     @button_pace.on(:touch) {
       puts "button_pace"
+      toggle_state(:pace_clicked)
+      slide_elements
+    }
+
+    @button_pace_value = add UIButton, :button_pace_value do
+      sizeToFit
+      frame [['50%',top(:button_pace_value)],['50%',30]]
+    end
+    @button_pace_value.tap do |b|
+      b.setTitle("7:45 min/mi", forState:UIControlStateNormal)
+      b.setTitleColor(UIColor.blackColor, forState: UIControlStateNormal)
+      b.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight
+      b.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 6)
+      b.backgroundColor = UIColor.whiteColor
+    end
+    @button_pace_value.on(:touch) {
+      puts "button_pace_value"
       toggle_state(:pace_clicked)
       slide_elements
     }
