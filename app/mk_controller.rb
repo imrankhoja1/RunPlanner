@@ -21,7 +21,8 @@ class SimpleLayout < MK::Layout
         button2:  64 + 30 + 30,
         button3:  64 + 30 + 30 + 30,
         button4:  64 + 30 + 30 + 30,
-        button5:  64 + 30 + 30 + 30 + 24
+        button5:  64 + 30 + 30 + 30 + 24,
+        map:      64 + 30 + 30 + 30 + 24 + 50
       },
       date_clicked: {
         button10: 64 + 30 + px,
@@ -29,22 +30,45 @@ class SimpleLayout < MK::Layout
         button2:  64 + 30 + 30 + px,
         button3:  64 + 30 + 30 + 30 + px,
         button4:  64 + 30 + 30 + 30 + px,
-        button5:  64 + 30 + 30 + 30 + 24 + px
+        button5:  64 + 30 + 30 + 30 + 24 + px,
+        map:      64 + 30 + 30 + 30 + 24 + 50 + px
       },
       distance_clicked: {
         button2:  64 + 30 + 30 + px,
         button3:  64 + 30 + 30 + 30 + px,
         button4:  64 + 30 + 30 + 30 + px,
-        button5:  64 + 30 + 30 + 30 + 24 + px
+        button5:  64 + 30 + 30 + 30 + 24 + px,
+        map:      64 + 30 + 30 + 30 + 24 + 50 + px
       },
       pace_clicked: {
         button3:  64 + 30 + 30 + 30 + px,
         button4:  64 + 30 + 30 + 30 + px,
-        button5:  64 + 30 + 30 + 30 + 24 + px
+        button5:  64 + 30 + 30 + 30 + 24 + px,
+        map:      64 + 30 + 30 + 30 + 24 + 50 + px
       }
     }
 
     tops[@state][element] || tops[:default][element]
+  end
+
+  def height(element)
+    px = 216
+
+    heights = {
+      default: {
+        map: px
+      },
+      date_clicked: {
+        map: 0
+      },
+      distance_clicked: {
+        datepicker: 216
+      },
+      pace_clicked: {
+        datepicker: 216
+      }
+    }
+    heights[@state][element] || heights[:default][element]
   end
 
   # this is a special attr method that calls `layout` if the view hasn't been
@@ -62,8 +86,13 @@ class SimpleLayout < MK::Layout
     view.center = center
   end
 
-  def slide_elements(element_clicked)
-    #@map.hide if @state == :default
+  def expand_vert(view, new_height)
+    frame = view.frame
+    frame.size.height = new_height
+    view.frame = frame
+  end
+
+  def slide_elements
     UIView.animateWithDuration(0.35, delay: 0, options: UIViewAnimationOptionCurveEaseInOut, animations: lambda {
       slide_vert(@button10, top(:button10))
       slide_vert(@button10, top(:button10))
@@ -72,8 +101,8 @@ class SimpleLayout < MK::Layout
       slide_vert(@button3, top(:button3))
       slide_vert(@button4, top(:button4))
       slide_vert(@button5, top(:button5))
+      slide_vert(@map, top(:map))
     }, completion: lambda { |x|
-      #@map.show if @state == :default
     })
   end
 
@@ -87,21 +116,28 @@ class SimpleLayout < MK::Layout
   end
 
   def layout
+    @state = :default
+
     @datepicker = add UIDatePicker, :datepicker do
       background_color UIColor.whiteColor
       frame [[0,64 + 30],['100%','100%']]
     end
     @datepicker.addTarget(self, action: 'update_date', forControlEvents: UIControlEventValueChanged)
-@datepicker.hide
+puts @datepicker
 
     @distance_picker = add UIPickerView, :distance_picker do
       background_color UIColor.whiteColor
       frame [[0,64 + 30 + 30],['100%','100%']]
     end
-    #@distance_picker.delegate = @distance_picker.dataSource = DistancePickerDelegate.new
     @distance_picker.delegate = @distance_picker.dataSource = self
+    @distance_picker.hide
 
-    @state = :default
+    @pace_picker = add UIPickerView, :distance_picker do
+      background_color UIColor.whiteColor
+      frame [[0,64 + 30 + 30 + 30],['100%','100%']]
+    end
+    @pace_picker.delegate = @pace_picker.dataSource = self
+    @pace_picker.hide
 
     @button_starts = add UIButton, :button_starts do
       background_color UIColor.whiteColor
@@ -113,7 +149,8 @@ class SimpleLayout < MK::Layout
     @button_starts.on(:touch) {
       puts "button_starts"
       toggle_state(:date_clicked)
-      slide_elements(:button_starts)
+      @datepicker.show
+      slide_elements
     }
 
     @button_starts_date = add UIButton, :button_starts_date do
@@ -126,7 +163,8 @@ class SimpleLayout < MK::Layout
     @button_starts_date.on(:touch) {
       puts "button_starts_date"
       toggle_state(:date_clicked)
-      slide_elements(:button_starts_date)
+      @datepicker.show
+      slide_elements
     }
 
     @button_starts_time = add UIButton, :button_starts_time do
@@ -139,7 +177,8 @@ class SimpleLayout < MK::Layout
     @button_starts_time.on(:touch) {
       puts "button_starts_time"
       toggle_state(:date_clicked)
-      slide_elements(:button_starts_time)
+      @datepicker.show
+      slide_elements
     }
 
 
@@ -153,7 +192,7 @@ class SimpleLayout < MK::Layout
     @button10.on(:touch) {
       puts "button10"
       toggle_state(:distance_clicked)
-      slide_elements(:button10)
+      slide_elements
     }
 
 
@@ -168,7 +207,7 @@ class SimpleLayout < MK::Layout
     @button11.on(:touch) {
       puts "button11"
       toggle_state(:distance_clicked)
-      slide_elements(:button11)
+      slide_elements
     }
 
 
@@ -182,7 +221,7 @@ class SimpleLayout < MK::Layout
     @button2.on(:touch) {
       puts "button2"
       toggle_state(:pace_clicked)
-      slide_elements(:button2)
+      slide_elements
     }
 
 
@@ -196,6 +235,8 @@ class SimpleLayout < MK::Layout
     end
     @button3.on(:touch) {
       puts "button3"
+      @state = :default
+      slide_elements
     }
 
 
@@ -209,6 +250,8 @@ class SimpleLayout < MK::Layout
     end
     @button4.on(:touch) {
       puts "button4"
+      @state = :default
+      slide_elements
     }
 
 
@@ -225,14 +268,11 @@ class SimpleLayout < MK::Layout
     }
 
 
-    @map = add UIButton, :map do
-      background_color UIColor.blueColor
-      title "Map!"
-      title_color UIColor.blackColor
+    @map = add MKMapView, :map do
       sizeToFit
-      frame [[0,30 + 30 + 64 + 1 + 1 + 30 + 1 + 24 + 50 + 1],['100%',264]]
+      frame [[0,top(:map)],['100%','100%']]
     end
-@map.hide
+
 
     @invite_cont = add UILabel, :invite_cont do
       background_color UIColor.whiteColor
@@ -268,11 +308,12 @@ class SimpleLayout < MK::Layout
   end
 
   def pickerView(picker_view, viewForRow: row, forComponent: component, reusingView: old_view)
-    #@refs ||= []
-    #new_view = DistancePickerView.new if not old_view
-    #@refs << WeakRef.new(new_view) if not old_view
     (old_view || DistancePickerView.new).tap do |asdf|
-      asdf.label.text = "asdfasdf"
+      if picker_view == @distance_picker
+        asdf.label.text = "distance"
+      elsif picker_view == @pace_picker
+        asdf.label.text = "pace"
+      end
       asdf
     end
   end
