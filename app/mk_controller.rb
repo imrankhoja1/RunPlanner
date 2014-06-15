@@ -144,15 +144,21 @@ class SimpleLayout < MK::Layout
       background_color UIColor.whiteColor
       frame [[0,64 + 30 + 30],['100%','100%']]
     end
-    @distance_picker.delegate = @distance_picker.dataSource = self
-    @distance_picker.hide
+    @distance_picker.tap do |p|
+      p.delegate = @distance_picker.dataSource = self
+      p.selectRow(9, inComponent: 0, animated: false)
+      p.hide
+    end
 
     @pace_picker = add UIPickerView, :distance_picker do
       background_color UIColor.whiteColor
       frame [[0,64 + 30 + 30 + 30],['100%','100%']]
     end
-    @pace_picker.delegate = @pace_picker.dataSource = self
-    @pace_picker.hide
+    @pace_picker.tap do |p|
+      p.delegate = @pace_picker.dataSource = self
+      p.selectRow(16, inComponent: 0, animated: false)
+      p.hide
+    end
 
     @button_starts = add UIButton, :button_starts do
       sizeToFit
