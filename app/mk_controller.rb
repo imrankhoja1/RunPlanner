@@ -21,7 +21,7 @@ class SimpleLayout < MK::Layout
         button_pace:  64 + 30 + 30,
         button_runners:  64 + 30 + 30 + 30,
         button_meeting:  64 + 30 + 30 + 30,
-        button5:  64 + 30 + 30 + 30 + 24,
+        button_drop:  64 + 30 + 30 + 30 + 24,
         map:      64 + 30 + 30 + 30 + 24 + 50
       },
       date_clicked: {
@@ -30,20 +30,20 @@ class SimpleLayout < MK::Layout
         button_pace:  64 + 30 + 30 + px,
         button_runners:  64 + 30 + 30 + 30 + px,
         button_meeting:  64 + 30 + 30 + 30 + px,
-        button5:  64 + 30 + 30 + 30 + 24 + px,
+        button_drop:  64 + 30 + 30 + 30 + 24 + px,
         map:      64 + 30 + 30 + 30 + 24 + 50 + px
       },
       distance_clicked: {
         button_pace:  64 + 30 + 30 + px,
         button_runners:  64 + 30 + 30 + 30 + px,
         button_meeting:  64 + 30 + 30 + 30 + px,
-        button5:  64 + 30 + 30 + 30 + 24 + px,
+        button_drop:  64 + 30 + 30 + 30 + 24 + px,
         map:      64 + 30 + 30 + 30 + 24 + 50 + px
       },
       pace_clicked: {
         button_runners:  64 + 30 + 30 + 30 + px,
         button_meeting:  64 + 30 + 30 + 30 + px,
-        button5:  64 + 30 + 30 + 30 + 24 + px,
+        button_drop:  64 + 30 + 30 + 30 + 24 + px,
         map:      64 + 30 + 30 + 30 + 24 + 50 + px
       }
     }
@@ -109,7 +109,7 @@ class SimpleLayout < MK::Layout
       slide_vert(@button_pace, top(:button_pace))
       slide_vert(@button_runners, top(:button_runners))
       slide_vert(@button_meeting, top(:button_meeting))
-      slide_vert(@button5, top(:button5))
+      slide_vert(@button_drop, top(:button_drop))
       slide_vert(@map, top(:map))
     }, completion: lambda { |x|
     })
@@ -269,15 +269,15 @@ class SimpleLayout < MK::Layout
     }
 
 
-    @button5 = add UIButton, :button5 do
+    @button_drop = add UIButton, :button_drop do
       background_color UIColor.whiteColor
       title "Drop a Pin"
       title_color UIColor.blackColor
       #text_alignment UITextAlignmentCenter
       sizeToFit
-      frame [[0,top(:button5)],['100%',50]]
+      frame [[0,top(:button_drop)],['100%',50]]
     end
-    @button5.on(:touch) {
+    @button_drop.on(:touch) {
       puts "button05"
       @state = :default
       slide_elements
