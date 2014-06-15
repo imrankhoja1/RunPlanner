@@ -130,6 +130,12 @@ class SimpleLayout < MK::Layout
     @button_starts_time.setTitle(time, forState: UIControlStateNormal)
   end
 
+  def update_distance
+    row = @distance_picker.selectedRowInComponent(0)
+    distance = @distance_picker.viewForRow(row, 0).text
+puts distance
+  end
+
   def layout
     @state = :default
 
@@ -234,7 +240,7 @@ class SimpleLayout < MK::Layout
 
     @button_distance_value = add UIButton, :button_distance_value do
       background_color UIColor.whiteColor
-      title "5.5 mi"
+      title "5.0 mi"
       title_color UIColor.blackColor
       sizeToFit
       frame [['50%',top(:button_distance_value)],['50%',30]]
@@ -406,6 +412,13 @@ class SimpleLayout < MK::Layout
         asdf.label.text = pace_picker_values[row]
       end
       asdf
+    end
+  end
+
+  def pickerView(picker_view, didSelectRow: row, inComponent: component)
+    if picker_view == @distance_picker
+      @button_distance_value.setTitle(distance_picker_values[row], forState: UIControlStateNormal)
+    elsif picker_view == @pace_picker
     end
   end
 
