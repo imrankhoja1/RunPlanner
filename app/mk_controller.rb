@@ -62,10 +62,10 @@ class SimpleLayout < MK::Layout
         map: 0
       },
       distance_clicked: {
-        datepicker: 216
+        starts_picker: 216
       },
       pace_clicked: {
-        datepicker: 216
+        starts_picker: 216
       }
     }
     heights[@state][element] || heights[:default][element]
@@ -94,7 +94,7 @@ class SimpleLayout < MK::Layout
 
   def show_hide_pickers
     return if @state == :default
-    @state == :date_clicked ? @datepicker.show : @datepicker.hide
+    @state == :date_clicked ? @starts_picker.show : @starts_picker.hide
     @state == :distance_clicked ? @distance_picker.show : @distance_picker.hide
     @state == :pace_clicked ? @pace_picker.show : @pace_picker.hide
   end
@@ -117,9 +117,9 @@ class SimpleLayout < MK::Layout
 
   def update_date
     # Ruby Motion automatically converts NSDate objects into Ruby Time objects
-    date = @datepicker.date.strftime("%a %b %e")
+    date = @starts_picker.date.strftime("%a %b %e")
     date = "Today" if date == Time.now.strftime("%a %b %e")
-    time = @datepicker.date.strftime("%l:%M %p")
+    time = @starts_picker.date.strftime("%l:%M %p")
     @button_starts_date.setTitle(date, forState: UIControlStateNormal)
     @button_starts_time.setTitle(time, forState: UIControlStateNormal)
   end
@@ -127,12 +127,12 @@ class SimpleLayout < MK::Layout
   def layout
     @state = :default
 
-    @datepicker = add UIDatePicker, :datepicker do
+    @starts_picker = add UIDatePicker, :starts_picker do
       background_color UIColor.whiteColor
       frame [[0,64 + 30],['100%','100%']]
     end
-    @datepicker.addTarget(self, action: 'update_date', forControlEvents: UIControlEventValueChanged)
-    @datepicker.hide
+    @starts_picker.addTarget(self, action: 'update_date', forControlEvents: UIControlEventValueChanged)
+    @starts_picker.hide
 
     @distance_picker = add UIPickerView, :distance_picker do
       background_color UIColor.whiteColor
@@ -162,7 +162,7 @@ class SimpleLayout < MK::Layout
       b.on(:touch) {
         puts "button_starts"
         toggle_state(:date_clicked)
-        @datepicker.show
+        @starts_picker.show
         slide_elements
       }
       b
@@ -178,7 +178,7 @@ class SimpleLayout < MK::Layout
     @button_starts_date.on(:touch) {
       puts "button_starts_date"
       toggle_state(:date_clicked)
-      @datepicker.show
+      @starts_picker.show
       slide_elements
     }
 
@@ -192,7 +192,7 @@ class SimpleLayout < MK::Layout
     @button_starts_time.on(:touch) {
       puts "button_starts_time"
       toggle_state(:date_clicked)
-      @datepicker.show
+      @starts_picker.show
       slide_elements
     }
 
