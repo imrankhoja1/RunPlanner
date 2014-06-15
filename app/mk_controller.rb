@@ -197,17 +197,23 @@ class SimpleLayout < MK::Layout
 
 
     @button_distance = add UIButton, :button_distance do
-      background_color UIColor.whiteColor
-      title "Distance"
-      title_color UIColor.blackColor
       sizeToFit
       frame [[0,top(:button_distance)],['50%',30]]
     end
-    @button_distance.on(:touch) {
-      puts "button_distance"
-      toggle_state(:distance_clicked)
-      slide_elements
-    }
+    @button_distance.tap do |b|
+      b.setTitle("Distance", forState:UIControlStateNormal)
+      b.setTitleColor(UIColor.blackColor, forState: UIControlStateNormal)
+      b.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft
+      b.contentEdgeInsets = UIEdgeInsetsMake(0, 6, 0, 0)
+      b.titleLabel.font = UIFont.fontWithName("Helvetica-Bold", size: 16)
+      b.backgroundColor = UIColor.whiteColor
+
+      b.on(:touch) {
+        puts "button_distance"
+        toggle_state(:distance_clicked)
+        slide_elements
+      }
+    end
 
 
     @button_distance_value = add UIButton, :button_distance_value do
