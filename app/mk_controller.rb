@@ -4,7 +4,6 @@ class MkController < UIViewController
     self.view = @layout.view
     self.title = "Plan Your Run"
   end
-
 end
 
 class SimpleLayout < MK::Layout
@@ -22,7 +21,7 @@ class SimpleLayout < MK::Layout
         button2:  64 + 30 + 30,
         button3:  64 + 30 + 30 + 30,
         button4:  64 + 30 + 30 + 30,
-        button5:  64 + 30 + 30 + 30 + 24 + 1
+        button5:  64 + 30 + 30 + 30 + 24
       },
       date_clicked: {
         button10: 64 + 30 + px,
@@ -39,9 +38,9 @@ class SimpleLayout < MK::Layout
         button5:  64 + 30 + 30 + 30 + 24 + px
       },
       pace_clicked: {
-        button3:  64 + 30 + 30 + 1 + 30 + px,
-        button4:  64 + 30 + 30 + 1 + 30 + px,
-        button5:  64 + 30 + 30 + 1 + 30 + 24 + px
+        button3:  64 + 30 + 30 + 30 + px,
+        button4:  64 + 30 + 30 + 30 + px,
+        button5:  64 + 30 + 30 + 30 + 24 + px
       }
     }
 
@@ -79,12 +78,12 @@ class SimpleLayout < MK::Layout
   end
 
   def update_date
-    puts "update date"
     # Ruby Motion automatically converts NSDate objects into Ruby Time objects
     date = @datepicker.date.strftime("%a %b %e")
-    puts date
+    date = "Today" if date == Time.now.strftime("%a %b %e")
     time = @datepicker.date.strftime("%l:%M %p")
-    puts time
+    @button_starts_date.setTitle(date, forState: UIControlStateNormal)
+    @button_starts_time.setTitle(time, forState: UIControlStateNormal)
   end
 
   def layout
@@ -124,7 +123,7 @@ class SimpleLayout < MK::Layout
 
     @button_starts_time = add UIButton, :button_starts_time do
       background_color UIColor.whiteColor
-      title "3:00 PM"
+      title (Time.now + 30*60).strftime("%l:%M %p")
       title_color UIColor.blackColor
       sizeToFit
       frame [['66%',top(:button_starts_time)],['34%',30]]
