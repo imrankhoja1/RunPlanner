@@ -24,7 +24,8 @@ class SimpleLayout < MK::Layout
         button_meeting:        64 + 30 + 30 + 30,
         button_drop:           64 + 30 + 30 + 30 + 24,
         map:                   64 + 30 + 30 + 30 + 24 + 50,
-        invite:                64 + 30 + 30 + 30 + 24 + 50 + 278
+        invite_cont:           64 + 30 + 30 + 30 + 24 + 50 + 270,
+        invite:                64 + 30 + 30 + 30 + 24 + 50 + 280
       },
       date_clicked: {
         button_distance:       64 + 30 + px,
@@ -344,7 +345,7 @@ class SimpleLayout < MK::Layout
     @invite_cont = add UILabel, :invite_cont do
       background_color UIColor.whiteColor
       sizeToFit
-      frame [[0,30 + 30 + 64 + 1 + 1 + 30 + 1 + 24 + 50 + 1 + 264 + 1],['100%',70]]
+      frame [[0,top(:invite_cont)],['100%',70]]
     end
 
     @invite = add UIButton, :invite do
