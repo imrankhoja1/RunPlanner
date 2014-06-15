@@ -286,9 +286,11 @@ class SimpleLayout < MK::Layout
       background_color UIColor.whiteColor
       title "Runners"
       title_color UIColor.blackColor
-      #text_alignment UITextAlignmentCenter
       sizeToFit
       frame [[0,top(:button_runners)],['50%',24]]
+    end
+    @button_runners.tap do |b|
+      b.titleLabel.font = UIFont.fontWithName("Helvetica", size: 14)
     end
     @button_runners.on(:touch) {
       puts "button_runners"
@@ -304,6 +306,9 @@ class SimpleLayout < MK::Layout
       #text_alignment UITextAlignmentCenter
       sizeToFit
       frame [['50%',top(:button_meeting)],['50%',24]]
+    end
+    @button_meeting.tap do |b|
+      b.titleLabel.font = UIFont.fontWithName("Helvetica", size: 14)
     end
     @button_meeting.on(:touch) {
       puts "button_meeting"
