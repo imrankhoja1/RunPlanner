@@ -19,8 +19,8 @@ class SimpleLayout < MK::Layout
         button_distance: 64 + 30,
         button_distance_value: 64 + 30,
         button_pace:  64 + 30 + 30,
-        button3:  64 + 30 + 30 + 30,
-        button4:  64 + 30 + 30 + 30,
+        button_runners:  64 + 30 + 30 + 30,
+        button_meeting:  64 + 30 + 30 + 30,
         button5:  64 + 30 + 30 + 30 + 24,
         map:      64 + 30 + 30 + 30 + 24 + 50
       },
@@ -28,21 +28,21 @@ class SimpleLayout < MK::Layout
         button_distance: 64 + 30 + px,
         button_distance_value: 64 + 30 + px,
         button_pace:  64 + 30 + 30 + px,
-        button3:  64 + 30 + 30 + 30 + px,
-        button4:  64 + 30 + 30 + 30 + px,
+        button_runners:  64 + 30 + 30 + 30 + px,
+        button_meeting:  64 + 30 + 30 + 30 + px,
         button5:  64 + 30 + 30 + 30 + 24 + px,
         map:      64 + 30 + 30 + 30 + 24 + 50 + px
       },
       distance_clicked: {
         button_pace:  64 + 30 + 30 + px,
-        button3:  64 + 30 + 30 + 30 + px,
-        button4:  64 + 30 + 30 + 30 + px,
+        button_runners:  64 + 30 + 30 + 30 + px,
+        button_meeting:  64 + 30 + 30 + 30 + px,
         button5:  64 + 30 + 30 + 30 + 24 + px,
         map:      64 + 30 + 30 + 30 + 24 + 50 + px
       },
       pace_clicked: {
-        button3:  64 + 30 + 30 + 30 + px,
-        button4:  64 + 30 + 30 + 30 + px,
+        button_runners:  64 + 30 + 30 + 30 + px,
+        button_meeting:  64 + 30 + 30 + 30 + px,
         button5:  64 + 30 + 30 + 30 + 24 + px,
         map:      64 + 30 + 30 + 30 + 24 + 50 + px
       }
@@ -107,8 +107,8 @@ class SimpleLayout < MK::Layout
       slide_vert(@button_distance, top(:button_distance))
       slide_vert(@button_distance_value, top(:button_distance_value))
       slide_vert(@button_pace, top(:button_pace))
-      slide_vert(@button3, top(:button3))
-      slide_vert(@button4, top(:button4))
+      slide_vert(@button_runners, top(:button_runners))
+      slide_vert(@button_meeting, top(:button_meeting))
       slide_vert(@button5, top(:button5))
       slide_vert(@map, top(:map))
     }, completion: lambda { |x|
@@ -239,31 +239,31 @@ class SimpleLayout < MK::Layout
     }
 
 
-    @button3 = add UIButton, :button3 do
+    @button_runners = add UIButton, :button_runners do
       background_color UIColor.whiteColor
       title "Runners"
       title_color UIColor.blackColor
       #text_alignment UITextAlignmentCenter
       sizeToFit
-      frame [[0,top(:button3)],['50%',24]]
+      frame [[0,top(:button_runners)],['50%',24]]
     end
-    @button3.on(:touch) {
-      puts "button3"
+    @button_runners.on(:touch) {
+      puts "button_runners"
       @state = :default
       slide_elements
     }
 
 
-    @button4 = add UIButton, :button4 do
+    @button_meeting = add UIButton, :button_meeting do
       background_color UIColor.grayColor
       title "Meeting Point"
       title_color UIColor.blackColor
       #text_alignment UITextAlignmentCenter
       sizeToFit
-      frame [['50%',top(:button4)],['50%',24]]
+      frame [['50%',top(:button_meeting)],['50%',24]]
     end
-    @button4.on(:touch) {
-      puts "button4"
+    @button_meeting.on(:touch) {
+      puts "button_meeting"
       @state = :default
       slide_elements
     }
