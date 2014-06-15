@@ -221,7 +221,6 @@ class SimpleLayout < MK::Layout
       title "5.5 mi"
       title_color UIColor.blackColor
       sizeToFit
-      #text_alignment UITextAlignmentRight
       frame [['50%',top(:button_distance_value)],['50%',30]]
     end
     @button_distance_value.on(:touch) {
@@ -237,6 +236,14 @@ class SimpleLayout < MK::Layout
       title_color UIColor.blackColor
       sizeToFit
       frame [[0,top(:button_pace)],['100%',30]]
+    end
+    @button_pace.tap do |b|
+      b.setTitle("Target Pace", forState:UIControlStateNormal)
+      b.setTitleColor(UIColor.blackColor, forState: UIControlStateNormal)
+      b.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft
+      b.contentEdgeInsets = UIEdgeInsetsMake(0, 6, 0, 0)
+      b.titleLabel.font = UIFont.fontWithName("Helvetica-Bold", size: 16)
+      b.backgroundColor = UIColor.whiteColor
     end
     @button_pace.on(:touch) {
       puts "button_pace"
