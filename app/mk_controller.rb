@@ -13,38 +13,38 @@ class SimpleLayout < MK::Layout
 
     tops = {
       default: {
-        button_starts: 64,
-        button_starts_date: 64,
-        button_starts_time: 64,
-        button_distance: 64 + 30,
+        button_starts:         64,
+        button_starts_date:    64,
+        button_starts_time:    64,
+        button_distance:       64 + 30,
         button_distance_value: 64 + 30,
-        button_pace:  64 + 30 + 30,
-        button_runners:  64 + 30 + 30 + 30,
-        button_meeting:  64 + 30 + 30 + 30,
-        button_drop:  64 + 30 + 30 + 30 + 24,
-        map:      64 + 30 + 30 + 30 + 24 + 50
+        button_pace:           64 + 30 + 30,
+        button_runners:        64 + 30 + 30 + 30,
+        button_meeting:        64 + 30 + 30 + 30,
+        button_drop:           64 + 30 + 30 + 30 + 24,
+        map:                   64 + 30 + 30 + 30 + 24 + 50
       },
       date_clicked: {
-        button_distance: 64 + 30 + px,
+        button_distance:       64 + 30 + px,
         button_distance_value: 64 + 30 + px,
-        button_pace:  64 + 30 + 30 + px,
-        button_runners:  64 + 30 + 30 + 30 + px,
-        button_meeting:  64 + 30 + 30 + 30 + px,
-        button_drop:  64 + 30 + 30 + 30 + 24 + px,
-        map:      64 + 30 + 30 + 30 + 24 + 50 + px
+        button_pace:           64 + 30 + 30 + px,
+        button_runners:        64 + 30 + 30 + 30 + px,
+        button_meeting:        64 + 30 + 30 + 30 + px,
+        button_drop:           64 + 30 + 30 + 30 + 24 + px,
+        map:                   64 + 30 + 30 + 30 + 24 + 50 + px
       },
       distance_clicked: {
-        button_pace:  64 + 30 + 30 + px,
-        button_runners:  64 + 30 + 30 + 30 + px,
-        button_meeting:  64 + 30 + 30 + 30 + px,
-        button_drop:  64 + 30 + 30 + 30 + 24 + px,
-        map:      64 + 30 + 30 + 30 + 24 + 50 + px
+        button_pace:    64 + 30 + 30 + px,
+        button_runners: 64 + 30 + 30 + 30 + px,
+        button_meeting: 64 + 30 + 30 + 30 + px,
+        button_drop:    64 + 30 + 30 + 30 + 24 + px,
+        map:            64 + 30 + 30 + 30 + 24 + 50 + px
       },
       pace_clicked: {
-        button_runners:  64 + 30 + 30 + 30 + px,
-        button_meeting:  64 + 30 + 30 + 30 + px,
-        button_drop:  64 + 30 + 30 + 30 + 24 + px,
-        map:      64 + 30 + 30 + 30 + 24 + 50 + px
+        button_runners: 64 + 30 + 30 + 30 + px,
+        button_meeting: 64 + 30 + 30 + 30 + px,
+        button_drop:    64 + 30 + 30 + 30 + 24 + px,
+        map:            64 + 30 + 30 + 30 + 24 + 50 + px
       }
     }
 
