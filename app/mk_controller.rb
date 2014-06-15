@@ -92,7 +92,16 @@ class SimpleLayout < MK::Layout
     view.frame = frame
   end
 
+  def show_hide_pickers
+    return if @state == :default
+    @state == :date_clicked ? @datepicker.show : @datepicker.hide
+    @state == :distance_clicked ? @distance_picker.show : @distance_picker.hide
+    @state == :pace_clicked ? @pace_picker.show : @pace_picker.hide
+  end
+
   def slide_elements
+    show_hide_pickers
+
     UIView.animateWithDuration(0.35, delay: 0, options: UIViewAnimationOptionCurveEaseInOut, animations: lambda {
       slide_vert(@button10, top(:button10))
       slide_vert(@button10, top(:button10))
@@ -123,7 +132,7 @@ class SimpleLayout < MK::Layout
       frame [[0,64 + 30],['100%','100%']]
     end
     @datepicker.addTarget(self, action: 'update_date', forControlEvents: UIControlEventValueChanged)
-puts @datepicker
+    @datepicker.hide
 
     @distance_picker = add UIPickerView, :distance_picker do
       background_color UIColor.whiteColor
@@ -265,6 +274,8 @@ puts @datepicker
     end
     @button5.on(:touch) {
       puts "button05"
+      @state = :default
+      slide_elements
     }
 
 
@@ -291,10 +302,11 @@ puts @datepicker
     end
     @invite.on(:touch) {
       puts "invite"
+      @state = :default
+      slide_elements
     }
 
-
-    background_color UIColor.grayColor
+    background_color UIColor.whiteColor
   end
 
 
