@@ -14,9 +14,9 @@ class SimpleLayout < MK::Layout
 
     tops = {
       default: {
-        button00: 64,
-        button01: 64,
-        button02: 64,
+        button_starts: 64,
+        button_starts_date: 64,
+        button_starts_time: 64,
         button10: 64 + 30,
         button11: 64 + 30,
         button2:  64 + 30 + 30,
@@ -85,7 +85,6 @@ class SimpleLayout < MK::Layout
     puts date
     time = @datepicker.date.strftime("%l:%M %p")
     puts time
-    
   end
 
   def layout
@@ -97,43 +96,43 @@ class SimpleLayout < MK::Layout
 
     @state = :default
 
-    @button00 = add UIButton, :button00 do
+    @button_starts = add UIButton, :button_starts do
       background_color UIColor.whiteColor
       title "Starts"
       title_color UIColor.blackColor
       sizeToFit
-      frame [[0,top(:button00)],['33%',30]]
+      frame [[0,top(:button_starts)],['33%',30]]
     end
-    @button00.on(:touch) {
-      puts "button00"
+    @button_starts.on(:touch) {
+      puts "button_starts"
       toggle_state(:date_clicked)
-      slide_elements(:button00)
+      slide_elements(:button_starts)
     }
 
-    @button01 = add UIButton, :button01 do
+    @button_starts_date = add UIButton, :button_starts_date do
       background_color UIColor.whiteColor
       title "Today"
       title_color UIColor.blackColor
       sizeToFit
-      frame [['33%',top(:button01)],['33%',30]]
+      frame [['33%',top(:button_starts_date)],['33%',30]]
     end
-    @button01.on(:touch) {
-      puts "button01"
+    @button_starts_date.on(:touch) {
+      puts "button_starts_date"
       toggle_state(:date_clicked)
-      slide_elements(:button01)
+      slide_elements(:button_starts_date)
     }
 
-    @button02 = add UIButton, :button02 do
+    @button_starts_time = add UIButton, :button_starts_time do
       background_color UIColor.whiteColor
       title "3:00 PM"
       title_color UIColor.blackColor
       sizeToFit
-      frame [['66%',top(:button02)],['34%',30]]
+      frame [['66%',top(:button_starts_time)],['34%',30]]
     end
-    @button02.on(:touch) {
-      puts "button02"
+    @button_starts_time.on(:touch) {
+      puts "button_starts_time"
       toggle_state(:date_clicked)
-      slide_elements(:button02)
+      slide_elements(:button_starts_time)
     }
 
 
