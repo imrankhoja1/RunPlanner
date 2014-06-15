@@ -16,8 +16,8 @@ class SimpleLayout < MK::Layout
         button_starts: 64,
         button_starts_date: 64,
         button_starts_time: 64,
-        button10: 64 + 30,
-        button11: 64 + 30,
+        button_distance: 64 + 30,
+        button_distance_value: 64 + 30,
         button2:  64 + 30 + 30,
         button3:  64 + 30 + 30 + 30,
         button4:  64 + 30 + 30 + 30,
@@ -25,8 +25,8 @@ class SimpleLayout < MK::Layout
         map:      64 + 30 + 30 + 30 + 24 + 50
       },
       date_clicked: {
-        button10: 64 + 30 + px,
-        button11: 64 + 30 + px,
+        button_distance: 64 + 30 + px,
+        button_distance_value: 64 + 30 + px,
         button2:  64 + 30 + 30 + px,
         button3:  64 + 30 + 30 + 30 + px,
         button4:  64 + 30 + 30 + 30 + px,
@@ -103,9 +103,9 @@ class SimpleLayout < MK::Layout
     show_hide_pickers
 
     UIView.animateWithDuration(0.35, delay: 0, options: UIViewAnimationOptionCurveEaseInOut, animations: lambda {
-      slide_vert(@button10, top(:button10))
-      slide_vert(@button10, top(:button10))
-      slide_vert(@button11, top(:button11))
+      slide_vert(@button_distance, top(:button_distance))
+      slide_vert(@button_distance, top(:button_distance))
+      slide_vert(@button_distance_value, top(:button_distance_value))
       slide_vert(@button2, top(:button2))
       slide_vert(@button3, top(:button3))
       slide_vert(@button4, top(:button4))
@@ -196,30 +196,30 @@ class SimpleLayout < MK::Layout
     }
 
 
-    @button10 = add UIButton, :button10 do
+    @button_distance = add UIButton, :button_distance do
       background_color UIColor.whiteColor
       title "Distance"
       title_color UIColor.blackColor
       sizeToFit
-      frame [[0,top(:button10)],['50%',30]]
+      frame [[0,top(:button_distance)],['50%',30]]
     end
-    @button10.on(:touch) {
-      puts "button10"
+    @button_distance.on(:touch) {
+      puts "button_distance"
       toggle_state(:distance_clicked)
       slide_elements
     }
 
 
-    @button11 = add UIButton, :button11 do
+    @button_distance_value = add UIButton, :button_distance_value do
       background_color UIColor.whiteColor
       title "5.5 mi"
       title_color UIColor.blackColor
       sizeToFit
       #text_alignment UITextAlignmentRight
-      frame [['50%',top(:button11)],['50%',30]]
+      frame [['50%',top(:button_distance_value)],['50%',30]]
     end
-    @button11.on(:touch) {
-      puts "button11"
+    @button_distance_value.on(:touch) {
+      puts "button_distance_value"
       toggle_state(:distance_clicked)
       slide_elements
     }
