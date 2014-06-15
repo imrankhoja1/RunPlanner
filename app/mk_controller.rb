@@ -130,12 +130,6 @@ class SimpleLayout < MK::Layout
     @button_starts_time.setTitle(time, forState: UIControlStateNormal)
   end
 
-  def update_distance
-    row = @distance_picker.selectedRowInComponent(0)
-    distance = @distance_picker.viewForRow(row, 0).text
-puts distance
-  end
-
   def layout
     @state = :default
 
@@ -419,6 +413,7 @@ puts distance
     if picker_view == @distance_picker
       @button_distance_value.setTitle(distance_picker_values[row], forState: UIControlStateNormal)
     elsif picker_view == @pace_picker
+      @button_pace_value.setTitle(pace_picker_values[row], forState: UIControlStateNormal)
     end
   end
 
