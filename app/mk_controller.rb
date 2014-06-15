@@ -92,6 +92,13 @@ class SimpleLayout < MK::Layout
       frame [[0,64 + 30],['100%','100%']]
     end
     @datepicker.addTarget(self, action: 'update_date', forControlEvents: UIControlEventValueChanged)
+@datepicker.hide
+
+    @distance_picker = add UIPickerView, :distance_picker do
+      background_color UIColor.whiteColor
+      frame [[0,64 + 30 + 30],['100%','100%']]
+    end
+    @distance_picker.delegate = @distance_picker.dataSource = DistancePickerDelegate.new
 
     @state = :default
 
@@ -247,32 +254,6 @@ class SimpleLayout < MK::Layout
 
 
     background_color UIColor.grayColor
-  end
-
-  def label_style
-    text 'Hi there! Welcome to MotionKit'
-    font UIFont.fontWithName('Comic Sans', size: 24)
-    sizeToFit
-
-    # note: there are better ways to set the center, see the frame helpers below
-    center [CGRectGetMidX(superview.bounds), CGRectGetMidY(superview.bounds)]
-    #text_alignment UITextAlignmentCenter
-    text_color UIColor.whiteColor
-
-    # if you prefer to use shorthands from another gem, you certainly can!
-    #background_color rmq.color.white  # from RMQ
-    #background_color :white.uicolor   # from SugarCube
-    background_color UIColor.greenColor
-  end
-
-  def button_style
-    # this will call 'setTitle(forState:)' via a UIButton helper
-    title 'Press it!'
-    sizeToFit
-    # this shorthand is much better!  More about frame helpers below.
-    frame [[0,0],['50%',:scale]]
-    center ['50%', '50% + 100']
-    background_color UIColor.blueColor
   end
 
 end
