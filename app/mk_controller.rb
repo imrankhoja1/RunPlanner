@@ -23,7 +23,8 @@ class SimpleLayout < MK::Layout
         button_runners:        64 + 30 + 30 + 30,
         button_meeting:        64 + 30 + 30 + 30,
         button_drop:           64 + 30 + 30 + 30 + 24,
-        map:                   64 + 30 + 30 + 30 + 24 + 50
+        map:                   64 + 30 + 30 + 30 + 24 + 50,
+        invite:                64 + 30 + 30 + 30 + 24 + 50 + 278
       },
       date_clicked: {
         button_distance:       64 + 30 + px,
@@ -342,13 +343,13 @@ class SimpleLayout < MK::Layout
     end
 
     @invite = add UIButton, :invite do
-      background_color UIColor.greenColor
+      background_color UIColor.colorWithRed(0.169, green: 0.561, blue: 0.329, alpha: 1.0)
       title "Send Run Invite"
-      title_color UIColor.blackColor
-      #text_alignment UITextAlignmentCenter
+      title_color UIColor.whiteColor
       sizeToFit
-      asdf = 30 + 30 + 64 + 1 + 1 + 30 + 1 + 24 + 50 + 1 + 258 + 1
-      frame [['5%',asdf + 10],['90%',50]]
+      frame [['5%',top(:invite)],['90%',50]]
+    end
+    @invite.tap do |b|
     end
     @invite.on(:touch) {
       puts "invite"
