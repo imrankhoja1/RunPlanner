@@ -154,11 +154,10 @@ class SimpleLayout < MK::Layout
     end
     @button_starts.tap do |b|
       b.setTitle("Starts", forState:UIControlStateNormal)
+      b.setTitleColor(UIColor.blackColor, forState: UIControlStateNormal)
       b.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft
       b.contentEdgeInsets = UIEdgeInsetsMake(0, 6, 0, 0)
       b.titleLabel.font = UIFont.fontWithName("Helvetica-Bold", size: 16)
-      b.titleLabel.color = UIColor.blackColor
-      b.titleLabel.textAlignment = UITextAlignmentLeft
       b.on(:touch) {
         puts "button_starts"
         toggle_state(:date_clicked)
