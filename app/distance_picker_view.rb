@@ -4,8 +4,10 @@ class DistancePickerView < UIView
   def init
     super
     addSubview(@label = UILabel.new)
-    @label.text = "asdf"
-    @label.frame = [[0,0],[100,25]]
+    @label.frame = [[0,0],[320,32]]
+    sizeToFit
+    @label.font = UIFont.fontWithName("Helvetica", size: 24)
+    @label.textAlignment = NSTextAlignmentCenter
     self
   end
 end
