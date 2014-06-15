@@ -368,20 +368,36 @@ class SimpleLayout < MK::Layout
 
 
   # picker view methods (ran into memory issues when trying to do this in a delegate class)
+  def distance_picker_values
+    @distance_picker_values ||= 0.5.step(20, 0.5).to_a.map{|x| "#{x} mi"}
+  end
+
+  def pace_picker_values
+    @pace_picker_values ||= 5.step(30, 0.25).to_a.map do |x|
+      mins = x.to_i
+      secs = (60 * (x % 1)).to_i.to_s.rjust(2, '0')
+      "#{mins}:#{secs} min/mi"
+    end
+  end
+
   def numberOfComponentsInPickerView(picker_view)
     1
   end
 
   def pickerView(picker_view, numberOfRowsInComponent: component)
-    10
+    if picker_view == @distance_picker
+      distance_picker_values.size
+    else
+      pace_picker_values.size
+    end
   end
 
   def pickerView(picker_view, viewForRow: row, forComponent: component, reusingView: old_view)
     (old_view || DistancePickerView.new).tap do |asdf|
       if picker_view == @distance_picker
-        asdf.label.text = "distance"
+        asdf.label.text = distance_picker_values[row]
       elsif picker_view == @pace_picker
-        asdf.label.text = "pace"
+        asdf.label.text = pace_picker_values[row]
       end
       asdf
     end
