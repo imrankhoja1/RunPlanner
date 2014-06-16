@@ -32,8 +32,9 @@ class SimpleLayout < MK::Layout
         button_runners:        64 + 30 + 30 + 30,
         button_meeting:        64 + 30 + 30 + 30,
         button_drop:           64 + 30 + 30 + 30 + 24,
-        text_field_contact:    64 + 30 + 30 + 30 + 24 + 50,
         map:                   64 + 30 + 30 + 30 + 24 + 50,
+        text_field_contact:    64 + 30 + 30 + 30 + 24 + 50,
+        table_invites:         64 + 30 + 30 + 30 + 24 + 50 + 28,
         invite_cont:           64 + 30 + 30 + 30 + 24 + 50 + 270,
         invite:                64 + 30 + 30 + 30 + 24 + 50 + 280
       },
@@ -45,8 +46,9 @@ class SimpleLayout < MK::Layout
         button_runners:        64 + 30 + 30 + 30 + px,
         button_meeting:        64 + 30 + 30 + 30 + px,
         button_drop:           64 + 30 + 30 + 30 + 24 + px,
+        map:                   64 + 30 + 30 + 30 + 24 + 50 + px,
         text_field_contact:    64 + 30 + 30 + 30 + 24 + 50 + px,
-        map:                   64 + 30 + 30 + 30 + 24 + 50 + px
+        table_invites:         64 + 30 + 30 + 30 + 24 + 50 + 28 + px
       },
       distance_clicked: {
         button_pace:        64 + 30 + 30 + px,
@@ -54,15 +56,17 @@ class SimpleLayout < MK::Layout
         button_runners:     64 + 30 + 30 + 30 + px,
         button_meeting:     64 + 30 + 30 + 30 + px,
         button_drop:        64 + 30 + 30 + 30 + 24 + px,
+        map:                64 + 30 + 30 + 30 + 24 + 50 + px,
         text_field_contact: 64 + 30 + 30 + 30 + 24 + 50 + px,
-        map:                64 + 30 + 30 + 30 + 24 + 50 + px
+        table_invites:      64 + 30 + 30 + 30 + 24 + 50 + 28 + px
       },
       pace_clicked: {
         button_runners:     64 + 30 + 30 + 30 + px,
         button_meeting:     64 + 30 + 30 + 30 + px,
         button_drop:        64 + 30 + 30 + 30 + 24 + px,
+        map:                64 + 30 + 30 + 30 + 24 + 50 + px,
         text_field_contact: 64 + 30 + 30 + 30 + 24 + 50 + px,
-        map:                64 + 30 + 30 + 30 + 24 + 50 + px
+        table_invites:      64 + 30 + 30 + 30 + 24 + 50 + 28 + px
       }
     }
 
@@ -130,7 +134,9 @@ class SimpleLayout < MK::Layout
       slide_vert(@button_meeting, top(:button_meeting))
       slide_vert(@button_drop, top(:button_drop))
       slide_vert(@map, top(:map))
+      slide_vert(@label_contact, top(:text_field_contact))
       slide_vert(@text_field_contact, top(:text_field_contact))
+      slide_vert(@table_invites, top(:table_invites))
     }, completion: lambda { |x|
     })
   end
@@ -393,6 +399,7 @@ class SimpleLayout < MK::Layout
     @label_contact.tap do |l|
       l.titleLabel.font = UIFont.fontWithName("Helvetica-Bold", size: 16)
       l.contentEdgeInsets = UIEdgeInsetsMake(0, 6, 0, 0)
+      l.backgroundColor = UIColor.whiteColor
     end
 
     @text_field_contact = add UITextField, :text_field_contact do
@@ -400,12 +407,13 @@ class SimpleLayout < MK::Layout
     end
     @text_field_contact.tap do |v|
       v.textColor = UIColor.blackColor
+      v.backgroundColor = UIColor.whiteColor
       v.hide
       v.delegate = self
     end
 
     @table_invites = add UITableView, :table_invites do
-      frame [[0,top(:text_field_contact) + 28],['100%', '100%']]
+      frame [[0,top(:table_invites)],['100%', '100%']]
     end
     @table_invites.tap do |t|
       #t.backgroundView.backgroundColor = UIColor.grayColor
