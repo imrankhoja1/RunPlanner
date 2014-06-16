@@ -33,8 +33,8 @@ class SimpleLayout < MK::Layout
         button_meeting:        64 + 30 + 30 + 30,
         button_drop:           64 + 30 + 30 + 30 + 24,
         map:                   64 + 30 + 30 + 30 + 24 + 50,
-        text_field_contact:    64 + 30 + 30 + 30 + 24 + 50,
-        table_invites:         64 + 30 + 30 + 30 + 24 + 50 + 28,
+        text_field_contact:    64 + 30 + 30 + 30 + 24,
+        table_invites:         64 + 30 + 30 + 30 + 24 + 28,
         invite_cont:           64 + 30 + 30 + 30 + 24 + 50 + 270,
         invite:                64 + 30 + 30 + 30 + 24 + 50 + 280
       },
@@ -158,13 +158,16 @@ class SimpleLayout < MK::Layout
       @label_contact.show
       @text_field_contact.show
       @table_invites.show
+      @button_drop.hide
     else
       @button_runners.backgroundColor = UIColor.whiteColor
       @button_meeting.backgroundColor = UIColor.grayColor
+      @button_drop.hide
       @label_contact.hide
       @text_field_contact.hide
       @table_invites.hide
       @map.show
+      @button_drop.show
     end
   end
 
