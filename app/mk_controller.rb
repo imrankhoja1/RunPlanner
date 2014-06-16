@@ -8,6 +8,15 @@ end
 
 class SimpleLayout < MK::Layout
 
+  def people
+    #@ab ||= AddressBook::AddrBook.new
+    #@ab.people
+
+    # mock it for now
+    [{:first_name => "Imran", :last_name => "Khoja", :phones => [:value => '6172302397', :label => 'Mobile']},
+     {:first_name => "Emily", :last_name => "Little", :phones => [:value => '6172302397', :label => 'Mobile']}]
+  end
+
   def top(element)
     px = 216
 
@@ -140,11 +149,15 @@ class SimpleLayout < MK::Layout
       @button_runners.backgroundColor = UIColor.grayColor
       @button_meeting.backgroundColor = UIColor.whiteColor
       @map.hide
+      @label_contact.show
       @text_field_contact.show
+      @table_invites.show
     else
       @button_runners.backgroundColor = UIColor.whiteColor
       @button_meeting.backgroundColor = UIColor.grayColor
+      @label_contact.hide
       @text_field_contact.hide
+      @table_invites.hide
       @map.show
     end
   end
@@ -390,6 +403,14 @@ class SimpleLayout < MK::Layout
       v.delegate = self
     end
 
+    @table_invites = add UITableView, :table_invites do
+      frame [[0,top(:text_field_contact) + 28],['100%', '100%']]
+    end
+    @table_invites.tap do |t|
+      #t.backgroundView.backgroundColor = UIColor.grayColor
+      t.delegate = t.dataSource = self
+    end
+
     # highlight runners/meeting
     update_mode
 
@@ -466,6 +487,20 @@ class SimpleLayout < MK::Layout
   # contact list stuff
   def textFieldShouldReturn(text_field)
     text_field.resignFirstResponder
+  end
+
+  def tableView(table_view, numberOfRowsInSection:section)
+    people.size
+  end
+
+  def tableView(table_view, cellForRowAtIndexPath: index_path)
+    row = index_path.row
+    reuse_id = "table_id_#{row}"
+    cell = table_view.dequeueReusableCellWithIdentifier(reuse_id) || begin
+      UITableViewCell.alloc.initWithStyle(UITableViewCellStyleDefault, reuseIdentifier: reuse_id)
+    end
+    cell.textLabel.text = "#{people[row][:first_name]} #{people[row][:last_name]}"
+    cell
   end
 
 end
