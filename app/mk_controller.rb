@@ -386,18 +386,19 @@ class SimpleLayout < MK::Layout
 
     @label_contact = add UIButton, :label_contact do
       sizeToFit
-      frame [[0,top(:text_field_contact)],['12%',28]]
+      frame [[0,top(:text_field_contact)],['15%',28]]
       title "To:"
       title_color UIColor.blackColor
     end
     @label_contact.tap do |l|
+      l.titleLabel.font = UIFont.fontWithName("Helvetica-Bold", size: 16)
+      l.contentEdgeInsets = UIEdgeInsetsMake(0, 6, 0, 0)
     end
 
     @text_field_contact = add UITextField, :text_field_contact do
-      frame [['12%',top(:text_field_contact)],['88%',28]]
+      frame [['15%',top(:text_field_contact)],['85%',28]]
     end
     @text_field_contact.tap do |v|
-      v.text = "asdf"
       v.textColor = UIColor.blackColor
       v.hide
       v.delegate = self
