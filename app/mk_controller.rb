@@ -23,7 +23,7 @@ class SimpleLayout < MK::Layout
         button_runners:        64 + 30 + 30 + 30,
         button_meeting:        64 + 30 + 30 + 30,
         button_drop:           64 + 30 + 30 + 30 + 24,
-        view_runners:          64 + 30 + 30 + 30 + 24 + 50,
+        text_field_contact:    64 + 30 + 30 + 30 + 24 + 50,
         map:                   64 + 30 + 30 + 30 + 24 + 50,
         invite_cont:           64 + 30 + 30 + 30 + 24 + 50 + 270,
         invite:                64 + 30 + 30 + 30 + 24 + 50 + 280
@@ -36,24 +36,24 @@ class SimpleLayout < MK::Layout
         button_runners:        64 + 30 + 30 + 30 + px,
         button_meeting:        64 + 30 + 30 + 30 + px,
         button_drop:           64 + 30 + 30 + 30 + 24 + px,
-        view_runners:          64 + 30 + 30 + 30 + 24 + 50 + px,
+        text_field_contact:    64 + 30 + 30 + 30 + 24 + 50 + px,
         map:                   64 + 30 + 30 + 30 + 24 + 50 + px
       },
       distance_clicked: {
-        button_pace:       64 + 30 + 30 + px,
-        button_pace_value: 64 + 30 + 30 + px,
-        button_runners:    64 + 30 + 30 + 30 + px,
-        button_meeting:    64 + 30 + 30 + 30 + px,
-        button_drop:       64 + 30 + 30 + 30 + 24 + px,
-        view_runners:      64 + 30 + 30 + 30 + 24 + 50 + px,
-        map:               64 + 30 + 30 + 30 + 24 + 50 + px
+        button_pace:        64 + 30 + 30 + px,
+        button_pace_value:  64 + 30 + 30 + px,
+        button_runners:     64 + 30 + 30 + 30 + px,
+        button_meeting:     64 + 30 + 30 + 30 + px,
+        button_drop:        64 + 30 + 30 + 30 + 24 + px,
+        text_field_contact: 64 + 30 + 30 + 30 + 24 + 50 + px,
+        map:                64 + 30 + 30 + 30 + 24 + 50 + px
       },
       pace_clicked: {
-        button_runners: 64 + 30 + 30 + 30 + px,
-        button_meeting: 64 + 30 + 30 + 30 + px,
-        button_drop:    64 + 30 + 30 + 30 + 24 + px,
-        view_runners:   64 + 30 + 30 + 30 + 24 + 50 + px,
-        map:            64 + 30 + 30 + 30 + 24 + 50 + px
+        button_runners:     64 + 30 + 30 + 30 + px,
+        button_meeting:     64 + 30 + 30 + 30 + px,
+        button_drop:        64 + 30 + 30 + 30 + 24 + px,
+        text_field_contact: 64 + 30 + 30 + 30 + 24 + 50 + px,
+        map:                64 + 30 + 30 + 30 + 24 + 50 + px
       }
     }
 
@@ -121,7 +121,7 @@ class SimpleLayout < MK::Layout
       slide_vert(@button_meeting, top(:button_meeting))
       slide_vert(@button_drop, top(:button_drop))
       slide_vert(@map, top(:map))
-      slide_vert(@view_runners, top(:view_runners))
+      slide_vert(@text_field_contact, top(:text_field_contact))
     }, completion: lambda { |x|
     })
   end
@@ -140,11 +140,11 @@ class SimpleLayout < MK::Layout
       @button_runners.backgroundColor = UIColor.grayColor
       @button_meeting.backgroundColor = UIColor.whiteColor
       @map.hide
-      @view_runners.show
+      @text_field_contact.show
     else
       @button_runners.backgroundColor = UIColor.whiteColor
       @button_meeting.backgroundColor = UIColor.grayColor
-      @view_runners.hide
+      @text_field_contact.hide
       @map.show
     end
   end
@@ -371,12 +371,23 @@ class SimpleLayout < MK::Layout
       frame [[0,top(:map)],['100%','100%']]
     end
 
-    @view_runners = add UIView, :view_runners do
-      frame [[0,top(:view_runners)],['100%','100%']]
+    @label_contact = add UIButton, :label_contact do
+      sizeToFit
+      frame [[0,top(:text_field_contact)],['12%',28]]
+      title "To:"
+      title_color UIColor.blackColor
     end
-    @view_runners.tap do |v|
-      v.backgroundColor = UIColor.blueColor
+    @label_contact.tap do |l|
+    end
+
+    @text_field_contact = add UITextField, :text_field_contact do
+      frame [['12%',top(:text_field_contact)],['88%',28]]
+    end
+    @text_field_contact.tap do |v|
+      v.text = "asdf"
+      v.textColor = UIColor.blackColor
       v.hide
+      v.delegate = self
     end
 
     # highlight runners/meeting
@@ -450,6 +461,11 @@ class SimpleLayout < MK::Layout
     elsif picker_view == @pace_picker
       @button_pace_value.setTitle(pace_picker_values[row], forState: UIControlStateNormal)
     end
+  end
+
+  # contact list stuff
+  def textFieldShouldReturn(text_field)
+    text_field.resignFirstResponder
   end
 
 end
