@@ -47,8 +47,8 @@ class SimpleLayout < MK::Layout
         button_meeting:        64 + 30 + 30 + 30 + px,
         button_drop:           64 + 30 + 30 + 30 + 24 + px,
         map:                   64 + 30 + 30 + 30 + 24 + 50 + px,
-        text_field_contact:    64 + 30 + 30 + 30 + 24 + 50 + px,
-        table_invites:         64 + 30 + 30 + 30 + 24 + 50 + 28 + px
+        text_field_contact:    64 + 30 + 30 + 30 + 24 + px,
+        table_invites:         64 + 30 + 30 + 30 + 24 + 28 + px
       },
       distance_clicked: {
         button_pace:        64 + 30 + 30 + px,
@@ -57,16 +57,16 @@ class SimpleLayout < MK::Layout
         button_meeting:     64 + 30 + 30 + 30 + px,
         button_drop:        64 + 30 + 30 + 30 + 24 + px,
         map:                64 + 30 + 30 + 30 + 24 + 50 + px,
-        text_field_contact: 64 + 30 + 30 + 30 + 24 + 50 + px,
-        table_invites:      64 + 30 + 30 + 30 + 24 + 50 + 28 + px
+        text_field_contact: 64 + 30 + 30 + 30 + 24 + px,
+        table_invites:      64 + 30 + 30 + 30 + 24 + 28 + px
       },
       pace_clicked: {
         button_runners:     64 + 30 + 30 + 30 + px,
         button_meeting:     64 + 30 + 30 + 30 + px,
         button_drop:        64 + 30 + 30 + 30 + 24 + px,
         map:                64 + 30 + 30 + 30 + 24 + 50 + px,
-        text_field_contact: 64 + 30 + 30 + 30 + 24 + 50 + px,
-        table_invites:      64 + 30 + 30 + 30 + 24 + 50 + 28 + px
+        text_field_contact: 64 + 30 + 30 + 30 + 24 + px,
+        table_invites:      64 + 30 + 30 + 30 + 24 + 28 + px
       }
     }
 
@@ -446,6 +446,11 @@ class SimpleLayout < MK::Layout
       puts "invite"
       @state = :default
       slide_elements
+
+BubbleWrap::HTTP.get("http://google.com") do |response|
+  p response.body.to_str
+end
+
     }
 
     background_color UIColor.whiteColor
