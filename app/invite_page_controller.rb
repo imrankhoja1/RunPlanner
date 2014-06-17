@@ -11,6 +11,27 @@ class InvitePageController < UIViewController
 
 end
 
+class MyAnnotation
+
+  # Don't do it this way!  Can't use these to extend Objective-C!
+  #attr_reader :coordinate, :title, :subtitle
+
+  #intead use this madness!
+  def coordinate; @coordinate; end
+  def title; @title; end
+  def subtitle; @subtitle; end
+
+  def initWithCoordinates(paramCoordinates, title:paramTitle, subTitle:paramSubTitle)
+    @coordinate = paramCoordinates
+    @title = paramTitle
+    @subtitle = paramSubTitle
+
+    self
+  end
+
+end
+
+
 class SimpleLayout2 < MK::Layout
   include MapKit
   # this is a special attr method that calls `layout` if the view hasn't been
@@ -64,9 +85,9 @@ class SimpleLayout2 < MK::Layout
       frame [[0,284],['100%',390]]
     end
 
-  # @map.region = CoordinateRegion.new([56, 10.6], [3.1, 3.1])
+  @map.region = CoordinateRegion.new([42.360788, -71.062669], [3.5, 3.5])
   @map.shows_user_location = true
-  @map.set_zoom_level(8)
+  @map.set_zoom_level(15)
   puts 'start'
   puts @map.user_coordinates
   puts @map.user_located?
@@ -89,9 +110,14 @@ puts 'start location'
   #   puts result[:from].latitude
   #   puts result[:from].longitude
   # end
-
-    # @pin = MKPointAnnotation.alloc.init
-    # @pin.setCoordinate(@map.region.center)
+puts 'point'
+  @pin = MKPointAnnotation.alloc.init
+  # @pin.Coord = CLLocationCoordinate2DMake(@map.region.center.lat, @map.region.center.lon)
+  #@pin.coordinate =  CLLocationCoordinate2DMake(@map.region.center.latitude, @map.region.center.longitude)
+  @pin.coordinate =  CLLocationCoordinate2DMake(42.360788, -71.062669)
+  @pin.title = 'Here I am'
+  @point = MyAnnotation.alloc.initWithCoordinates(@pin.coordinate, title:"My Title", subTitle:"My Subtitle")
+  @map.addAnnotation(@point)
 
      #   shows_user_location = true
     # #   center =
@@ -122,6 +148,9 @@ puts 'start location'
 
     end
 
+      def mapView(map, viewForAnnotation: annotation)
+    MKPinAnnotationView.alloc.initWithAnnotation(annotation, reuseIdentifier: 'pin')
+  end
     def locationManager(manager, didUpdateToLocation:newLocation, fromLocation:oldLocation)
     # got a new location
       puts "Latitude = #{newLocation.coordinate.latitude} Longitude = #{newLocation.coordinate.longitude}"
