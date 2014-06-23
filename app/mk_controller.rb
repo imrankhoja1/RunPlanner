@@ -447,9 +447,19 @@ class SimpleLayout < MK::Layout
       @state = :default
       slide_elements
 
-BubbleWrap::HTTP.get("http://google.com") do |response|
-  p response.body.to_str
-end
+      url = "https://api.parse.com/1/functions/hello"
+
+      headers = {
+        "X-Parse-Application-Id" => "w73zBja8m0FY17rUC1jtyxXEGSuvvu53NuAf14be",
+        "X-Parse-REST-API-Key" => "L2JjEVdH1hfTocoxSekJPuQa4kOJ4skPnIQ5zDMx",
+        "Content-Type" => "application/json"
+      }
+
+      payload = BubbleWrap::JSON.generate({})
+
+      BubbleWrap::HTTP.post(url, { headers: headers, payload: payload}) do |response|
+        p response.body.to_str
+      end
 
     }
 
