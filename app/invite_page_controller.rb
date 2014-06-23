@@ -45,7 +45,7 @@ class SimpleLayout2 < MK::Layout
       background_color UIColor.whiteColor
       text "Suzanne wants to go on a run with you!"
       sizeToFit
-      frame [[0,64],['100%',45]]
+      frame [[45,64],['100%',45]]
     end
 
     @label01 = add UILabel, :label01 do
@@ -82,7 +82,7 @@ class SimpleLayout2 < MK::Layout
     end
 
     @map = add MapView, :map do
-      frame [[0,284],['100%',390]]
+      frame [[0,284],['100%',239]]
     end
 
   @map.region = CoordinateRegion.new([42.360788, -71.062669], [3.5, 3.5])
@@ -145,6 +145,15 @@ puts 'point'
     #   sizeToFit
     #   frame [['67%',64],['33%',30]]
     # end
+
+    @button_accept = add UIButton, :button_accept do
+      background_color UIColor.orangeColor
+      title "Swipe to accept >"
+      sizeToFit
+      frame [[0,523],['100%',45]]
+    end
+
+    background_color UIColor.grayColor
 
     end
 
