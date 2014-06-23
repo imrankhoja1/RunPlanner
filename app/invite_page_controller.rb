@@ -153,6 +153,16 @@ puts 'point'
       frame [[0,523],['100%',45]]
     end
 
+    @label_time = add UILabel, :label_time do
+      background_color UIColor.whiteColor
+      text "10:54"
+      frame [[0,284],['100%',40]]
+    end
+    @label_time.tap do |l|
+      l.textAlignment = UIControlContentHorizontalAlignmentLeft
+      l.font = UIFont.fontWithName("Helvetica-Bold", size: 16)
+    end
+
     background_color UIColor.grayColor
 
     end
