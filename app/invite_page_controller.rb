@@ -34,22 +34,22 @@ end
 
 class SimpleLayout2 < MK::Layout
   include MapKit
+
   # this is a special attr method that calls `layout` if the view hasn't been
   # created yet. So you can call `layout.button` before `layout.view` and you
   # won't get nil, and layout.view will be built.
   view :button
 
   def layout
-
     @label00 = add UILabel, :label00 do
       background_color UIColor.whiteColor
-      text "Suzanne wants to go on a run with you!"
+      text "Emily wants to go on a run with you!"
       sizeToFit
       frame [[45,64],['100%',45]]
     end
 
     @label01 = add UILabel, :label01 do
-      background_color UIColor.blueColor
+      background_color UIColor.whiteColor
       # text ""
       sizeToFit
       text_alignment UITextAlignmentCenter
@@ -57,7 +57,7 @@ class SimpleLayout2 < MK::Layout
     end
 
     @label02 = add UILabel, :label02 do
-      background_color UIColor.redColor
+      background_color UIColor.whiteColor
       # text ""
       sizeToFit
       text_alignment UITextAlignmentCenter
@@ -65,7 +65,7 @@ class SimpleLayout2 < MK::Layout
     end
 
     @label03 = add UILabel, :label03 do
-      background_color UIColor.greenColor
+      background_color UIColor.whiteColor
       # text ""
       sizeToFit
       text_alignment UITextAlignmentCenter
@@ -161,6 +161,35 @@ puts 'point'
     @label_time.tap do |l|
       l.textAlignment = UIControlContentHorizontalAlignmentLeft
       l.font = UIFont.fontWithName("Helvetica-Bold", size: 16)
+    end
+
+    @image_runner = UIImageView.alloc.initWithImage(UIImage.imageNamed("running30.png"))
+    addSubview(@image_runner)
+    @image_runner.center = CGPointMake(60, 130)
+
+    @label_runner = add UILabel, :label_runner do
+      frame [[60, 130],['100%','100%']]
+      text "asdf"
+      text_color UIColor.blackColor
+    end
+
+    @image_calendar = UIImageView.alloc.initWithImage(UIImage.imageNamed("calendar4.png"))
+    addSubview(@image_calendar)
+    @image_calendar.center = CGPointMake(120, 130)
+
+    @label_calendar = add UILabel, :label_calendar do
+      frame [[120, 130],['100%','100%']]
+      text "asdf"
+      text_color UIColor.blackColor
+    end
+
+    @image_timer = UIImageView.alloc.initWithImage(UIImage.imageNamed("chronograph1.png"))
+    addSubview(@image_timer)
+    @image_timer.center = CGPointMake(180, 130)
+
+    @label_timer = add UILabel, :label_timer do
+      frame [[180, 130],['100%','100%']]
+      text "asdf"
     end
 
     background_color UIColor.grayColor
