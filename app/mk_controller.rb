@@ -1,12 +1,17 @@
 class MkController < UIViewController
   def loadView
     @layout = SimpleLayout.new
+    @layout.controller = self
+    
     self.view = @layout.view
     self.title = "Plan Your Run"
   end
 end
 
 class SimpleLayout < MK::Layout
+  attr_accessor :controller
+
+  @sent = false
 
   def people
     #@ab ||= AddressBook::AddrBook.new
@@ -457,10 +462,15 @@ class SimpleLayout < MK::Layout
 
       payload = BubbleWrap::JSON.generate({})
 
-      BubbleWrap::HTTP.post(url, { headers: headers, payload: payload}) do |response|
-        p response.body.to_str
+      if !@sent
+        BubbleWrap::HTTP.post(url, { headers: headers, payload: payload}) do |response|
+          p response.body.to_str
+        end
       end
 
+      self.controller.navigationController.pushViewController(self.controller.navigationController.delegate.invite_page_controller, animated: true) if @sent
+
+      @sent = !@sent
     }
 
     background_color UIColor.whiteColor
