@@ -45,7 +45,8 @@ class SimpleLayout2 < MK::Layout
       background_color UIColor.whiteColor
       text "Emily wants to go on a run with you!"
       sizeToFit
-      frame [[45,64],['100%',45]]
+      frame [[0,64],['100%',45]]
+      text_alignment UITextAlignmentCenter
     end
 
     @label01 = add UILabel, :label01 do
