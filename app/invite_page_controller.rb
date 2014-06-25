@@ -74,7 +74,7 @@ class SimpleLayout2 < MK::Layout
     end
 
     @label04 = add UILabel, :label04 do
-      background_color UIColor.orangeColor
+      background_color UIColor.colorWithRed(0.118, green:0.541, blue:0.545, alpha:1.0)
       color UIColor.whiteColor
       text "Hurry! This invite expires in:"
       sizeToFit
@@ -148,7 +148,7 @@ puts 'point'
     # end
 
     @button_accept = add UIButton, :button_accept do
-      background_color UIColor.orangeColor
+      background_color UIColor.colorWithRed(0.118, green:0.541, blue:0.545, alpha:1.0)
       title "Swipe to accept >"
       sizeToFit
       frame [[0,523],['100%',45]]
