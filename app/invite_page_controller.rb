@@ -163,34 +163,40 @@ puts 'point'
       l.font = UIFont.fontWithName("Helvetica-Bold", size: 16)
     end
 
-    @image_runner = UIImageView.alloc.initWithImage(UIImage.imageNamed("running30.png"))
-    addSubview(@image_runner)
-    @image_runner.center = CGPointMake(60, 130)
-
-    @label_runner = add UILabel, :label_runner do
-      frame [[60, 130],['100%','100%']]
-      text "asdf"
-      text_color UIColor.blackColor
-    end
-
     @image_calendar = UIImageView.alloc.initWithImage(UIImage.imageNamed("calendar4.png"))
     addSubview(@image_calendar)
-    @image_calendar.center = CGPointMake(120, 130)
+    @image_calendar.center = CGPointMake(80, 130)
 
     @label_calendar = add UILabel, :label_calendar do
-      frame [[120, 130],['100%','100%']]
-      text "asdf"
+      frame [[80, -100],['100%','100%']]
+      text "5:00 PM"
       text_color UIColor.blackColor
+      text_alignment UITextAlignmentCenter
     end
+    @label_calendar.center = CGPointMake(80, 160)
+
+    @image_runner = UIImageView.alloc.initWithImage(UIImage.imageNamed("running30.png"))
+    addSubview(@image_runner)
+    @image_runner.center = CGPointMake(160, 130)
+
+    @label_runner = add UILabel, :label_runner do
+      frame [[160, -100],['100%','100%']]
+      text "5.5 mi"
+      text_color UIColor.blackColor
+      text_alignment UITextAlignmentCenter
+    end
+    @label_runner.center = CGPointMake(160, 160)
 
     @image_timer = UIImageView.alloc.initWithImage(UIImage.imageNamed("chronograph1.png"))
     addSubview(@image_timer)
-    @image_timer.center = CGPointMake(180, 130)
+    @image_timer.center = CGPointMake(240, 130)
 
     @label_timer = add UILabel, :label_timer do
-      frame [[180, 130],['100%','100%']]
-      text "asdf"
+      frame [[240, -100],['100%','100%']]
+      text "9:00 min/mi"
+      text_alignment UITextAlignmentCenter
     end
+    @label_timer.center = CGPointMake(240, 160)
 
     background_color UIColor.grayColor
 
