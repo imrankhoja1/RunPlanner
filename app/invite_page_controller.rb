@@ -79,7 +79,7 @@ class SimpleLayout2 < MK::Layout
       text "Hurry! This invite expires in:"
       sizeToFit
       text_alignment UITextAlignmentCenter
-      frame [[0,239],['100%',45]]
+      frame [[0,200],['100%',45]]
     end
 
     @map = add MapView, :map do
@@ -157,7 +157,7 @@ puts 'point'
     @label_time = add UILabel, :label_time do
       background_color UIColor.whiteColor
       text "10:54"
-      frame [[0,284],['100%',40]]
+      frame [[0,245],['100%',40]]
     end
     @label_time.tap do |l|
       l.textAlignment = UIControlContentHorizontalAlignmentLeft
