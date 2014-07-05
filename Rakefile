@@ -4,6 +4,7 @@ require 'motion/project/template/ios'
 require 'bubble-wrap'
 require 'bubble-wrap/location'
 require 'map-kit-wrapper'
+require 'psych'
 
 begin
   require 'bundler'
@@ -11,8 +12,11 @@ begin
 rescue LoadError
 end
 
+config = Psych.load(File.open('./config/settings.yml'))
+
 Motion::Project::App.setup do |app|
   # Use `rake config' to see complete project settings.
   app.name = 'RunPlanner'
   app.frameworks += ["CoreLocation", "MapKit", "AddressBook"]
+  app.provisioning_profile = config['provisioning_profile']
 end
