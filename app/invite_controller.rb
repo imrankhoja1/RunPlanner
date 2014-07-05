@@ -4,19 +4,12 @@ class InviteController < UIViewController
     @layout = SimpleLayout2.new
     self.view = @layout.view
 
-    #@button = @layout.get(:button)  # This will be created in our layout (below)
-
     self.title = "We Run"
   end
 
 end
 
 class MyAnnotation
-
-  # Don't do it this way!  Can't use these to extend Objective-C!
-  #attr_reader :coordinate, :title, :subtitle
-
-  #intead use this madness!
   def coordinate; @coordinate; end
   def title; @title; end
   def subtitle; @subtitle; end
@@ -86,41 +79,44 @@ class SimpleLayout2 < MK::Layout
       frame [[0,284],['100%',239]]
     end
 
-  @map.region = CoordinateRegion.new([42.360788, -71.062669], [3.5, 3.5])
-  @map.shows_user_location = true
-  @map.set_zoom_level(15)
-  puts 'start'
-  puts @map.user_coordinates
-  puts @map.user_located?
-  puts @map.region
-  puts @map.region.center
+    @map.region = CoordinateRegion.new([42.360788, -71.062669], [3.5, 3.5])
+    @map.shows_user_location = true
+    @map.set_zoom_level(15)
+    puts 'start'
+    puts @map.user_coordinates
+    puts @map.user_located?
+    puts @map.region
+    puts @map.region.center
 
-  puts 'location'
-  puts BW::Location.enabled?
-  puts 'eoiw'
-  # puts BW::Location.authorized?
+    puts 'location'
+    puts BW::Location.enabled?
+    puts 'eoiw'
+    # puts BW::Location.authorized?
 
-puts 'start location'
-  @my_location_manager = CLLocationManager.alloc.init
-  puts 'end location'
-  @my_location_manager.delegate = self
-  @my_location_manager.startUpdatingLocation
-  @my_location_manager.purpose = 'woieeowi'
+    puts 'start location'
 
-  # BW::Location.get do |result|
-  #   puts result[:from].latitude
-  #   puts result[:from].longitude
-  # end
+    @my_location_manager = CLLocationManager.alloc.init
+    puts 'end location'
+    @my_location_manager.delegate = self
+    @my_location_manager.startUpdatingLocation
+    @my_location_manager.purpose = 'woieeowi'
+
+    # BW::Location.get do |result|
+    #   puts result[:from].latitude
+    #   puts result[:from].longitude
+    # end
+
 puts 'point'
-  @pin = MKPointAnnotation.alloc.init
-  # @pin.Coord = CLLocationCoordinate2DMake(@map.region.center.lat, @map.region.center.lon)
-  #@pin.coordinate =  CLLocationCoordinate2DMake(@map.region.center.latitude, @map.region.center.longitude)
-  @pin.coordinate =  CLLocationCoordinate2DMake(42.360788, -71.062669)
-  @pin.title = 'Here I am'
-  @point = MyAnnotation.alloc.initWithCoordinates(@pin.coordinate, title:"My Title", subTitle:"My Subtitle")
-  @map.addAnnotation(@point)
 
-     #   shows_user_location = true
+    @pin = MKPointAnnotation.alloc.init
+    # @pin.Coord = CLLocationCoordinate2DMake(@map.region.center.lat, @map.region.center.lon)
+    #@pin.coordinate =  CLLocationCoordinate2DMake(@map.region.center.latitude, @map.region.center.longitude)
+    @pin.coordinate =  CLLocationCoordinate2DMake(42.360788, -71.062669)
+    @pin.title = 'Here I am'
+    @point = MyAnnotation.alloc.initWithCoordinates(@pin.coordinate, title:"My Title", subTitle:"My Subtitle")
+    @map.addAnnotation(@point)
+
+    #   shows_user_location = true
     # #   center =
     #   # center = CGPointMake(self.view.frame.size.width / 2, 100)
     #   zoomEnabled = true
@@ -137,15 +133,6 @@ puts 'point'
     # UITapGestureRecognizer.alloc.initWithTarget(self, action: "map_tapped:")
     # addGestureRecognizer(@map_tap)
     # self.view.addSubview(@map)
-
-
-    # @label02 = add UILabel, :label02 do
-    #   background_color UIColor.whiteColor
-    #   text "3:00 PM"
-    #   text_alignment UITextAlignmentRight
-    #   sizeToFit
-    #   frame [['67%',64],['33%',30]]
-    # end
 
     @button_accept = add UIButton, :button_accept do
       background_color UIColor.colorWithRed(0.118, green:0.541, blue:0.545, alpha:1.0)
@@ -200,14 +187,13 @@ puts 'point'
     @label_timer.center = CGPointMake(240, 160)
 
     background_color UIColor.grayColor
+  end
 
-    end
-
-      def mapView(map, viewForAnnotation: annotation)
+  def mapView(map, viewForAnnotation: annotation)
     MKPinAnnotationView.alloc.initWithAnnotation(annotation, reuseIdentifier: 'pin')
   end
-    def locationManager(manager, didUpdateToLocation:newLocation, fromLocation:oldLocation)
-    # got a new location
-      puts "Latitude = #{newLocation.coordinate.latitude} Longitude = #{newLocation.coordinate.longitude}"
-    end
+
+  def locationManager(manager, didUpdateToLocation:newLocation, fromLocation:oldLocation)
+    puts "Latitude = #{newLocation.coordinate.latitude} Longitude = #{newLocation.coordinate.longitude}"
+  end
 end
