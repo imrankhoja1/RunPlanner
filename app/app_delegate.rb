@@ -5,7 +5,6 @@ class AppDelegate
     @window = UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)
     @window.makeKeyAndVisible
 
-    # This is our new line!
     @main_controller = MainController.alloc.initWithNibName(nil, bundle: nil)
     @invite_controller = InviteController.alloc.initWithNibName(nil, bundle: nil)
     @nav_controller = UINavigationController.alloc.initWithRootViewController(@main_controller)
