@@ -18,8 +18,8 @@ class SimpleLayout < MK::Layout
     #@ab.people
 
     # mock it for now
-    [{:first_name => "Imran", :last_name => "Khoja", :phones => [:value => '6172302397', :label => 'Mobile']},
-     {:first_name => "Emily", :last_name => "Little", :phones => [:value => '6172302397', :label => 'Mobile']}]
+    [{:first_name => "Imran", :last_name => "Khoja", :phones => [{:value => '+16172302397', :label => 'Mobile'}]},
+     {:first_name => "Emily", :last_name => "Little", :phones => [{:value => '+16172302397', :label => 'Mobile'}]}]
   end
 
   def top(element)
@@ -457,16 +457,46 @@ class SimpleLayout < MK::Layout
     background_color UIColor.whiteColor
   end
 
+  def invite_params
+    first_names = []
+    last_names = []
+    phones = []
+    people.each_with_index do |x,i|
+      first_names << x[:first_name]
+      last_names << x[:last_name]
+      phones << x[:phones][0][:value]
+    end
+    {
+      "from" => {
+        "first_name" => "Ben",
+        "last_name" => "Miller",
+        "phone" => "+16178602901"
+      },
+      "info" => {
+        "miles" => "5.5",
+        "time" => "5:45 PM",
+        "pace" => "9:00"
+      },
+      "first_names" => first_names,
+      "last_names" => last_names,
+      "phones" => phones
+    }
+  end
+
   def send_invites
     parse_app_id = NSBundle.mainBundle.objectForInfoDictionaryKey('parse_app_id')
     parse_api_key = NSBundle.mainBundle.objectForInfoDictionaryKey('parse_api_key')
 
-    client = AFMotion::Client.build("https://api.parse.com/") do |c|
-      c.header "X-Parse-Application-Id", parse_app_id
-      c.header "X-Parse-REST-API-Key", parse_api_key
+    client = AFMotion::Client.build("https://api.parse.com/") do
+      request_serializer :json
+
+      header "X-Parse-Application-Id", parse_app_id
+      header "X-Parse-REST-API-Key", parse_api_key
     end
 
-    client.post("1/functions/hello", {}) do |result|
+ap invite_params
+
+    client.post("1/functions/hello", invite_params) do |result|
       ap result.object if result.object
     end
 
