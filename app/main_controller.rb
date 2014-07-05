@@ -458,10 +458,12 @@ class SimpleLayout < MK::Layout
   end
 
   def send_invites
+    parse_app_id = NSBundle.mainBundle.objectForInfoDictionaryKey('parse_app_id')
+    parse_api_key = NSBundle.mainBundle.objectForInfoDictionaryKey('parse_api_key')
 
     client = AFMotion::Client.build("https://api.parse.com/") do |c|
-      c.header "X-Parse-Application-Id", "w73zBja8m0FY17rUC1jtyxXEGSuvvu53NuAf14be"
-      c.header "X-Parse-REST-API-Key", "L2JjEVdH1hfTocoxSekJPuQa4kOJ4skPnIQ5zDMx"
+      c.header "X-Parse-Application-Id", parse_app_id
+      c.header "X-Parse-REST-API-Key", parse_api_key
     end
 
     client.post("1/functions/hello", {}) do |result|
