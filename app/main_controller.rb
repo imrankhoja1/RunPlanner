@@ -451,33 +451,24 @@ class SimpleLayout < MK::Layout
       puts "invite"
       @state = :default
       slide_elements
-
+      send_invites
     }
-    send_invites
 
     background_color UIColor.whiteColor
   end
 
   def send_invites
-      url = "https://api.parse.com/1/functions/hello"
 
-      headers = {
-        "X-Parse-Application-Id" => "w73zBja8m0FY17rUC1jtyxXEGSuvvu53NuAf14be",
-        "X-Parse-REST-API-Key" => "L2JjEVdH1hfTocoxSekJPuQa4kOJ4skPnIQ5zDMx",
-        "Content-Type" => "application/json"
-      }
+    client = AFMotion::Client.build("https://api.parse.com/") do |c|
+      c.header "X-Parse-Application-Id", "w73zBja8m0FY17rUC1jtyxXEGSuvvu53NuAf14be"
+      c.header "X-Parse-REST-API-Key", "L2JjEVdH1hfTocoxSekJPuQa4kOJ4skPnIQ5zDMx"
+    end
 
-      payload = BubbleWrap::JSON.generate({})
+    client.post("1/functions/hello", {}) do |result|
+      puts result.object if result.object
+    end
 
-      if !@sent
-        BubbleWrap::HTTP.post(url, { headers: headers, payload: payload}) do |response|
-          p response.body.to_str
-        end
-      end
-
-      self.controller.navigationController.pushViewController(self.controller.navigationController.delegate.invite_controller, animated: true) if @sent
-
-      @sent = !@sent
+    @sent = !@sent
   end
 
 
