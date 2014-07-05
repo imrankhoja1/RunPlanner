@@ -465,7 +465,7 @@ class SimpleLayout < MK::Layout
     end
 
     client.post("1/functions/hello", {}) do |result|
-      puts result.object if result.object
+      ap result.object if result.object
     end
 
     @sent = !@sent
