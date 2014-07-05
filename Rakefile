@@ -20,6 +20,6 @@ Motion::Project::App.setup do |app|
   app.frameworks += ["CoreLocation", "MapKit", "AddressBook"]
   app.provisioning_profile = config['provisioning_profile']
 
-  app.info_plist['parse_app_id'] = 'w73zBja8m0FY17rUC1jtyxXEGSuvvu53NuAf14be'
-  app.info_plist['parse_api_key'] = 'L2JjEVdH1hfTocoxSekJPuQa4kOJ4skPnIQ5zDMx'
+  app.info_plist['parse_app_id'] = config['parse_app_id']
+  app.info_plist['parse_api_key'] = config['parse_api_key']
 end
