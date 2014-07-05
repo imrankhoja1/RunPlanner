@@ -452,6 +452,13 @@ class SimpleLayout < MK::Layout
       @state = :default
       slide_elements
 
+    }
+    send_invites
+
+    background_color UIColor.whiteColor
+  end
+
+  def send_invites
       url = "https://api.parse.com/1/functions/hello"
 
       headers = {
@@ -471,9 +478,6 @@ class SimpleLayout < MK::Layout
       self.controller.navigationController.pushViewController(self.controller.navigationController.delegate.invite_controller, animated: true) if @sent
 
       @sent = !@sent
-    }
-
-    background_color UIColor.whiteColor
   end
 
 
