@@ -1,4 +1,4 @@
-class InvitePageController < UIViewController
+class InviteController < UIViewController
 
   def loadView
     @layout = SimpleLayout2.new

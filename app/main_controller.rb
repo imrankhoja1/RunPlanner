@@ -1,4 +1,4 @@
-class MkController < UIViewController
+class MainController < UIViewController
   def loadView
     @layout = SimpleLayout.new
     @layout.controller = self
@@ -468,7 +468,7 @@ class SimpleLayout < MK::Layout
         end
       end
 
-      self.controller.navigationController.pushViewController(self.controller.navigationController.delegate.invite_page_controller, animated: true) if @sent
+      self.controller.navigationController.pushViewController(self.controller.navigationController.delegate.invite_controller, animated: true) if @sent
 
       @sent = !@sent
     }
