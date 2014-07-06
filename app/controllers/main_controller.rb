@@ -484,14 +484,11 @@ class SimpleLayout < MK::Layout
   end
 
   def send_invites
-    parse_app_id = NSBundle.mainBundle.objectForInfoDictionaryKey('parse_app_id')
-    parse_api_key = NSBundle.mainBundle.objectForInfoDictionaryKey('parse_api_key')
-
     client = AFMotion::Client.build("https://api.parse.com/") do
       request_serializer :json
 
-      header "X-Parse-Application-Id", parse_app_id
-      header "X-Parse-REST-API-Key", parse_api_key
+      header "X-Parse-Application-Id", Config.parse_app_id
+      header "X-Parse-REST-API-Key", Config.parse_api_key
     end
 
     if @sent
