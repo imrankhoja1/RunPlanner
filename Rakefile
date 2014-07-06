@@ -24,4 +24,6 @@ Motion::Project::App.setup do |app|
 
   # pass config object into run-time accessible plist object
   app.info_plist['config'] = config
+
+  app.info_plist['UISupportedInterfaceOrientations'] = ['UIInterfaceOrientationPortrait']
 end
