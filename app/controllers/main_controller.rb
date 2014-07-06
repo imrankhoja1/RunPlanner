@@ -37,6 +37,19 @@ class MainController < UIViewController
     @layout.get(:button_pace_value).on(:touch) {
       pace_clicked
     }
+
+    @layout.get(:button_runners).on(:touch) {
+      @state = :default
+      @layout.slide_elements(@state)
+      @mode = :runners
+      @layout.reflect_state(@state, @mode)
+    }
+    @layout.get(:button_meeting).on(:touch) {
+      @state = :default
+      @layout.slide_elements(@state)
+      @mode = :meeting
+      @layout.reflect_state(@state, @mode)
+    }
   end
 
   def set_delegates
