@@ -5,8 +5,6 @@ class MainController < UIViewController
     self.view = @layout.view
     self.title = "Plan Your Run"
 
-    @contact_list = ContactList.new
-
     init_buttons
     set_delegates
 
@@ -34,15 +32,24 @@ class MainController < UIViewController
     }
 
     @layout.get(:button_pace).on(:touch) {
-      distance_clicked
+      pace_clicked
     }
     @layout.get(:button_pace_value).on(:touch) {
-      distance_clicked
+      pace_clicked
     }
   end
 
   def set_delegates
+    @contact_list = ContactList.new
     @layout.get(:table_invites).dataSource = @contact_list
+
+    @layout.get(:distance_picker).delegate = self
+    @layout.get(:distance_picker).dataSource = self
+    @layout.get(:distance_picker).selectRow(9, inComponent: 0, animated: false)
+
+    @layout.get(:pace_picker).delegate = self
+    @layout.get(:pace_picker).dataSource = self
+    @layout.get(:pace_picker).selectRow(16, inComponent: 0, animated: false)
   end
 
   def toggle_state(new_state)
@@ -51,29 +58,35 @@ class MainController < UIViewController
 
   def date_clicked
     toggle_state(:date_clicked)
+    update_view
     @layout.slide_elements(@state)
   end
 
   def distance_clicked
     toggle_state(:distance_clicked)
+    update_view
     @layout.slide_elements(@state)
   end
 
   def pace_clicked
     toggle_state(:pace_clicked)
+    update_view
     @layout.slide_elements(@state)
   end
 
   def update_view
     if @state == :default
-      @layout.get(:starts_picker).hide
+    elsif @state == :date_clicked
+      @layout.get(:starts_picker).show
       @layout.get(:distance_picker).hide
       @layout.get(:pace_picker).hide
-    elsif @state == :date_clicked
-      @layout.get(:date_picker).show
     elsif @state == :distance_clicked
+      @layout.get(:starts_picker).hide
       @layout.get(:distance_picker).show
+      @layout.get(:pace_picker).hide
     elsif @state == :pace_clicked
+      @layout.get(:starts_picker).hide
+      @layout.get(:distance_picker).hide
       @layout.get(:pace_picker).show
     end
 
@@ -83,6 +96,49 @@ class MainController < UIViewController
     elsif @mode == :meeting
       @layout.get(:button_drop).show
       @layout.get(:map).show
+    end
+  end
+
+  def distance_picker_values
+    @distance_picker_values ||= 0.5.step(20, 0.5).to_a.map{|x| "#{x} mi"}
+  end
+
+  def pace_picker_values
+    @pace_picker_values ||= 5.step(30, 0.25).to_a.map do |x|
+      mins = x.to_i
+      secs = (60 * (x % 1)).to_i.to_s.rjust(2, '0')
+      "#{mins}:#{secs} min/mi"
+    end
+  end
+
+  def numberOfComponentsInPickerView(picker_view)
+    1
+  end
+
+  def pickerView(picker_view, numberOfRowsInComponent: component)
+    if picker_view == @layout.get(:distance_picker)
+      distance_picker_values.size
+    else
+      pace_picker_values.size
+    end
+  end
+
+  def pickerView(picker_view, viewForRow: row, forComponent: component, reusingView: old_view)
+    (old_view || DistancePickerView.new).tap do |asdf|
+      if picker_view == @layout.get(:distance_picker)
+        asdf.label.text = distance_picker_values[row]
+      elsif picker_view == @layout.get(:pace_picker)
+        asdf.label.text = pace_picker_values[row]
+      end
+      asdf
+    end
+  end
+
+  def pickerView(picker_view, didSelectRow: row, inComponent: component)
+    if picker_view == @distance_picker
+      @layout.get(:button_distance_value).setTitle(distance_picker_values[row], forState: UIControlStateNormal)
+    elsif picker_view == @pace_picker
+      @layout.get(:button_pace_value).setTitle(pace_picker_values[row], forState: UIControlStateNormal)
     end
   end
 end

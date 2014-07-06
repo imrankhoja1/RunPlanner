@@ -76,6 +76,29 @@ class MainLayout < MK::Layout
     heights[state][element]
   end
 
+  def pickers
+    @starts_picker = add UIDatePicker, :starts_picker do
+      background_color UIColor.whiteColor
+      frame [[0,64 + 30],['100%','100%']]
+    end
+
+    @distance_picker = add UIPickerView, :distance_picker do
+      background_color UIColor.whiteColor
+      frame [[0,64 + 30 + 30],['100%','100%']]
+    end
+    @distance_picker.tap do |p|
+      p.selectRow(9, inComponent: 0, animated: false)
+    end
+
+    @pace_picker = add UIPickerView, :pace_picker do
+      background_color UIColor.whiteColor
+      frame [[0,64 + 30 + 30 + 30],['100%','100%']]
+    end
+    @pace_picker.tap do |p|
+      p.selectRow(16, inComponent: 0, animated: false)
+    end
+  end
+
   def start_time_selection
     @button_starts = add UIButton, :button_starts do
       sizeToFit
@@ -107,11 +130,6 @@ class MainLayout < MK::Layout
       b.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight
       b.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 6)
     end
-
-    @starts_picker = add UIDatePicker, :starts_picker do
-      background_color UIColor.whiteColor
-      frame [[0,64 + 30],['100%','100%']]
-    end
   end
 
   def distance_selection
@@ -137,15 +155,6 @@ class MainLayout < MK::Layout
     @button_distance_value.tap do |b|
       b.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight
       b.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 6)
-    end
-
-    @distance_picker = add UIPickerView, :distance_picker do
-      background_color UIColor.whiteColor
-      frame [[0,64 + 30 + 30],['100%','100%']]
-    end
-    @distance_picker.tap do |p|
-      p.selectRow(9, inComponent: 0, animated: false)
-      p.hide
     end
   end
 
@@ -175,15 +184,6 @@ class MainLayout < MK::Layout
       b.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight
       b.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 6)
       b.backgroundColor = UIColor.whiteColor
-    end
-
-    @pace_picker = add UIPickerView, :pace_picker do
-      background_color UIColor.whiteColor
-      frame [[0,64 + 30 + 30 + 30],['100%','100%']]
-    end
-    @pace_picker.tap do |p|
-      p.selectRow(16, inComponent: 0, animated: false)
-      p.hide
     end
   end
 
@@ -232,6 +232,7 @@ class MainLayout < MK::Layout
   end
 
   def layout
+    pickers
     start_time_selection
     distance_selection
     pace_selection
@@ -257,7 +258,6 @@ class MainLayout < MK::Layout
     @text_field_contact.tap do |v|
       v.textColor = UIColor.blackColor
       v.backgroundColor = UIColor.whiteColor
-      v.hide
     end
 
     @table_invites = add UITableView, :table_invites do
@@ -304,4 +304,12 @@ class MainLayout < MK::Layout
     })
   end
 
+  def to_front(element_id)
+    get(element_id).show
+    view.bringSubviewToFront(get(element_id))
+  end
+
+  def hide_subviews
+    view.subviews.each{|x| x.hide}
+  end
 end
