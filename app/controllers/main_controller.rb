@@ -499,8 +499,12 @@ class SimpleLayout < MK::Layout
       self.controller.navigationController.pushViewController(invite_controller, animated: true)
     else
       ap invite_params
-      client.post("1/functions/hello", invite_params) do |result|
-        ap result.object if result.object
+      if Config.production?
+        client.post("1/functions/hello", invite_params) do |result|
+          ap result.object if result.object
+        end
+      else
+        puts "in development mode, skipping sms"
       end
     end
 
