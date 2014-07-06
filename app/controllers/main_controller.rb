@@ -55,6 +55,12 @@ class MainController < UIViewController
       @state = :default
       @layout.slide_elements(@state)
     }
+
+    @layout.get(:invite).on(:touch) {
+      @state = :default
+      @layout.slide_elements(@state)
+      #send_invites
+    }
   end
 
   def set_delegates
