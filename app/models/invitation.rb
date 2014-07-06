@@ -26,25 +26,26 @@ class Invitation
   end
 
   def self.send(contacts)
-    client = AFMotion::Client.build("https://api.parse.com/") do
-      request_serializer :json
+    ap invite_params(contacts)
+    if Config.production?
+      client = AFMotion::Client.build("https://api.parse.com/") do
+        request_serializer :json
 
-      header "X-Parse-Application-Id", Config.parse_app_id
-      header "X-Parse-REST-API-Key", Config.parse_api_key
+        header "X-Parse-Application-Id", Config.parse_app_id
+        header "X-Parse-REST-API-Key", Config.parse_api_key
+      end
+
+      client.post("1/functions/hello", invite_params(contacts)) do |result|
+        ap result.object if result.object
+      end
+    else
+      puts "in development mode, skipping sms"
     end
 
     if @sent
       invite_controller = self.controller.navigationController.delegate.invite_controller
       self.controller.navigationController.pushViewController(invite_controller, animated: true)
     else
-      ap invite_params(contacts)
-      if Config.production?
-        client.post("1/functions/hello", invite_params(contacts)) do |result|
-          ap result.object if result.object
-        end
-      else
-        puts "in development mode, skipping sms"
-      end
     end
 
     @sent = !@sent

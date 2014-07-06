@@ -13,6 +13,9 @@ class MainController < UIViewController
     @state = :default
     @mode = :runners
     @layout.reflect_state(@state, @mode)
+
+    # logic for demo purposes
+    @invitation_sent = false
   end
 
   def init_buttons
@@ -61,7 +64,15 @@ class MainController < UIViewController
     @layout.get(:invite).on(:touch) {
       @state = :default
       @layout.slide_elements(@state)
-      Invitation.send(@contact_list.contacts)
+
+      if @invitation_sent
+        invite_controller = navigationController.delegate.invite_controller
+        navigationController.pushViewController(invite_controller, animated: true)
+      else
+        Invitation.send(@contact_list.contacts)
+      end
+
+      @invitation_sent = !@invitation_sent
     }
   end
 
