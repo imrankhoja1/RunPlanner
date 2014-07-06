@@ -27,6 +27,13 @@ class InviteController < UIViewController
     @layout.get(:map).addAnnotation(@point)
   end
 
+  def mapView(map, viewForAnnotation: annotation)
+    MKPinAnnotationView.alloc.initWithAnnotation(annotation, reuseIdentifier: 'pin')
+  end
+
+  def locationManager(manager, didUpdateToLocation:newLocation, fromLocation:oldLocation)
+    puts "Latitude = #{newLocation.coordinate.latitude} Longitude = #{newLocation.coordinate.longitude}"
+  end
 end
 
 class MyAnnotation
@@ -127,14 +134,6 @@ class SimpleLayout2 < MK::Layout
     @label_timer.center = CGPointMake(240, 160)
 
     background_color UIColor.grayColor
-  end
-
-  def mapView(map, viewForAnnotation: annotation)
-    MKPinAnnotationView.alloc.initWithAnnotation(annotation, reuseIdentifier: 'pin')
-  end
-
-  def locationManager(manager, didUpdateToLocation:newLocation, fromLocation:oldLocation)
-    puts "Latitude = #{newLocation.coordinate.latitude} Longitude = #{newLocation.coordinate.longitude}"
   end
 end
 =end
