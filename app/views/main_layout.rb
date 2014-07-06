@@ -1,6 +1,6 @@
 class MainLayout < MK::Layout
 
-  def top(element)
+  def top(element, state=:default)
     px = 216
 
     tops = {
@@ -53,11 +53,10 @@ class MainLayout < MK::Layout
       }
     }
 
-    # tops[@state][element] || tops[:default][element]
-    tops[:default][element]
+    tops[state][element] || tops[:default][element]
   end
 
-  def height(element)
+  def height(element, state=:default)
     px = 216
 
     heights = {
@@ -74,33 +73,10 @@ class MainLayout < MK::Layout
         starts_picker: 216
       }
     }
-    heights[@state][element] || heights[:default][element]
+    heights[state][element]
   end
 
-  def layout
-    @starts_picker = add UIDatePicker, :starts_picker do
-      background_color UIColor.whiteColor
-      frame [[0,64 + 30],['100%','100%']]
-    end
-
-    @distance_picker = add UIPickerView, :distance_picker do
-      background_color UIColor.whiteColor
-      frame [[0,64 + 30 + 30],['100%','100%']]
-    end
-    @distance_picker.tap do |p|
-      p.selectRow(9, inComponent: 0, animated: false)
-      p.hide
-    end
-
-    @pace_picker = add UIPickerView, :distance_picker do
-      background_color UIColor.whiteColor
-      frame [[0,64 + 30 + 30 + 30],['100%','100%']]
-    end
-    @pace_picker.tap do |p|
-      p.selectRow(16, inComponent: 0, animated: false)
-      p.hide
-    end
-
+  def start_time_selection
     @button_starts = add UIButton, :button_starts do
       sizeToFit
       frame [[0,top(:button_starts)],['33%',30]]
@@ -113,7 +89,6 @@ class MainLayout < MK::Layout
       b.titleLabel.font = UIFont.fontWithName("Helvetica-Bold", size: 16)
       b
     end
-
     @button_starts_date = add UIButton, :button_starts_date do
       background_color UIColor.whiteColor
       title "Today"
@@ -121,7 +96,6 @@ class MainLayout < MK::Layout
       sizeToFit
       frame [['33%',top(:button_starts_date)],['33%',30]]
     end
-
     @button_starts_time = add UIButton, :button_starts_time do
       background_color UIColor.whiteColor
       title (Time.now + 30*60).strftime("%l:%M %p")
@@ -134,6 +108,13 @@ class MainLayout < MK::Layout
       b.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 6)
     end
 
+    @starts_picker = add UIDatePicker, :starts_picker do
+      background_color UIColor.whiteColor
+      frame [[0,64 + 30],['100%','100%']]
+    end
+  end
+
+  def distance_selection
     @button_distance = add UIButton, :button_distance do
       sizeToFit
       frame [[0,top(:button_distance)],['50%',30]]
@@ -146,7 +127,6 @@ class MainLayout < MK::Layout
       b.titleLabel.font = UIFont.fontWithName("Helvetica-Bold", size: 16)
       b.backgroundColor = UIColor.whiteColor
     end
-
     @button_distance_value = add UIButton, :button_distance_value do
       background_color UIColor.whiteColor
       title "5.0 mi"
@@ -159,6 +139,17 @@ class MainLayout < MK::Layout
       b.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 6)
     end
 
+    @distance_picker = add UIPickerView, :distance_picker do
+      background_color UIColor.whiteColor
+      frame [[0,64 + 30 + 30],['100%','100%']]
+    end
+    @distance_picker.tap do |p|
+      p.selectRow(9, inComponent: 0, animated: false)
+      p.hide
+    end
+  end
+
+  def pace_selection
     @button_pace = add UIButton, :button_pace do
       background_color UIColor.whiteColor
       title "Target Pace"
@@ -174,7 +165,6 @@ class MainLayout < MK::Layout
       b.titleLabel.font = UIFont.fontWithName("Helvetica-Bold", size: 16)
       b.backgroundColor = UIColor.whiteColor
     end
-
     @button_pace_value = add UIButton, :button_pace_value do
       sizeToFit
       frame [['50%',top(:button_pace_value)],['50%',30]]
@@ -187,6 +177,17 @@ class MainLayout < MK::Layout
       b.backgroundColor = UIColor.whiteColor
     end
 
+    @pace_picker = add UIPickerView, :pace_picker do
+      background_color UIColor.whiteColor
+      frame [[0,64 + 30 + 30 + 30],['100%','100%']]
+    end
+    @pace_picker.tap do |p|
+      p.selectRow(16, inComponent: 0, animated: false)
+      p.hide
+    end
+  end
+
+  def runners_meeting
     @button_runners = add UIButton, :button_runners do
       background_color UIColor.whiteColor
       title "Runners"
@@ -208,7 +209,9 @@ class MainLayout < MK::Layout
     @button_meeting.tap do |b|
       b.titleLabel.font = UIFont.fontWithName("Helvetica", size: 14)
     end
+  end
 
+  def pin_drop
     @button_drop = add UIButton, :button_drop do
       background_color UIColor.whiteColor
       title "Drop a Pin"
@@ -219,11 +222,22 @@ class MainLayout < MK::Layout
     @button_drop.tap do |b|
       b.titleLabel.font = UIFont.fontWithName("Helvetica-Bold", size: 18)
     end
+  end
 
+  def map
     @map = add MKMapView, :map do
       sizeToFit
       frame [[0,top(:map)],['100%','100%']]
     end
+  end
+
+  def layout
+    start_time_selection
+    distance_selection
+    pace_selection
+    runners_meeting
+    pin_drop
+    map
 
     @label_contact = add UIButton, :label_contact do
       sizeToFit
@@ -265,6 +279,29 @@ class MainLayout < MK::Layout
     end
 
     background_color UIColor.whiteColor
+  end
+
+  def slide_vert(view, new_top)
+    center = view.center
+    center.y = new_top + (view.frame.size.height / 2)
+    view.center = center
+  end
+
+  def slide_elements(state)
+    UIView.animateWithDuration(0.35, delay: 0, options: UIViewAnimationOptionCurveEaseInOut, animations: lambda {
+      slide_vert(@button_distance, top(:button_distance, state))
+      slide_vert(@button_distance_value, top(:button_distance_value, state))
+      slide_vert(@button_pace, top(:button_pace, state))
+      slide_vert(@button_pace_value, top(:button_pace_value, state))
+      slide_vert(@button_runners, top(:button_runners, state))
+      slide_vert(@button_meeting, top(:button_meeting, state))
+      slide_vert(@button_drop, top(:button_drop, state))
+      slide_vert(@map, top(:map, state))
+      slide_vert(@label_contact, top(:text_field_contact, state))
+      slide_vert(@text_field_contact, top(:text_field_contact, state))
+      slide_vert(@table_invites, top(:table_invites, state))
+    }, completion: lambda { |x|
+    })
   end
 
 end

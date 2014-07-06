@@ -1,10 +1,82 @@
 class MainController < UIViewController
   def loadView
     @layout = MainLayout.new
-    #@layout.controller = self
 
     self.view = @layout.view
     self.title = "Plan Your Run"
+
+    init_buttons
+
+    @state = :default
+    @mode = :runners
+    update_view
+  end
+
+  def toggle_state(new_state)
+    @state = @state == new_state ? :default : new_state
+  end
+
+  def date_clicked
+    toggle_state(:date_clicked)
+    @layout.slide_elements(@state)
+  end
+
+  def distance_clicked
+    toggle_state(:distance_clicked)
+    @layout.slide_elements(@state)
+  end
+
+  def pace_clicked
+    toggle_state(:pace_clicked)
+    @layout.slide_elements(@state)
+  end
+
+  def init_buttons
+    @layout.get(:button_starts).on(:touch) {
+      date_clicked
+    }
+    @layout.get(:button_starts_date).on(:touch) {
+      date_clicked
+    }
+    @layout.get(:button_starts_time).on(:touch) {
+      date_clicked
+    }
+
+    @layout.get(:button_distance).on(:touch) {
+      distance_clicked
+    }
+    @layout.get(:button_distance_value).on(:touch) {
+      distance_clicked
+    }
+
+    @layout.get(:button_pace).on(:touch) {
+      distance_clicked
+    }
+    @layout.get(:button_pace_value).on(:touch) {
+      distance_clicked
+    }
+  end
+
+  def update_view
+    if @state == :default
+      @layout.get(:starts_picker).hide
+      @layout.get(:distance_picker).hide
+      @layout.get(:pace_picker).hide
+    elsif @state == :date_clicked
+      @layout.get(:date_picker).show
+    elsif @state == :distance_clicked
+      @layout.get(:distance_picker).show
+    elsif @state == :pace_clicked
+      @layout.get(:pace_picker).show
+    end
+
+    if @mode == :runners
+      @layout.get(:button_drop).hide
+      @layout.get(:map).hide
+    elsif @mode == :meeting
+      @layout.get(:button_drop).show
+      @layout.get(:map).show
+    end
   end
 end
 
