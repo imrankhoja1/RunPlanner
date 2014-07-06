@@ -19,6 +19,9 @@ Motion::Project::App.setup do |app|
   app.frameworks += ["CoreLocation", "MapKit", "AddressBook"]
   app.provisioning_profile = config['provisioning_profile']
 
+  # prepend config.rb to loaded ruby files
+  app.files.unshift(File.join(app.project_dir, 'config/config.rb'))
+
   app.info_plist['parse_app_id'] = config['parse_app_id']
   app.info_plist['parse_api_key'] = config['parse_api_key']
 end
