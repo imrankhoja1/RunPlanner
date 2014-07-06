@@ -5,6 +5,8 @@ class MainController < UIViewController
     self.view = @layout.view
     self.title = "Plan Your Run"
 
+    @contact_list = ContactList.new
+
     init_buttons
     set_delegates
 
@@ -76,6 +78,8 @@ class MainController < UIViewController
     @layout.get(:pace_picker).delegate = self
     @layout.get(:pace_picker).dataSource = self
     @layout.get(:pace_picker).selectRow(16, inComponent: 0, animated: false)
+
+    @layout.get(:text_field_contact).delegate = self
   end
 
   def toggle_state(new_state)
@@ -151,35 +155,32 @@ class MainController < UIViewController
       @layout.get(:button_pace_value).setTitle(pace_picker_values[row], forState: UIControlStateNormal)
     end
   end
+
+  def textFieldShouldReturn(text_field)
+    text_field.resignFirstResponder
+  end
+
+  def tableView(table_view, numberOfRowsInSection:section)
+    @contact_list.contacts.size
+  end
+
+  def tableView(table_view, cellForRowAtIndexPath: index_path)
+    contacts = @contact_list.contacts
+
+    row = index_path.row
+    reuse_id = "table_id_#{row}"
+    cell = table_view.dequeueReusableCellWithIdentifier(reuse_id) || begin
+      UITableViewCell.alloc.initWithStyle(UITableViewCellStyleDefault, reuseIdentifier: reuse_id)
+    end
+    cell.textLabel.text = "#{contacts[row][:first_name]} #{contacts[row][:last_name]}"
+    cell
+  end
 end
 
 =begin
 class SimpleLayout < MK::Layout
 
   def layout
-
-    @text_field_contact = add UITextField, :text_field_contact do
-      frame [['15%',top(:text_field_contact)],['85%',28]]
-    end
-    @text_field_contact.tap do |v|
-      v.textColor = UIColor.blackColor
-      v.backgroundColor = UIColor.whiteColor
-      v.hide
-      v.delegate = self
-    end
-
-    @table_invites = add UITableView, :table_invites do
-      frame [[0,top(:table_invites)],['100%', '100%']]
-    end
-    @table_invites.tap do |t|
-      #t.backgroundView.backgroundColor = UIColor.grayColor
-      t.delegate = t.dataSource = self
-    end
-
-    # highlight runners/meeting
-    update_mode
-
-
     @invite_cont = add UILabel, :invite_cont do
       background_color UIColor.whiteColor
       sizeToFit
@@ -205,32 +206,6 @@ class SimpleLayout < MK::Layout
     background_color UIColor.whiteColor
   end
 
-  def invite_params
-    first_names = []
-    last_names = []
-    phones = []
-    people.each_with_index do |x,i|
-      first_names << x[:first_name]
-      last_names << x[:last_name]
-      phones << x[:phones][0][:value]
-    end
-    {
-      "from" => {
-        "first_name" => "Ben",
-        "last_name" => "Miller",
-        "phone" => "+16178602901"
-      },
-      "info" => {
-        "miles" => "5.5",
-        "time" => "5:45 PM",
-        "pace" => "9:00"
-      },
-      "first_names" => first_names,
-      "last_names" => last_names,
-      "phones" => phones
-    }
-  end
-
   def send_invites
     client = AFMotion::Client.build("https://api.parse.com/") do
       request_serializer :json
@@ -254,25 +229,6 @@ class SimpleLayout < MK::Layout
     end
 
     @sent = !@sent
-  end
-
-  # contact list stuff
-  def textFieldShouldReturn(text_field)
-    text_field.resignFirstResponder
-  end
-
-  def tableView(table_view, numberOfRowsInSection:section)
-    people.size
-  end
-
-  def tableView(table_view, cellForRowAtIndexPath: index_path)
-    row = index_path.row
-    reuse_id = "table_id_#{row}"
-    cell = table_view.dequeueReusableCellWithIdentifier(reuse_id) || begin
-      UITableViewCell.alloc.initWithStyle(UITableViewCellStyleDefault, reuseIdentifier: reuse_id)
-    end
-    cell.textLabel.text = "#{people[row][:first_name]} #{people[row][:last_name]}"
-    cell
   end
 
 end
