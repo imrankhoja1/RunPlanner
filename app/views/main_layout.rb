@@ -261,9 +261,9 @@ class MainLayout < MK::Layout
   end
 
   def map
-    @map = add MKMapView, :map do
+    @map = add MapKit::MapView, :map do
       sizeToFit
-      frame [[0,top(:map)],['100%','100%']]
+      frame [[0,top(:map)],['100%',270]]
     end
   end
 

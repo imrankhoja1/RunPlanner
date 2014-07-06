@@ -9,6 +9,7 @@ class MainController < UIViewController
 
     init_buttons
     set_delegates
+    init_map
 
     @state = :default
     @mode = :runners
@@ -90,6 +91,16 @@ class MainController < UIViewController
     @layout.get(:pace_picker).selectRow(16, inComponent: 0, animated: false)
 
     @layout.get(:text_field_contact).delegate = self
+  end
+
+  def init_map
+    @location_manager = CLLocationManager.alloc.init
+    @location_manager.delegate = self
+    @location_manager.startUpdatingLocation
+    @location_manager.purpose = "asdf"
+    @layout.get(:map).region = MapKit::CoordinateRegion.new(@location_manager.location.coordinate, [3.5, 3.5])
+    @layout.get(:map).shows_user_location = true
+    @layout.get(:map).set_zoom_level(15)
   end
 
   def toggle_state(new_state)
@@ -184,5 +195,14 @@ class MainController < UIViewController
     end
     cell.textLabel.text = "#{contacts[row][:first_name]} #{contacts[row][:last_name]}"
     cell
+  end
+
+  def mapView(map, viewForAnnotation: annotation)
+    MKPinAnnotationView.alloc.initWithAnnotation(annotation, reuseIdentifier: 'pin')
+  end
+
+  def locationManager(manager, didUpdateToLocation: newLocation, fromLocation: oldLocation)
+    puts "Latitude = #{newLocation.coordinate.latitude} Longitude = #{newLocation.coordinate.longitude}"
+    #@layout.get(:map).region.center = newLocation.coordinate
   end
 end
