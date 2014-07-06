@@ -4,7 +4,7 @@ class InviteController < UIViewController
     @layout = SimpleLayout2.new
     self.view = @layout.view
 
-    self.title = "We Run"
+    self.title = Constants::AppTitle
   end
 
 end

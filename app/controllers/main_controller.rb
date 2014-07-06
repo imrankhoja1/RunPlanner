@@ -3,7 +3,7 @@ class MainController < UIViewController
     @layout = MainLayout.new
 
     self.view = @layout.view
-    self.title = "Plan Your Run"
+    self.title = Constants::AppTitle
 
     @contact_list = ContactList.new
 
