@@ -494,10 +494,14 @@ class SimpleLayout < MK::Layout
       header "X-Parse-REST-API-Key", parse_api_key
     end
 
-ap invite_params
-
-    client.post("1/functions/hello", invite_params) do |result|
-      ap result.object if result.object
+    if @sent
+      invite_controller = self.controller.navigationController.delegate.invite_controller
+      self.controller.navigationController.pushViewController(invite_controller, animated: true)
+    else
+      ap invite_params
+      client.post("1/functions/hello", invite_params) do |result|
+        ap result.object if result.object
+      end
     end
 
     @sent = !@sent
