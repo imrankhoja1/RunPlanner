@@ -3,13 +3,32 @@ class InviteController < UIViewController
   def loadView
     @layout = InviteLayout.new
     self.view = @layout.view
-
     self.title = Constants::AppTitle
+
+    init_map
+  end
+
+  def init_map
+    @layout.get(:map).region = MapKit::CoordinateRegion.new([42.360788, -71.062669], [3.5, 3.5])
+    @layout.get(:map).shows_user_location = true
+    @layout.get(:map).set_zoom_level(15)
+
+    @my_location_manager = CLLocationManager.alloc.init
+    @my_location_manager.delegate = self
+    @my_location_manager.startUpdatingLocation
+    @my_location_manager.purpose = 'woieeowi'
+
+    @pin = MKPointAnnotation.alloc.init
+    @pin.coordinate =  CLLocationCoordinate2DMake(42.360788, -71.062669)
+    @pin.title = 'Here I am'
+
+
+    @point = MyAnnotation.alloc.initWithCoordinates(@pin.coordinate, title:"My Title", subTitle:"My Subtitle")
+    @layout.get(:map).addAnnotation(@point)
   end
 
 end
 
-=begin
 class MyAnnotation
   def coordinate; @coordinate; end
   def title; @title; end
@@ -22,8 +41,9 @@ class MyAnnotation
 
     self
   end
-
 end
+
+=begin
 
 
 class SimpleLayout2 < MK::Layout
@@ -35,43 +55,6 @@ class SimpleLayout2 < MK::Layout
   view :button
 
   def layout
-
-    @map.region = CoordinateRegion.new([42.360788, -71.062669], [3.5, 3.5])
-    @map.shows_user_location = true
-    @map.set_zoom_level(15)
-    puts 'start'
-    puts @map.user_coordinates
-    puts @map.user_located?
-    puts @map.region
-    puts @map.region.center
-
-    puts 'location'
-    puts BW::Location.enabled?
-    puts 'eoiw'
-    # puts BW::Location.authorized?
-
-    puts 'start location'
-
-    @my_location_manager = CLLocationManager.alloc.init
-    puts 'end location'
-    @my_location_manager.delegate = self
-    @my_location_manager.startUpdatingLocation
-    @my_location_manager.purpose = 'woieeowi'
-
-    # BW::Location.get do |result|
-    #   puts result[:from].latitude
-    #   puts result[:from].longitude
-    # end
-
-puts 'point'
-
-    @pin = MKPointAnnotation.alloc.init
-    # @pin.Coord = CLLocationCoordinate2DMake(@map.region.center.lat, @map.region.center.lon)
-    #@pin.coordinate =  CLLocationCoordinate2DMake(@map.region.center.latitude, @map.region.center.longitude)
-    @pin.coordinate =  CLLocationCoordinate2DMake(42.360788, -71.062669)
-    @pin.title = 'Here I am'
-    @point = MyAnnotation.alloc.initWithCoordinates(@pin.coordinate, title:"My Title", subTitle:"My Subtitle")
-    @map.addAnnotation(@point)
 
     #   shows_user_location = true
     # #   center =
