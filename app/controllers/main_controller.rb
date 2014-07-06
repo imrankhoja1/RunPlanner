@@ -43,6 +43,8 @@ class MainController < UIViewController
     @contact_list = ContactList.new
     @layout.get(:table_invites).dataSource = @contact_list
 
+    @layout.get(:starts_picker).addTarget(self, action: 'update_date', forControlEvents: UIControlEventValueChanged)
+
     @layout.get(:distance_picker).delegate = self
     @layout.get(:distance_picker).dataSource = self
     @layout.get(:distance_picker).selectRow(9, inComponent: 0, animated: false)
@@ -97,6 +99,15 @@ class MainController < UIViewController
       @layout.get(:button_drop).show
       @layout.get(:map).show
     end
+  end
+
+  def update_date
+    # Ruby Motion automatically converts NSDate objects into Ruby Time objects
+    date = @layout.get(:starts_picker).date.strftime("%a %b %e")
+    date = "Today" if date == Time.now.strftime("%a %b %e")
+    time = @layout.get(:starts_picker).date.strftime("%l:%M %p")
+    @layout.get(:button_starts_date).setTitle(date, forState: UIControlStateNormal)
+    @layout.get(:button_starts_time).setTitle(time, forState: UIControlStateNormal)
   end
 
   def distance_picker_values
