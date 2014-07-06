@@ -10,7 +10,7 @@ class MainController < UIViewController
 
     @state = :default
     @mode = :runners
-    update_view
+    @layout.reflect_state(@state, @mode)
   end
 
   def init_buttons
@@ -60,45 +60,20 @@ class MainController < UIViewController
 
   def date_clicked
     toggle_state(:date_clicked)
-    update_view
+    @layout.reflect_state(@state, @mode)
     @layout.slide_elements(@state)
   end
 
   def distance_clicked
     toggle_state(:distance_clicked)
-    update_view
+    @layout.reflect_state(@state, @mode)
     @layout.slide_elements(@state)
   end
 
   def pace_clicked
     toggle_state(:pace_clicked)
-    update_view
+    @layout.reflect_state(@state, @mode)
     @layout.slide_elements(@state)
-  end
-
-  def update_view
-    if @state == :default
-    elsif @state == :date_clicked
-      @layout.get(:starts_picker).show
-      @layout.get(:distance_picker).hide
-      @layout.get(:pace_picker).hide
-    elsif @state == :distance_clicked
-      @layout.get(:starts_picker).hide
-      @layout.get(:distance_picker).show
-      @layout.get(:pace_picker).hide
-    elsif @state == :pace_clicked
-      @layout.get(:starts_picker).hide
-      @layout.get(:distance_picker).hide
-      @layout.get(:pace_picker).show
-    end
-
-    if @mode == :runners
-      @layout.get(:button_drop).hide
-      @layout.get(:map).hide
-    elsif @mode == :meeting
-      @layout.get(:button_drop).show
-      @layout.get(:map).show
-    end
   end
 
   def update_date

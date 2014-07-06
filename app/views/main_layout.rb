@@ -1,5 +1,41 @@
 class MainLayout < MK::Layout
 
+  def reflect_state(state, mode)
+    if state == :default
+    elsif state == :date_clicked
+      @starts_picker.show
+      @distance_picker.hide
+      @pace_picker.hide
+    elsif state == :distance_clicked
+      @starts_picker.hide
+      @distance_picker.show
+      @pace_picker.hide
+    elsif state == :pace_clicked
+      @starts_picker.hide
+      @distance_picker.hide
+      @pace_picker.show
+    end
+
+    if mode == :runners
+      @button_runners.backgroundColor = UIColor.grayColor
+      @button_meeting.backgroundColor = UIColor.whiteColor
+      @map.hide
+      @label_contact.show
+      @text_field_contact.show
+      @table_invites.show
+      @button_drop.hide
+    elsif mode == :meeting
+      @button_runners.backgroundColor = UIColor.whiteColor
+      @button_meeting.backgroundColor = UIColor.grayColor
+      @button_drop.hide
+      @label_contact.hide
+      @text_field_contact.hide
+      @table_invites.hide
+      @map.show
+      @button_drop.show
+    end
+  end
+
   def top(element, state=:default)
     px = 216
 
