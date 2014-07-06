@@ -61,12 +61,11 @@ class MainController < UIViewController
     @layout.get(:invite).on(:touch) {
       @state = :default
       @layout.slide_elements(@state)
-      #send_invites
+      Invitation.send(@contact_list.contacts)
     }
   end
 
   def set_delegates
-    @contact_list = ContactList.new
     @layout.get(:table_invites).dataSource = @contact_list
 
     @layout.get(:starts_picker).addTarget(self, action: 'update_date', forControlEvents: UIControlEventValueChanged)
@@ -176,60 +175,3 @@ class MainController < UIViewController
     cell
   end
 end
-
-=begin
-class SimpleLayout < MK::Layout
-
-  def layout
-    @invite_cont = add UILabel, :invite_cont do
-      background_color UIColor.whiteColor
-      sizeToFit
-      frame [[0,top(:invite_cont)],['100%',70]]
-    end
-
-    @invite = add UIButton, :invite do
-      background_color UIColor.colorWithRed(0.118, green:0.541, blue:0.545, alpha:1.0)
-      title "Send Run Invite"
-      title_color UIColor.whiteColor
-      sizeToFit
-      frame [['5%',top(:invite)],['90%',50]]
-    end
-    @invite.tap do |b|
-    end
-    @invite.on(:touch) {
-      puts "invite"
-      @state = :default
-      slide_elements
-      send_invites
-    }
-
-    background_color UIColor.whiteColor
-  end
-
-  def send_invites
-    client = AFMotion::Client.build("https://api.parse.com/") do
-      request_serializer :json
-
-      header "X-Parse-Application-Id", Config.parse_app_id
-      header "X-Parse-REST-API-Key", Config.parse_api_key
-    end
-
-    if @sent
-      invite_controller = self.controller.navigationController.delegate.invite_controller
-      self.controller.navigationController.pushViewController(invite_controller, animated: true)
-    else
-      ap invite_params
-      if Config.production?
-        client.post("1/functions/hello", invite_params) do |result|
-          ap result.object if result.object
-        end
-      else
-        puts "in development mode, skipping sms"
-      end
-    end
-
-    @sent = !@sent
-  end
-
-end
-=end
