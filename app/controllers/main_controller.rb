@@ -5,30 +5,14 @@ class MainController < UIViewController
     self.view = @layout.view
     self.title = "Plan Your Run"
 
+    @contact_list = ContactList.new
+
     init_buttons
+    set_delegates
 
     @state = :default
     @mode = :runners
     update_view
-  end
-
-  def toggle_state(new_state)
-    @state = @state == new_state ? :default : new_state
-  end
-
-  def date_clicked
-    toggle_state(:date_clicked)
-    @layout.slide_elements(@state)
-  end
-
-  def distance_clicked
-    toggle_state(:distance_clicked)
-    @layout.slide_elements(@state)
-  end
-
-  def pace_clicked
-    toggle_state(:pace_clicked)
-    @layout.slide_elements(@state)
   end
 
   def init_buttons
@@ -55,6 +39,29 @@ class MainController < UIViewController
     @layout.get(:button_pace_value).on(:touch) {
       distance_clicked
     }
+  end
+
+  def set_delegates
+    @layout.get(:table_invites).dataSource = @contact_list
+  end
+
+  def toggle_state(new_state)
+    @state = @state == new_state ? :default : new_state
+  end
+
+  def date_clicked
+    toggle_state(:date_clicked)
+    @layout.slide_elements(@state)
+  end
+
+  def distance_clicked
+    toggle_state(:distance_clicked)
+    @layout.slide_elements(@state)
+  end
+
+  def pace_clicked
+    toggle_state(:pace_clicked)
+    @layout.slide_elements(@state)
   end
 
   def update_view
