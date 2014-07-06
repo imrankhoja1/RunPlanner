@@ -22,6 +22,6 @@ Motion::Project::App.setup do |app|
   # prepend config.rb to loaded ruby files
   app.files.unshift(File.join(app.project_dir, 'config/config.rb'))
 
-  app.info_plist['parse_app_id'] = config['parse_app_id']
-  app.info_plist['parse_api_key'] = config['parse_api_key']
+  # pass config object into run-time accessible plist object
+  app.info_plist['config'] = config
 end
