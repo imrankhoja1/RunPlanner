@@ -1,13 +1,14 @@
 class MainController < UIViewController
   def loadView
-    @layout = SimpleLayout.new
-    @layout.controller = self
-    
+    @layout = MainLayout.new
+    #@layout.controller = self
+
     self.view = @layout.view
     self.title = "Plan Your Run"
   end
 end
 
+=begin
 class SimpleLayout < MK::Layout
   attr_accessor :controller
 
@@ -20,82 +21,6 @@ class SimpleLayout < MK::Layout
     # mock it for now
     [{:first_name => "Imran", :last_name => "Khoja", :phones => [{:value => '+16172302397', :label => 'Mobile'}]},
      {:first_name => "Emily", :last_name => "Little", :phones => [{:value => '+16172302397', :label => 'Mobile'}]}]
-  end
-
-  def top(element)
-    px = 216
-
-    tops = {
-      default: {
-        button_starts:         64,
-        button_starts_date:    64,
-        button_starts_time:    64,
-        button_distance:       64 + 30,
-        button_distance_value: 64 + 30,
-        button_pace:           64 + 30 + 30,
-        button_pace_value:     64 + 30 + 30,
-        button_runners:        64 + 30 + 30 + 30,
-        button_meeting:        64 + 30 + 30 + 30,
-        button_drop:           64 + 30 + 30 + 30 + 24,
-        map:                   64 + 30 + 30 + 30 + 24 + 50,
-        text_field_contact:    64 + 30 + 30 + 30 + 24,
-        table_invites:         64 + 30 + 30 + 30 + 24 + 28,
-        invite_cont:           64 + 30 + 30 + 30 + 24 + 50 + 270,
-        invite:                64 + 30 + 30 + 30 + 24 + 50 + 280
-      },
-      date_clicked: {
-        button_distance:       64 + 30 + px,
-        button_distance_value: 64 + 30 + px,
-        button_pace:           64 + 30 + 30 + px,
-        button_pace_value:     64 + 30 + 30 + px,
-        button_runners:        64 + 30 + 30 + 30 + px,
-        button_meeting:        64 + 30 + 30 + 30 + px,
-        button_drop:           64 + 30 + 30 + 30 + 24 + px,
-        map:                   64 + 30 + 30 + 30 + 24 + 50 + px,
-        text_field_contact:    64 + 30 + 30 + 30 + 24 + px,
-        table_invites:         64 + 30 + 30 + 30 + 24 + 28 + px
-      },
-      distance_clicked: {
-        button_pace:        64 + 30 + 30 + px,
-        button_pace_value:  64 + 30 + 30 + px,
-        button_runners:     64 + 30 + 30 + 30 + px,
-        button_meeting:     64 + 30 + 30 + 30 + px,
-        button_drop:        64 + 30 + 30 + 30 + 24 + px,
-        map:                64 + 30 + 30 + 30 + 24 + 50 + px,
-        text_field_contact: 64 + 30 + 30 + 30 + 24 + px,
-        table_invites:      64 + 30 + 30 + 30 + 24 + 28 + px
-      },
-      pace_clicked: {
-        button_runners:     64 + 30 + 30 + 30 + px,
-        button_meeting:     64 + 30 + 30 + 30 + px,
-        button_drop:        64 + 30 + 30 + 30 + 24 + px,
-        map:                64 + 30 + 30 + 30 + 24 + 50 + px,
-        text_field_contact: 64 + 30 + 30 + 30 + 24 + px,
-        table_invites:      64 + 30 + 30 + 30 + 24 + 28 + px
-      }
-    }
-
-    tops[@state][element] || tops[:default][element]
-  end
-
-  def height(element)
-    px = 216
-
-    heights = {
-      default: {
-        map: px
-      },
-      date_clicked: {
-        map: 0
-      },
-      distance_clicked: {
-        starts_picker: 216
-      },
-      pace_clicked: {
-        starts_picker: 216
-      }
-    }
-    heights[@state][element] || heights[:default][element]
   end
 
   # this is a special attr method that calls `layout` if the view hasn't been
@@ -573,3 +498,4 @@ class SimpleLayout < MK::Layout
   end
 
 end
+=end
