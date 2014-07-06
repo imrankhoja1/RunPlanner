@@ -50,6 +50,11 @@ class MainController < UIViewController
       @mode = :meeting
       @layout.reflect_state(@state, @mode)
     }
+
+    @layout.get(:button_drop).on(:touch) {
+      @state = :default
+      @layout.slide_elements(@state)
+    }
   end
 
   def set_delegates
