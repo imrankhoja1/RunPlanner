@@ -1,4 +1,5 @@
 class MainController < UIViewController
+
   def loadView
     @layout = MainLayout.new
 
@@ -70,7 +71,7 @@ class MainController < UIViewController
         invite_controller = navigationController.delegate.invite_controller
         navigationController.pushViewController(invite_controller, animated: true)
       else
-        Invitation.send(@contact_list.contacts)
+        RunSession.send(@contact_list.contacts)
       end
 
       @invitation_sent = !@invitation_sent
