@@ -99,6 +99,7 @@ class MainController < UIViewController
     @location_manager.delegate = self
     @location_manager.startUpdatingLocation
     @location_manager.purpose = "asdf"
+
     @layout.get(:map).region = MapKit::CoordinateRegion.new(@location_manager.location.coordinate, [3.5, 3.5])
     @layout.get(:map).shows_user_location = true
     @layout.get(:map).set_zoom_level(15)

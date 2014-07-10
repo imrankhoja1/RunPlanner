@@ -16,7 +16,13 @@ config = Psych.load(File.open('./config/settings.yml'))
 
 Motion::Project::App.setup do |app|
   app.name = 'RunPlanner'
-  app.frameworks += ["CoreLocation", "MapKit", "AddressBook"]
+  app.identifier = 'com.werunplanner'
+  app.frameworks += ["CoreLocation", "MapKit", "AddressBook", "StoreKit"]
+
+  app.pods do
+    pod 'Parse-iOS-SDK'
+  end
+
   app.provisioning_profile = config['provisioning_profile']
 
   # prepend config.rb to loaded ruby files
@@ -26,4 +32,12 @@ Motion::Project::App.setup do |app|
   app.info_plist['config'] = config
 
   app.info_plist['UISupportedInterfaceOrientations'] = ['UIInterfaceOrientationPortrait']
+
+  app.entitlements['keychain-access-groups'] = [
+    app.seed_id + '.' + app.identifier
+  ]
+  app.entitlements['aps-environment'] = 'development'
+  app.entitlements['get-task-allow'] = true
+
+  app.info_plist['Bundle identifier'] = 'com.werunplanner.RunPlanner'
 end

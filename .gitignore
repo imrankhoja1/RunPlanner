@@ -1,5 +1,6 @@
 .repl_history
 build
 vendor/Pods
+vendor/Parse.framework
 config/settings.yml
 notes
