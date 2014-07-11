@@ -206,5 +206,6 @@ class MainController < UIViewController
   def locationManager(manager, didUpdateToLocation: newLocation, fromLocation: oldLocation)
     puts "Latitude = #{newLocation.coordinate.latitude} Longitude = #{newLocation.coordinate.longitude}"
     #@layout.get(:map).region.center = newLocation.coordinate
+    RunSession.update_location_if_active(newLocation.coordinate)
   end
 end

@@ -1,4 +1,9 @@
 class RunSession
+  @@active = false
+
+  def self.active?
+    @@active
+  end
 
   def self.invite_params(contacts)
     first_names = []
@@ -44,6 +49,30 @@ class RunSession
     ap json
 
     client.post("1/functions/invite_runners", json) do |result|
+      if result.object
+        ap result.object
+        @@active = true
+      end
+    end
+  end
+
+  def self.update_location_if_active(coordinate)
+    return if !@@active
+
+    json = {
+      "user" => "",
+      "lat" => coordinate.latitude,
+      "lon" => coordinate.longitude,
+      "session_id" => "ZnrnxN0Vg1"
+    }
+
+    client = AFMotion::Client.build("https://api.parse.com/") do
+      request_serializer :json
+
+      header "X-Parse-Application-Id", Config.parse_app_id
+      header "X-Parse-REST-API-Key", Config.parse_api_key
+    end
+    client.post("1/functions/update_location", json) do |result|
       if result.object
         ap result.object
       end
