@@ -48,7 +48,6 @@ class RunSession
         ap result.object
         puts "run_session_id: #{result.object["result"]["run_session"]["objectId"]}"
       end
-      ap result.object if result.object
     end
   end
 end

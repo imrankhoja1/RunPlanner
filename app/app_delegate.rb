@@ -21,9 +21,27 @@ class AppDelegate
 
   def application(application, didRegisterForRemoteNotificationsWithDeviceToken: device_token)
     NSLog("token: %@", device_token)
-    installation = PFInstallation.currentInstallation
-    installation.setDeviceTokenFromData(device_token)
-    installation.saveInBackground
+
+    json = {
+      "user" => "Ben"
+    }
+    client = AFMotion::Client.build("https://api.parse.com/") do
+      request_serializer :json
+
+      header "X-Parse-Application-Id", Config.parse_app_id
+      header "X-Parse-REST-API-Key", Config.parse_api_key
+    end
+    client.post("1/functions/get_user_id", json) do |result|
+      if result.object
+        NSLog("parse api user id: %@", result.object["result"]["user"]["objectId"])
+
+        installation = PFInstallation.currentInstallation
+        installation.channels = [result.object["result"]["user"]["objectId"]]
+        installation.setDeviceTokenFromData(device_token)
+        installation.saveInBackground
+      end
+    end
+
   end
 
   def application(application, didFailToRegisterForRemoteNotificationsWithError: error)
