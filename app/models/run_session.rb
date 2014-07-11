@@ -36,7 +36,7 @@ class RunSession
     end
 
     json = {
-      "user" => "Ben",
+      "user" => "Imran",
       "lat" => 37.7858276367188,
       "lon" => -122.406417,
       "runners" => invite_params(contacts)["first_names"]
@@ -46,7 +46,6 @@ class RunSession
     client.post("1/functions/invite_runners", json) do |result|
       if result.object
         ap result.object
-        puts "run_session_id: #{result.object["result"]["run_session"]["objectId"]}"
       end
     end
   end
