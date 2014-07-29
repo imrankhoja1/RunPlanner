@@ -20,7 +20,14 @@ class MainController < UIViewController
     @invitation_sent = false
   end
 
+  def nav_to_invite_page
+    invite_controller = navigationController.delegate.invite_controller
+    navigationController.pushViewController(invite_controller, animated: true)
+  end
+
   def init_buttons
+    self.navigationItem.rightBarButtonItem = UIBarButtonItem.alloc.initWithTitle("Invites", style: UIBarButtonItemStylePlain, target: self, action: "nav_to_invite_page")
+
     @layout.get(:button_starts).on(:touch) {
       date_clicked
     }
@@ -67,12 +74,7 @@ class MainController < UIViewController
       @state = :default
       @layout.slide_elements(@state)
 
-      if @invitation_sent
-        invite_controller = navigationController.delegate.invite_controller
-        navigationController.pushViewController(invite_controller, animated: true)
-      else
-        RunSession.send(@contact_list.contacts)
-      end
+      RunSession.send(@contact_list.contacts)
 
       @invitation_sent = !@invitation_sent
     }
