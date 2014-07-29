@@ -82,6 +82,7 @@ class MainController < UIViewController
 
   def set_delegates
     @layout.get(:table_invites).dataSource = @contact_list
+    @layout.get(:table_invites).delegate = @contact_list
 
     @layout.get(:starts_picker).addTarget(self, action: 'update_date', forControlEvents: UIControlEventValueChanged)
 
