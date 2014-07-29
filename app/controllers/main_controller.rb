@@ -197,7 +197,7 @@ class MainController < UIViewController
     cell = table_view.dequeueReusableCellWithIdentifier(reuse_id) || begin
       UITableViewCell.alloc.initWithStyle(UITableViewCellStyleDefault, reuseIdentifier: reuse_id)
     end
-    cell.textLabel.text = "#{contacts[row][:first_name]} #{contacts[row][:last_name]}"
+    cell.textLabel.text = "#{contacts[row].first_name} #{contacts[row].last_name}"
     cell
   end
 
