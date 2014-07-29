@@ -44,7 +44,9 @@ class RunSession
       "user" => "Imran",
       "lat" => 37.7858276367188,
       "lon" => -122.406417,
-      "runners" => invite_params(contacts)["first_names"]
+      "runners" => invite_params(contacts)["first_names"],
+      "start_time" => "start time",
+      "duration" => "duration"
     }
     ap json
 
@@ -54,6 +56,10 @@ class RunSession
         @@active = true
       end
     end
+  end
+
+  def self.accept_invitation
+    @@active = true
   end
 
   def self.update_location_if_active(coordinate)

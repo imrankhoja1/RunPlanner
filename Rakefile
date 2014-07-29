@@ -40,4 +40,6 @@ Motion::Project::App.setup do |app|
   app.entitlements['get-task-allow'] = true
 
   app.info_plist['Bundle identifier'] = 'com.werunplanner.RunPlanner'
+
+  app.info_plist['UIBackgroundModes'] = ['location']
 end

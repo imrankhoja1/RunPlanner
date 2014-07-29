@@ -23,7 +23,7 @@ class AppDelegate
     NSLog("token: %@", device_token)
 
     json = {
-      "user" => "Ben"
+      "user" => "Imran"
     }
     client = AFMotion::Client.build("https://api.parse.com/") do
       request_serializer :json
@@ -33,10 +33,12 @@ class AppDelegate
     end
     client.post("1/functions/get_user_id", json) do |result|
       if result.object
-        NSLog("parse api user id: %@", result.object["result"]["user"]["objectId"])
+        channel = "X" + result.object["result"]["user"]["objectId"]
+
+        NSLog("parse api user id: %@", channel)
 
         installation = PFInstallation.currentInstallation
-        installation.channels = [result.object["result"]["user"]["objectId"]]
+        installation.channels = [channel]
         installation.setDeviceTokenFromData(device_token)
         installation.saveInBackground
       end
@@ -49,6 +51,11 @@ class AppDelegate
   end
 
   def application(application, didReceiveRemoteNotification: notification)
-    NSLog("push notification: %@", notification)
+    NSLog("push notification: %@", notification["aps"]["alert"])
+    
+    for key in (notification["payload"]["request_params"].allKeys)
+      NSLog("  key: %@, value: %@", key, notification["payload"]["request_params"][key])
+    end
+    @nav_controller.pushViewController(invite_controller, animated: true)
   end
 end
