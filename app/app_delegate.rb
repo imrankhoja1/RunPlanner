@@ -52,7 +52,7 @@ class AppDelegate
 
   def application(application, didReceiveRemoteNotification: notification)
     NSLog("push notification: %@", notification["aps"]["alert"])
-    
+
     for key in (notification["payload"]["request_params"].allKeys)
       NSLog("  key: %@, value: %@", key, notification["payload"]["request_params"][key])
     end

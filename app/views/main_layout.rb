@@ -35,55 +35,63 @@ class MainLayout < MK::Layout
     end
   end
 
+  def tb
+    74
+  end
+
+  def h0
+    36
+  end
+
   def top(element, state=:default)
     px = 216
 
     tops = {
       default: {
-        button_starts:         64,
-        button_starts_date:    64,
-        button_starts_time:    64,
-        button_distance:       64 + 30,
-        button_distance_value: 64 + 30,
-        button_pace:           64 + 30 + 30,
-        button_pace_value:     64 + 30 + 30,
-        button_runners:        64 + 30 + 30 + 30,
-        button_meeting:        64 + 30 + 30 + 30,
-        map:                   64 + 30 + 30 + 30 + 24,
-        text_field_contact:    64 + 30 + 30 + 30 + 24,
-        table_invites:         64 + 30 + 30 + 30 + 24 + 28,
-        invite_cont:           64 + 30 + 30 + 30 + 24 + 270,
-        invite:                64 + 30 + 30 + 30 + 24 + 280
+        button_starts:         tb,
+        button_starts_date:    tb,
+        button_starts_time:    tb,
+        button_distance:       tb + h0,
+        button_distance_value: tb + h0,
+        button_pace:           tb + h0 + h0,
+        button_pace_value:     tb + h0 + h0,
+        button_runners:        tb + h0 + h0 + h0,
+        button_meeting:        tb + h0 + h0 + h0,
+        map:                   tb + h0 + h0 + h0 + 24,
+        text_field_contact:    tb + h0 + h0 + h0 + 24,
+        table_invites:         tb + h0 + h0 + h0 + 24 + 28,
+        invite_cont:           tb + h0 + h0 + h0 + 24 + 270,
+        invite:                tb + h0 + h0 + h0 + 24 + 280
       },
       date_clicked: {
-        button_distance:       64 + 30 + px,
-        button_distance_value: 64 + 30 + px,
-        button_pace:           64 + 30 + 30 + px,
-        button_pace_value:     64 + 30 + 30 + px,
-        button_runners:        64 + 30 + 30 + 30 + px,
-        button_meeting:        64 + 30 + 30 + 30 + px,
-        map:                   64 + 30 + 30 + 30 + 24 + px,
-        text_field_contact:    64 + 30 + 30 + 30 + 24 + px,
-        table_invites:         64 + 30 + 30 + 30 + 24 + 28 + px,
-        invite:                64 + 30 + 30 + 30 + 24 + 280 + px
+        button_distance:       tb + h0 + px,
+        button_distance_value: tb + h0 + px,
+        button_pace:           tb + h0 + h0 + px,
+        button_pace_value:     tb + h0 + h0 + px,
+        button_runners:        tb + h0 + h0 + h0 + px,
+        button_meeting:        tb + h0 + h0 + h0 + px,
+        map:                   tb + h0 + h0 + h0 + 24 + px,
+        text_field_contact:    tb + h0 + h0 + h0 + 24 + px,
+        table_invites:         tb + h0 + h0 + h0 + 24 + 28 + px,
+        invite:                tb + h0 + h0 + h0 + 24 + 280 + px
       },
       distance_clicked: {
-        button_pace:        64 + 30 + 30 + px,
-        button_pace_value:  64 + 30 + 30 + px,
-        button_runners:     64 + 30 + 30 + 30 + px,
-        button_meeting:     64 + 30 + 30 + 30 + px,
-        map:                64 + 30 + 30 + 30 + 24 + px,
-        text_field_contact: 64 + 30 + 30 + 30 + 24 + px,
-        table_invites:      64 + 30 + 30 + 30 + 24 + 28 + px,
-        invite:             64 + 30 + 30 + 30 + 24 + 280 + px
+        button_pace:        tb + h0 + h0 + px,
+        button_pace_value:  tb + h0 + h0 + px,
+        button_runners:     tb + h0 + h0 + h0 + px,
+        button_meeting:     tb + h0 + h0 + h0 + px,
+        map:                tb + h0 + h0 + h0 + 24 + px,
+        text_field_contact: tb + h0 + h0 + h0 + 24 + px,
+        table_invites:      tb + h0 + h0 + h0 + 24 + 28 + px,
+        invite:             tb + h0 + h0 + h0 + 24 + 280 + px
       },
       pace_clicked: {
-        button_runners:     64 + 30 + 30 + 30 + px,
-        button_meeting:     64 + 30 + 30 + 30 + px,
-        map:                64 + 30 + 30 + 30 + 24 + px,
-        text_field_contact: 64 + 30 + 30 + 30 + 24 + px,
-        table_invites:      64 + 30 + 30 + 30 + 24 + 28 + px,
-        invite:             64 + 30 + 30 + 30 + 24 + 280 + px
+        button_runners:     tb + h0 + h0 + h0 + px,
+        button_meeting:     tb + h0 + h0 + h0 + px,
+        map:                tb + h0 + h0 + h0 + 24 + px,
+        text_field_contact: tb + h0 + h0 + h0 + 24 + px,
+        table_invites:      tb + h0 + h0 + h0 + 24 + 28 + px,
+        invite:             tb + h0 + h0 + h0 + 24 + 280 + px
       }
     }
 
@@ -113,12 +121,12 @@ class MainLayout < MK::Layout
   def pickers
     @starts_picker = add UIDatePicker, :starts_picker do
       background_color UIColor.whiteColor
-      frame [[0,64 + 30],['100%','100%']]
+      frame [[0,tb + h0],['100%','100%']]
     end
 
     @distance_picker = add UIPickerView, :distance_picker do
       background_color UIColor.whiteColor
-      frame [[0,64 + 30 + 30],['100%','100%']]
+      frame [[0,tb + h0 + h0],['100%','100%']]
     end
     @distance_picker.tap do |p|
       p.selectRow(9, inComponent: 0, animated: false)
@@ -126,7 +134,7 @@ class MainLayout < MK::Layout
 
     @pace_picker = add UIPickerView, :pace_picker do
       background_color UIColor.whiteColor
-      frame [[0,64 + 30 + 30 + 30],['100%','100%']]
+      frame [[0,tb + h0 + h0 + h0],['100%','100%']]
     end
     @pace_picker.tap do |p|
       p.selectRow(16, inComponent: 0, animated: false)
@@ -136,9 +144,10 @@ class MainLayout < MK::Layout
   def start_time_selection
     @button_starts = add UIButton, :button_starts do
       sizeToFit
-      frame [[0,top(:button_starts)],['33%',30]]
+      frame [[0,top(:button_starts)],['33%',h0]]
     end
     @button_starts.tap do |b|
+      background_color UIColor.whiteColor
       b.setTitle("Starts", forState:UIControlStateNormal)
       b.setTitleColor(UIColor.blackColor, forState: UIControlStateNormal)
       b.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft
@@ -151,14 +160,14 @@ class MainLayout < MK::Layout
       title "Today"
       title_color UIColor.blackColor
       sizeToFit
-      frame [['33%',top(:button_starts_date)],['33%',30]]
+      frame [['33%',top(:button_starts_date)],['33%',h0]]
     end
     @button_starts_time = add UIButton, :button_starts_time do
       background_color UIColor.whiteColor
       title (Time.now + 30*60).strftime("%l:%M %p")
       title_color UIColor.blackColor
       sizeToFit
-      frame [['66%',top(:button_starts_time)],['34%',30]]
+      frame [['66%',top(:button_starts_time)],['34%',h0]]
     end
     @button_starts_time.tap do |b|
       b.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight
@@ -169,7 +178,7 @@ class MainLayout < MK::Layout
   def distance_selection
     @button_distance = add UIButton, :button_distance do
       sizeToFit
-      frame [[0,top(:button_distance)],['50%',30]]
+      frame [[0,top(:button_distance)],['50%',h0]]
     end
     @button_distance.tap do |b|
       b.setTitle("Distance", forState:UIControlStateNormal)
@@ -184,7 +193,7 @@ class MainLayout < MK::Layout
       title "5.0 mi"
       title_color UIColor.blackColor
       sizeToFit
-      frame [['50%',top(:button_distance_value)],['50%',30]]
+      frame [['50%',top(:button_distance_value)],['50%',h0]]
     end
     @button_distance_value.tap do |b|
       b.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight
@@ -198,7 +207,7 @@ class MainLayout < MK::Layout
       title "Target Pace"
       title_color UIColor.blackColor
       sizeToFit
-      frame [[0,top(:button_pace)],['50%',30]]
+      frame [[0,top(:button_pace)],['50%',h0]]
     end
     @button_pace.tap do |b|
       b.setTitle("Target Pace", forState:UIControlStateNormal)
@@ -210,7 +219,7 @@ class MainLayout < MK::Layout
     end
     @button_pace_value = add UIButton, :button_pace_value do
       sizeToFit
-      frame [['50%',top(:button_pace_value)],['50%',30]]
+      frame [['50%',top(:button_pace_value)],['50%',h0]]
     end
     @button_pace_value.tap do |b|
       b.setTitle("9:00 min/mi", forState:UIControlStateNormal)
