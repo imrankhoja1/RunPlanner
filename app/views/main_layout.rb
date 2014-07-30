@@ -23,6 +23,7 @@ class MainLayout < MK::Layout
       @label_contact.show
       @text_field_contact.show
       @table_invites.show
+      @invite_cont.show
     elsif mode == :meeting
       @button_runners.backgroundColor = UIColor.whiteColor
       @button_meeting.backgroundColor = UIColor.grayColor
@@ -30,6 +31,7 @@ class MainLayout < MK::Layout
       @text_field_contact.hide
       @table_invites.hide
       @map.show
+      @invite_cont.hide
     end
   end
 
@@ -243,7 +245,7 @@ class MainLayout < MK::Layout
   def map
     @map = add MapKit::MapView, :map do
       sizeToFit
-      frame [[0,top(:map)],['100%',270]]
+      frame [[0,top(:map)],['100%',370]]
     end
   end
 
