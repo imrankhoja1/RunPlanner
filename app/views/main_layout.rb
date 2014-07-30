@@ -64,7 +64,8 @@ class MainLayout < MK::Layout
         button_meeting:        64 + 30 + 30 + 30 + px,
         map:                   64 + 30 + 30 + 30 + 24 + px,
         text_field_contact:    64 + 30 + 30 + 30 + 24 + px,
-        table_invites:         64 + 30 + 30 + 30 + 24 + 28 + px
+        table_invites:         64 + 30 + 30 + 30 + 24 + 28 + px,
+        invite:                64 + 30 + 30 + 30 + 24 + 280 + px
       },
       distance_clicked: {
         button_pace:        64 + 30 + 30 + px,
@@ -73,14 +74,16 @@ class MainLayout < MK::Layout
         button_meeting:     64 + 30 + 30 + 30 + px,
         map:                64 + 30 + 30 + 30 + 24 + px,
         text_field_contact: 64 + 30 + 30 + 30 + 24 + px,
-        table_invites:      64 + 30 + 30 + 30 + 24 + 28 + px
+        table_invites:      64 + 30 + 30 + 30 + 24 + 28 + px,
+        invite:             64 + 30 + 30 + 30 + 24 + 280 + px
       },
       pace_clicked: {
         button_runners:     64 + 30 + 30 + 30 + px,
         button_meeting:     64 + 30 + 30 + 30 + px,
         map:                64 + 30 + 30 + 30 + 24 + px,
         text_field_contact: 64 + 30 + 30 + 30 + 24 + px,
-        table_invites:      64 + 30 + 30 + 30 + 24 + 28 + px
+        table_invites:      64 + 30 + 30 + 30 + 24 + 28 + px,
+        invite:             64 + 30 + 30 + 30 + 24 + 280 + px
       }
     }
 
@@ -316,6 +319,7 @@ class MainLayout < MK::Layout
       slide_vert(@label_contact, top(:text_field_contact, state))
       slide_vert(@text_field_contact, top(:text_field_contact, state))
       slide_vert(@table_invites, top(:table_invites, state))
+      slide_vert(@invite, top(:invite, state))
     }, completion: lambda { |x|
     })
   end
