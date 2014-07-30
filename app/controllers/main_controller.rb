@@ -65,11 +65,6 @@ class MainController < UIViewController
       @layout.reflect_state(@state, @mode)
     }
 
-    @layout.get(:button_drop).on(:touch) {
-      @state = :default
-      @layout.slide_elements(@state)
-    }
-
     @layout.get(:invite).on(:touch) {
       @state = :default
       @layout.slide_elements(@state)

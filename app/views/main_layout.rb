@@ -23,16 +23,13 @@ class MainLayout < MK::Layout
       @label_contact.show
       @text_field_contact.show
       @table_invites.show
-      @button_drop.hide
     elsif mode == :meeting
       @button_runners.backgroundColor = UIColor.whiteColor
       @button_meeting.backgroundColor = UIColor.grayColor
-      @button_drop.hide
       @label_contact.hide
       @text_field_contact.hide
       @table_invites.hide
       @map.show
-      @button_drop.show
     end
   end
 
@@ -50,12 +47,11 @@ class MainLayout < MK::Layout
         button_pace_value:     64 + 30 + 30,
         button_runners:        64 + 30 + 30 + 30,
         button_meeting:        64 + 30 + 30 + 30,
-        button_drop:           64 + 30 + 30 + 30 + 24,
-        map:                   64 + 30 + 30 + 30 + 24 + 50,
+        map:                   64 + 30 + 30 + 30 + 24,
         text_field_contact:    64 + 30 + 30 + 30 + 24,
         table_invites:         64 + 30 + 30 + 30 + 24 + 28,
-        invite_cont:           64 + 30 + 30 + 30 + 24 + 50 + 270,
-        invite:                64 + 30 + 30 + 30 + 24 + 50 + 280
+        invite_cont:           64 + 30 + 30 + 30 + 24 + 270,
+        invite:                64 + 30 + 30 + 30 + 24 + 280
       },
       date_clicked: {
         button_distance:       64 + 30 + px,
@@ -64,8 +60,7 @@ class MainLayout < MK::Layout
         button_pace_value:     64 + 30 + 30 + px,
         button_runners:        64 + 30 + 30 + 30 + px,
         button_meeting:        64 + 30 + 30 + 30 + px,
-        button_drop:           64 + 30 + 30 + 30 + 24 + px,
-        map:                   64 + 30 + 30 + 30 + 24 + 50 + px,
+        map:                   64 + 30 + 30 + 30 + 24 + px,
         text_field_contact:    64 + 30 + 30 + 30 + 24 + px,
         table_invites:         64 + 30 + 30 + 30 + 24 + 28 + px
       },
@@ -74,16 +69,14 @@ class MainLayout < MK::Layout
         button_pace_value:  64 + 30 + 30 + px,
         button_runners:     64 + 30 + 30 + 30 + px,
         button_meeting:     64 + 30 + 30 + 30 + px,
-        button_drop:        64 + 30 + 30 + 30 + 24 + px,
-        map:                64 + 30 + 30 + 30 + 24 + 50 + px,
+        map:                64 + 30 + 30 + 30 + 24 + px,
         text_field_contact: 64 + 30 + 30 + 30 + 24 + px,
         table_invites:      64 + 30 + 30 + 30 + 24 + 28 + px
       },
       pace_clicked: {
         button_runners:     64 + 30 + 30 + 30 + px,
         button_meeting:     64 + 30 + 30 + 30 + px,
-        button_drop:        64 + 30 + 30 + 30 + 24 + px,
-        map:                64 + 30 + 30 + 30 + 24 + 50 + px,
+        map:                64 + 30 + 30 + 30 + 24 + px,
         text_field_contact: 64 + 30 + 30 + 30 + 24 + px,
         table_invites:      64 + 30 + 30 + 30 + 24 + 28 + px
       }
@@ -247,19 +240,6 @@ class MainLayout < MK::Layout
     end
   end
 
-  def pin_drop
-    @button_drop = add UIButton, :button_drop do
-      background_color UIColor.whiteColor
-      title "Drop a Pin"
-      title_color UIColor.blackColor
-      sizeToFit
-      frame [[0,top(:button_drop)],['100%',50]]
-    end
-    @button_drop.tap do |b|
-      b.titleLabel.font = UIFont.fontWithName("Helvetica-Bold", size: 18)
-    end
-  end
-
   def map
     @map = add MapKit::MapView, :map do
       sizeToFit
@@ -273,7 +253,6 @@ class MainLayout < MK::Layout
     distance_selection
     pace_selection
     runners_meeting
-    pin_drop
     map
 
     @label_contact = add UIButton, :label_contact do
@@ -331,7 +310,6 @@ class MainLayout < MK::Layout
       slide_vert(@button_pace_value, top(:button_pace_value, state))
       slide_vert(@button_runners, top(:button_runners, state))
       slide_vert(@button_meeting, top(:button_meeting, state))
-      slide_vert(@button_drop, top(:button_drop, state))
       slide_vert(@map, top(:map, state))
       slide_vert(@label_contact, top(:text_field_contact, state))
       slide_vert(@text_field_contact, top(:text_field_contact, state))
