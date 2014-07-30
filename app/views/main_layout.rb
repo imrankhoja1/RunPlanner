@@ -36,11 +36,15 @@ class MainLayout < MK::Layout
   end
 
   def tb
-    74
+    72
   end
 
   def h0
     36
+  end
+
+  def h1
+    30
   end
 
   def top(element, state=:default)
@@ -57,11 +61,11 @@ class MainLayout < MK::Layout
         button_pace_value:     tb + h0 + h0,
         button_runners:        tb + h0 + h0 + h0,
         button_meeting:        tb + h0 + h0 + h0,
-        map:                   tb + h0 + h0 + h0 + 24,
-        text_field_contact:    tb + h0 + h0 + h0 + 24,
-        table_invites:         tb + h0 + h0 + h0 + 24 + 28,
-        invite_cont:           tb + h0 + h0 + h0 + 24 + 270,
-        invite:                tb + h0 + h0 + h0 + 24 + 280
+        map:                   tb + h0 + h0 + h0 + h1,
+        text_field_contact:    tb + h0 + h0 + h0 + h1,
+        table_invites:         tb + h0 + h0 + h0 + h1 + h1,
+        invite_cont:           tb + h0 + h0 + h0 + h1 + 270,
+        invite:                tb + h0 + h0 + h0 + h1 + 280
       },
       date_clicked: {
         button_distance:       tb + h0 + px,
@@ -70,28 +74,28 @@ class MainLayout < MK::Layout
         button_pace_value:     tb + h0 + h0 + px,
         button_runners:        tb + h0 + h0 + h0 + px,
         button_meeting:        tb + h0 + h0 + h0 + px,
-        map:                   tb + h0 + h0 + h0 + 24 + px,
-        text_field_contact:    tb + h0 + h0 + h0 + 24 + px,
-        table_invites:         tb + h0 + h0 + h0 + 24 + 28 + px,
-        invite:                tb + h0 + h0 + h0 + 24 + 280 + px
+        map:                   tb + h0 + h0 + h0 + h1 + px,
+        text_field_contact:    tb + h0 + h0 + h0 + h1 + px,
+        table_invites:         tb + h0 + h0 + h0 + h1 + h1 + px,
+        invite:                tb + h0 + h0 + h0 + h1 + 280 + px
       },
       distance_clicked: {
         button_pace:        tb + h0 + h0 + px,
         button_pace_value:  tb + h0 + h0 + px,
         button_runners:     tb + h0 + h0 + h0 + px,
         button_meeting:     tb + h0 + h0 + h0 + px,
-        map:                tb + h0 + h0 + h0 + 24 + px,
-        text_field_contact: tb + h0 + h0 + h0 + 24 + px,
-        table_invites:      tb + h0 + h0 + h0 + 24 + 28 + px,
-        invite:             tb + h0 + h0 + h0 + 24 + 280 + px
+        map:                tb + h0 + h0 + h0 + h1 + px,
+        text_field_contact: tb + h0 + h0 + h0 + h1 + px,
+        table_invites:      tb + h0 + h0 + h0 + h1 + h1 + px,
+        invite:             tb + h0 + h0 + h0 + h1 + 280 + px
       },
       pace_clicked: {
         button_runners:     tb + h0 + h0 + h0 + px,
         button_meeting:     tb + h0 + h0 + h0 + px,
-        map:                tb + h0 + h0 + h0 + 24 + px,
-        text_field_contact: tb + h0 + h0 + h0 + 24 + px,
-        table_invites:      tb + h0 + h0 + h0 + 24 + 28 + px,
-        invite:             tb + h0 + h0 + h0 + 24 + 280 + px
+        map:                tb + h0 + h0 + h0 + h1 + px,
+        text_field_contact: tb + h0 + h0 + h0 + h1 + px,
+        table_invites:      tb + h0 + h0 + h0 + h1 + h1 + px,
+        invite:             tb + h0 + h0 + h0 + h1 + 280 + px
       }
     }
 
@@ -236,7 +240,7 @@ class MainLayout < MK::Layout
       title "Runners"
       title_color UIColor.blackColor
       sizeToFit
-      frame [[0,top(:button_runners)],['50%',24]]
+      frame [[0,top(:button_runners)],['50%',h1]]
     end
     @button_runners.tap do |b|
       b.titleLabel.font = UIFont.fontWithName("Helvetica", size: 14)
@@ -247,7 +251,7 @@ class MainLayout < MK::Layout
       title "Meeting Point"
       title_color UIColor.blackColor
       sizeToFit
-      frame [['50%',top(:button_meeting)],['50%',24]]
+      frame [['50%',top(:button_meeting)],['50%',h1]]
     end
     @button_meeting.tap do |b|
       b.titleLabel.font = UIFont.fontWithName("Helvetica", size: 14)
@@ -271,7 +275,7 @@ class MainLayout < MK::Layout
 
     @label_contact = add UIButton, :label_contact do
       sizeToFit
-      frame [[0,top(:text_field_contact)],['15%',28]]
+      frame [[0,top(:text_field_contact)],['15%',h1]]
       title "To:"
       title_color UIColor.blackColor
     end
@@ -282,7 +286,7 @@ class MainLayout < MK::Layout
     end
 
     @text_field_contact = add UITextField, :text_field_contact do
-      frame [['15%',top(:text_field_contact)],['85%',28]]
+      frame [['15%',top(:text_field_contact)],['85%',h1]]
     end
     @text_field_contact.tap do |v|
       v.textColor = UIColor.blackColor
