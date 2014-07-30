@@ -10,8 +10,8 @@ class RunSession
     last_names = []
     phones = []
     contacts.each_with_index do |x,i|
-      first_names << x[:first_name]
-      last_names << x[:last_name]
+      first_names << x.first_name
+      last_names << x.last_name
       phones << x.phones[0][:value]
     end
     {
