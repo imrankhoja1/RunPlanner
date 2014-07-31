@@ -18,6 +18,51 @@ class MainController < UIViewController
 
     # logic for demo purposes
     @invitation_sent = false
+
+    NSNotificationCenter.defaultCenter.addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
+    NSNotificationCenter.defaultCenter.addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+  end
+
+  def keyboardWillShow(notification)
+    NSLog("keyboardWillShow")
+    elements = [@layout.get(:table_invites), @layout.get(:text_field_contact)]
+    animate_with_keyboard(notification, elements, true)
+  end
+
+  def keyboardWillHide(notification)
+    NSLog("keyboardWillHide")
+    elements = [@layout.get(:table_invites), @layout.get(:text_field_contact)]
+    animate_with_keyboard(notification, elements, false)
+  end
+
+  def animate_with_keyboard(notification, elements, up)
+    info = notification.userInfo
+    curve = info.valueForKey(UIKeyboardAnimationCurveUserInfoKey).intValue
+    duration = info.valueForKey(UIKeyboardAnimationDurationUserInfoKey).doubleValue
+    bounds = info.objectForKey(UIKeyboardFrameBeginUserInfoKey).CGRectValue
+    UIView.beginAnimations(nil, context: nil)
+    UIView.setAnimationCurve(curve)
+    UIView.setAnimationDuration(duration)
+      table_invites = @layout.get(:table_invites)
+      text_field_contact = @layout.get(:text_field_contact)
+      if up
+        @old_contact_table_rect = table_invites.frame
+        @old_contact_field_rect = text_field_contact.frame
+        new_contact_table_rect = new_rect(table_invites, bounds)
+        new_contact_field_rect = new_rect(text_field_contact, bounds)
+      else
+        new_contact_table_rect = @old_contact_table_rect
+        new_contact_field_rect = @old_contact_field_rect
+      end
+
+      table_invites.setFrame(new_contact_table_rect)
+      text_field_contact.setFrame(new_contact_field_rect)
+    UIView.commitAnimations()
+  end
+
+  def new_rect(element, keyboard_bounds)
+    CGRectMake(0.0, self.view.frame.size.height - keyboard_bounds.size.height - element.frame.size.height,
+        element.frame.size.width, element.frame.size.height)
   end
 
   def nav_to_invite_page
@@ -179,6 +224,20 @@ class MainController < UIViewController
 
   def textFieldShouldReturn(text_field)
     text_field.resignFirstResponder
+  end
+
+  def textFieldDidBeginEditing(text_field)
+    #NSLog("textFieldDidBeginEditing")
+    #@state = :contact_field_selected
+    #@layout.reflect_state(@state, @mode)
+    #@layout.slide_elements(@state)
+  end
+
+  def textFieldDidEndEditing(text_field)
+    #NSLog("textFieldDidEndEditing")
+    #@state = :default
+    #@layout.reflect_state(@state, @mode)
+    #@layout.slide_elements(@state)
   end
 
   def tableView(table_view, numberOfRowsInSection:section)

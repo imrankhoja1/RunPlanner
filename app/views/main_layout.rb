@@ -96,6 +96,10 @@ class MainLayout < MK::Layout
         text_field_contact: tb + h0 + h0 + h0 + h1 + px,
         table_invites:      tb + h0 + h0 + h0 + h1 + h1 + px,
         invite:             tb + h0 + h0 + h0 + h1 + 280 + px
+      },
+      contact_field_selected: {
+        text_field_contact: tb + h0 + h0 + h0 + h1,
+        table_invites:      tb + h0 + h0 + h0 + h1 + h1 - 216
       }
     }
 
