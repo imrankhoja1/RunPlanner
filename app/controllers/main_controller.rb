@@ -221,20 +221,6 @@ class MainController < UIViewController
     text_field.resignFirstResponder
   end
 
-  def textFieldDidBeginEditing(text_field)
-    #NSLog("textFieldDidBeginEditing")
-    #@state = :contact_field_selected
-    #@layout.reflect_state(@state, @mode)
-    #@layout.slide_elements(@state)
-  end
-
-  def textFieldDidEndEditing(text_field)
-    #NSLog("textFieldDidEndEditing")
-    #@state = :default
-    #@layout.reflect_state(@state, @mode)
-    #@layout.slide_elements(@state)
-  end
-
   def tableView(table_view, numberOfRowsInSection:section)
     @contact_list.contacts.size
   end
