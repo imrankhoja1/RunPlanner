@@ -14,6 +14,10 @@ class MainLayout < MK::Layout
       @starts_picker.hide
       @distance_picker.hide
       @pace_picker.show
+    elsif state == :contact_field_selected
+      @starts_picker.hide
+      @distance_picker.hide
+      @pace_picker.hide
     end
 
     if mode == :runners

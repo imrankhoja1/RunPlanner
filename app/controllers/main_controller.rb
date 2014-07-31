@@ -22,12 +22,16 @@ class MainController < UIViewController
 
   def keyboardWillShow(notification)
     NSLog("keyboardWillShow")
+    #@state = :contact_field_selected
+    #@layout.reflect_state(@state, @mode)
     elements = [@layout.get(:table_invites), @layout.get(:text_field_contact)]
     animate_with_keyboard(notification, elements, true)
   end
 
   def keyboardWillHide(notification)
     NSLog("keyboardWillHide")
+    #@state = :default
+    #@layout.reflect_state(@state, @mode)
     elements = [@layout.get(:table_invites), @layout.get(:text_field_contact)]
     animate_with_keyboard(notification, elements, false)
   end
@@ -37,29 +41,37 @@ class MainController < UIViewController
     curve = info.valueForKey(UIKeyboardAnimationCurveUserInfoKey).intValue
     duration = info.valueForKey(UIKeyboardAnimationDurationUserInfoKey).doubleValue
     bounds = info.objectForKey(UIKeyboardFrameBeginUserInfoKey).CGRectValue
+    @layout.to_front(:label_contact)
+    @layout.to_front(:text_field_contact)
     UIView.beginAnimations(nil, context: nil)
     UIView.setAnimationCurve(curve)
     UIView.setAnimationDuration(duration)
-      table_invites = @layout.get(:table_invites)
+      label_contact = @layout.get(:label_contact)
       text_field_contact = @layout.get(:text_field_contact)
+      table_invites = @layout.get(:table_invites)
       if up
-        @old_contact_table_rect = table_invites.frame
+        @old_contact_label_rect = label_contact.frame
         @old_contact_field_rect = text_field_contact.frame
-        new_contact_table_rect = new_rect(table_invites, bounds)
+        @old_contact_table_rect = table_invites.frame
+        new_contact_label_rect = new_rect(label_contact, bounds)
         new_contact_field_rect = new_rect(text_field_contact, bounds)
+        new_contact_table_rect = new_rect(table_invites, bounds)
       else
-        new_contact_table_rect = @old_contact_table_rect
+        new_contact_label_rect = @old_contact_label_rect
         new_contact_field_rect = @old_contact_field_rect
+        new_contact_table_rect = @old_contact_table_rect
       end
 
-      table_invites.setFrame(new_contact_table_rect)
+      label_contact.setFrame(new_contact_label_rect)
       text_field_contact.setFrame(new_contact_field_rect)
+      table_invites.setFrame(new_contact_table_rect)
     UIView.commitAnimations()
   end
 
   def new_rect(element, keyboard_bounds)
-    CGRectMake(0.0, self.view.frame.size.height - keyboard_bounds.size.height - element.frame.size.height,
-        element.frame.size.width, element.frame.size.height)
+    rect = element.frame
+    CGRectMake(rect.origin.x, 64.0,
+        rect.size.width, rect.size.height)
   end
 
   def nav_to_invite_page
