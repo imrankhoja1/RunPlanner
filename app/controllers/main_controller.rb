@@ -53,9 +53,9 @@ class MainController < UIViewController
         @old_contact_label_rect = label_contact.frame
         @old_contact_field_rect = text_field_contact.frame
         @old_contact_table_rect = table_invites.frame
-        new_contact_label_rect = new_rect(label_contact, bounds)
-        new_contact_field_rect = new_rect(text_field_contact, bounds)
-        new_contact_table_rect = new_rect(table_invites, bounds)
+        new_contact_label_rect = new_rect(label_contact, bounds, 0.0)
+        new_contact_field_rect = new_rect(text_field_contact, bounds, 0.0)
+        new_contact_table_rect = new_rect(table_invites, bounds, @layout.h1)
       else
         new_contact_label_rect = @old_contact_label_rect
         new_contact_field_rect = @old_contact_field_rect
@@ -68,9 +68,9 @@ class MainController < UIViewController
     UIView.commitAnimations()
   end
 
-  def new_rect(element, keyboard_bounds)
+  def new_rect(element, keyboard_bounds, offset)
     rect = element.frame
-    CGRectMake(rect.origin.x, 64.0,
+    CGRectMake(rect.origin.x, 64.0 + offset,
         rect.size.width, rect.size.height)
   end
 
