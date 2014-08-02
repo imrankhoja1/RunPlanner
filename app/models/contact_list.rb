@@ -7,6 +7,7 @@ class ContactList
       Contact.new(x.first_name, x.last_name, x.phones)
     end
     @contacts = mock if @contacts.empty?
+    NSLog("phone: %@", @contacts[0].phones[0][:value])
   end
 
   def tableView(table_view, numberOfRowsInSection:section)
@@ -59,13 +60,13 @@ class ContactList
 
   def mock
     contacts = []
-    contact = Contact.new("Imran", "Khoja", [{ value: "555-555-5555" }])
+    contact = Contact.new("Imran", "Khoja", [{ value: "1 (617) 899-3929" }])
     contact.select
     contacts << contact
     contact = Contact.new("Emily", "Little", [{ value: "555-555-5555" }])
     contact.select
     contacts << contact
-    contact = Contact.new("Ben", "Miller", [{ value: "555-555-5555" }])
+    contact = Contact.new("Ben", "Miller", [{ value: "1 (617) 230-2397" }])
     contact.select
     contacts << contact
     contacts << Contact.new("John", "Doe", [{ value: "555-555-5555" }])

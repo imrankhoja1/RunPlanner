@@ -14,8 +14,6 @@ class AppDelegate
     @nav_controller.setDelegate(self)
     @window.rootViewController = nav_controller
 
-    NSLog("hello world")
-
     true
   end
 
