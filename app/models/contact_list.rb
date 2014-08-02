@@ -4,7 +4,7 @@ class ContactList
   def initialize
     address_book = AddressBook::AddrBook.new
     @contacts = address_book.people.map do |x|
-      Contact.new(x.first_name, x.last_name, x.phones[0])
+      Contact.new(x.first_name, x.last_name, x.phones)
     end
     @contacts = mock if @contacts.empty?
   end
@@ -59,12 +59,19 @@ class ContactList
 
   def mock
     contacts = []
-    contacts << Contact.new("Imran", "Khoja", "555-555-5555")
-    contacts << Contact.new("Emily", "Little", "555-555-5555")
-    contacts << Contact.new("John", "Doe", "555-555-5555")
-    contacts << Contact.new("Abigale", "Doe", "555-555-5555")
-    contacts << Contact.new("Bob", "Doe", "555-555-5555")
-    contacts << Contact.new("Cole", "Doe", "555-555-5555")
+    contact = Contact.new("Imran", "Khoja", [{ value: "555-555-5555" }])
+    contact.select
+    contacts << contact
+    contact = Contact.new("Emily", "Little", [{ value: "555-555-5555" }])
+    contact.select
+    contacts << contact
+    contact = Contact.new("Ben", "Miller", [{ value: "555-555-5555" }])
+    contact.select
+    contacts << contact
+    contacts << Contact.new("John", "Doe", [{ value: "555-555-5555" }])
+    contacts << Contact.new("Abigale", "Doe", [{ value: "555-555-5555" }])
+    contacts << Contact.new("Bob", "Doe", [{ value: "555-555-5555" }])
+    contacts << Contact.new("Cole", "Doe", [{ value: "555-555-5555" }])
     contacts
   end
 end

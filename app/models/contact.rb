@@ -1,12 +1,12 @@
 class Contact
-  attr_accessor :first_name, :last_name, :phone
+  attr_accessor :first_name, :last_name, :phones
   attr_accessor :state
 
-  def initialize(first_name, last_name, phone)
+  def initialize(first_name, last_name, phones)
     @first_name = first_name
     @last_name = last_name
-    @phone = phone
-
+    @phones = phones
+    
     @state = :unselected
   end
 
