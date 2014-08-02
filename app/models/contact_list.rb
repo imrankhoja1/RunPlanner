@@ -4,6 +4,7 @@ class ContactList
   def initialize
     address_book = AddressBook::AddrBook.new
     @contacts = address_book.people.map{|x| x}
+    @contacts = MockContacts.mock if @contacts.empty?
     @selected_contacts = []
   end
 
