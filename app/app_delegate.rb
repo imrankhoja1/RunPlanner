@@ -2,7 +2,7 @@
 class AppDelegate
   attr_reader :main_controller, :invite_controller, :invite_list_controller, :nav_controller
 
-  def application(application, didFinishLaunchingWithOptions: launchOptions)
+  def application(application, didFinishLaunchingWithOptions: launch_options)
     application.registerForRemoteNotificationTypes(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)
     Parse.setApplicationId("w73zBja8m0FY17rUC1jtyxXEGSuvvu53NuAf14be", clientKey: "Oko261xSzym0188Df7Ig9M380ElN7QMti8WzomFl")
 
@@ -15,6 +15,12 @@ class AppDelegate
     @nav_controller = UINavigationController.alloc.initWithRootViewController(@main_controller)
     @nav_controller.setDelegate(self)
     @window.rootViewController = nav_controller
+
+    if !launch_options.nil?
+      notification = launch_options.objectForKey(UIApplicationLaunchOptionsRemoteNotificationKey)
+      NSLog("notification on app launch: %@", notification)
+      nav_to_invitation
+    end
 
     true
   end
@@ -52,6 +58,7 @@ class AppDelegate
 
   def application(application, didReceiveRemoteNotification: notification)
     NSLog("notification: %@", notification)
+    nav_to_invitation
 =begin
     NSLog("push notification: %@", notification["aps"]["alert"])
     for key in (notification["payload"]["request_params"].allKeys)
@@ -59,5 +66,11 @@ class AppDelegate
     end
     @nav_controller.pushViewController(invite_controller, animated: true)
 =end
+  end
+
+  def nav_to_invitation
+    @nav_controller.pushViewController(@invite_list_controller, animated: false)
+    @nav_controller.pushViewController(@invite_controller, animated: true)
+    @invite_controller.set_invitation(Invitation.mock_list[0])
   end
 end
