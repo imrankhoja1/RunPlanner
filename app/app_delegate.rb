@@ -21,7 +21,7 @@ class AppDelegate
 
   def application(application, didRegisterForRemoteNotificationsWithDeviceToken: device_token)
     NSLog("token: %@", device_token)
-
+=begin
     json = {
       "user" => "Imran"
     }
@@ -43,7 +43,7 @@ class AppDelegate
         installation.saveInBackground
       end
     end
-
+=end
   end
 
   def application(application, didFailToRegisterForRemoteNotificationsWithError: error)
@@ -51,11 +51,13 @@ class AppDelegate
   end
 
   def application(application, didReceiveRemoteNotification: notification)
+    NSLog("notification: %@", notification)
+=begin
     NSLog("push notification: %@", notification["aps"]["alert"])
-
     for key in (notification["payload"]["request_params"].allKeys)
       NSLog("  key: %@, value: %@", key, notification["payload"]["request_params"][key])
     end
     @nav_controller.pushViewController(invite_controller, animated: true)
+=end
   end
 end
