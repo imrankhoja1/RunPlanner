@@ -124,7 +124,7 @@ class MainController < UIViewController
       @state = :default
       @layout.slide_elements(@state)
 
-      RunSession.send(@contact_list.contacts)
+      RunSession.send(@contact_list.selected_contacts)
     }
   end
 
