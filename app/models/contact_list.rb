@@ -6,7 +6,7 @@ class ContactList
     @contacts = address_book.people.map do |x|
       Contact.new(x.first_name, x.last_name, x.phones)
     end
-    @contacts = mock if @contacts.empty?
+    @contacts = Contact.mock_list if @contacts.empty?
     NSLog("phone: %@", @contacts[0].phones[0][:value])
   end
 
@@ -56,23 +56,5 @@ class ContactList
 
   def unselected_contacts
     @contacts.select{|x| x.state == :unselected }
-  end
-
-  def mock
-    contacts = []
-    contact = Contact.new("Imran", "Khoja", [{ value: "1 (617) 899-3929" }])
-    contact.select
-    contacts << contact
-    contact = Contact.new("Emily", "Little", [{ value: "555-555-5555" }])
-    contact.select
-    contacts << contact
-    contact = Contact.new("Ben", "Miller", [{ value: "1 (617) 230-2397" }])
-    contact.select
-    contacts << contact
-    contacts << Contact.new("John", "Doe", [{ value: "555-555-5555" }])
-    contacts << Contact.new("Abigale", "Doe", [{ value: "555-555-5555" }])
-    contacts << Contact.new("Bob", "Doe", [{ value: "555-555-5555" }])
-    contacts << Contact.new("Cole", "Doe", [{ value: "555-555-5555" }])
-    contacts
   end
 end

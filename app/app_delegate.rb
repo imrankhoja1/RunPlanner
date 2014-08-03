@@ -1,5 +1,6 @@
+
 class AppDelegate
-  attr_reader :main_controller, :invite_controller, :nav_controller
+  attr_reader :main_controller, :invite_controller, :invite_list_controller, :nav_controller
 
   def application(application, didFinishLaunchingWithOptions: launchOptions)
     application.registerForRemoteNotificationTypes(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)
@@ -10,6 +11,7 @@ class AppDelegate
 
     @main_controller = MainController.alloc.initWithNibName(nil, bundle: nil)
     @invite_controller = InviteController.alloc.initWithNibName(nil, bundle: nil)
+    @invite_list_controller = InviteListController.alloc.initWithNibName(nil, bundle: nil)
     @nav_controller = UINavigationController.alloc.initWithRootViewController(@main_controller)
     @nav_controller.setDelegate(self)
     @window.rootViewController = nav_controller

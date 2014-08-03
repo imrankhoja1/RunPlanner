@@ -312,7 +312,7 @@ class MainLayout < MK::Layout
     end
 
     @invite = add UIButton, :invite do
-      background_color UIColor.colorWithRed(0.118, green:0.541, blue:0.545, alpha:1.0)
+      background_color Constants::AquaBlue
       title "Send Run Invite"
       title_color UIColor.whiteColor
       sizeToFit

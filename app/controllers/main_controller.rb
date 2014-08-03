@@ -75,8 +75,9 @@ class MainController < UIViewController
   end
 
   def nav_to_invite_page
-    invite_controller = navigationController.delegate.invite_controller
-    navigationController.pushViewController(invite_controller, animated: true)
+    invite_list_controller = navigationController.delegate.invite_list_controller
+    #navigationController.pushViewController(invite_controller, animated: true)
+    navigationController.pushViewController(invite_list_controller, animated: true)
   end
 
   def init_buttons
