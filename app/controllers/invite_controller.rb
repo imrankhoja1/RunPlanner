@@ -31,7 +31,7 @@ class InviteController < UIViewController
   end
 
   def locationManager(manager, didUpdateToLocation: newLocation, fromLocation: oldLocation)
-    puts "Latitude = #{newLocation.coordinate.latitude} Longitude = #{newLocation.coordinate.longitude}"
+    #puts "Latitude = #{newLocation.coordinate.latitude} Longitude = #{newLocation.coordinate.longitude}"
     #@layout.get(:map).region.center = newLocation.coordinate
   end
 end

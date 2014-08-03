@@ -14,17 +14,18 @@ class InviteListController < UIViewController
     @layout.get(:table_invites).dataSource = self
   end
 
-  def nav_to_invite_page
-    invite_controller = navigationController.delegate.invite_controller
-    navigationController.pushViewController(invite_controller, animated: true)
-  end
-
   def tableView(table_view, numberOfRowsInSection:section)
     @invitations.size
   end
 
   def tableView(table_view, heightForRowAtIndexPath: index_path)
     144
+  end
+
+  def tableView(table_view, didSelectRowAtIndexPath: index_path)
+    row = index_path.row
+    invite_controller = navigationController.delegate.invite_controller
+    navigationController.pushViewController(invite_controller, animated: true)
   end
 
   def tableView(table_view, cellForRowAtIndexPath: index_path)
@@ -35,8 +36,7 @@ class InviteListController < UIViewController
       puts "creating list item"
       InviteListItem.alloc.initWithStyle(UITableViewCellStyleDefault, reuseIdentifier: reuse_id)
     end
-    cell.set_name(invitation.sender.first_name)
-    #cell.textLabel.text = "#{invitation.sender.first_name} wants to go on a run with you!"
+    cell.set_invitation(invitation)
     cell
   end
 end

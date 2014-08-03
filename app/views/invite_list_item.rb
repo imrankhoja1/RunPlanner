@@ -11,20 +11,20 @@ class InviteListItem < UITableViewCell
     image_start_time = make_image("calendar4.png", 70, 80)
     addSubview(image_start_time)
 
-    label_start_time = make_label("3PM", 60, 100)
-    addSubview(label_start_time)
+    @label_start_time = make_label(60, 100)
+    addSubview(@label_start_time)
 
     image_distance = make_image("running30.png", 160, 80)
     addSubview(image_distance)
 
-    label_distance = make_label("5.5mi", 150, 100)
-    addSubview(label_distance)
+    @label_distance = make_label(150, 100)
+    addSubview(@label_distance)
 
     image_pace = make_image("chronograph1.png", 250, 80)
     addSubview(image_pace)
 
-    label_pace = make_label("7:30 min/mi", 240, 100)
-    addSubview(label_pace)
+    @label_pace = make_label(240, 100)
+    addSubview(@label_pace)
   end
 
   def make_image(image_name, x, y)
@@ -33,15 +33,17 @@ class InviteListItem < UITableViewCell
     image
   end
 
-  def make_label(text, x, y)
+  def make_label(x, y)
     label = UILabel.alloc.initWithFrame(CGRectMake(x, y, 100, 20))
     label.font = UIFont.fontWithName("Helvetica", size: 14)
-    label.text = text
     label.color = UIColor.whiteColor
     label
   end
 
-  def set_name(name)
-    @label.text = name + " wants to go on a run with you!"
+  def set_invitation(invitation)
+    @label.text = invitation.sender.first_name + " wants to go on a run with you!"
+    @label_start_time.text = invitation.start_time
+    @label_distance.text = invitation.distance
+    @label_pace.text = invitation.pace
   end
 end
