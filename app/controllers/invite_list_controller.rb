@@ -24,7 +24,9 @@ class InviteListController < UIViewController
 
   def tableView(table_view, didSelectRowAtIndexPath: index_path)
     row = index_path.row
+    invitation = @invitations[row]
     invite_controller = navigationController.delegate.invite_controller
+    invite_controller.set_invitation(invitation)
     navigationController.pushViewController(invite_controller, animated: true)
   end
 

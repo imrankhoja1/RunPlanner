@@ -1,6 +1,6 @@
 class InviteLayout < MK::Layout
   def layout
-    @label00 = add UILabel, :label00 do
+    @label_inviter = add UILabel, :label_inviter do
       background_color UIColor.whiteColor
       text "Emily wants to go on a run with you!"
       sizeToFit
@@ -8,32 +8,8 @@ class InviteLayout < MK::Layout
       text_alignment UITextAlignmentCenter
     end
 
-    @label01 = add UILabel, :label01 do
-      background_color UIColor.whiteColor
-      # text ""
-      sizeToFit
-      text_alignment UITextAlignmentCenter
-      frame [[0,109],['33%',130]]
-    end
-
-    @label02 = add UILabel, :label02 do
-      background_color UIColor.whiteColor
-      # text ""
-      sizeToFit
-      text_alignment UITextAlignmentCenter
-      frame [['33%',109],['33%',130]]
-    end
-
-    @label03 = add UILabel, :label03 do
-      background_color UIColor.whiteColor
-      # text ""
-      sizeToFit
-      text_alignment UITextAlignmentCenter
-      frame [['66%',109],['34%',130]]
-    end
-
-    @label04 = add UILabel, :label04 do
-      background_color UIColor.colorWithRed(0.118, green:0.541, blue:0.545, alpha:1.0)
+    @label_hurry = add UILabel, :label_hurry do
+      background_color Constants::AquaBlue
       color UIColor.whiteColor
       text "Hurry! This invite expires in:"
       sizeToFit
@@ -44,59 +20,69 @@ class InviteLayout < MK::Layout
     @map = add MapKit::MapView, :map do
       frame [[0,284],['100%',239]]
     end
-    
+
     @button_accept = add UIButton, :button_accept do
-      background_color UIColor.colorWithRed(0.118, green:0.541, blue:0.545, alpha:1.0)
-      title "Swipe to accept >"
+      background_color Constants::AquaBlue
+      title "Hold to accept"
       sizeToFit
       frame [[0,523],['100%',45]]
     end
 
-    @label_time = add UILabel, :label_time do
+    @label_countdown = add UILabel, :label_countdown do
       background_color UIColor.whiteColor
       text "10:54"
       frame [[0,245],['100%',40]]
     end
-    @label_time.tap do |l|
+    @label_countdown.tap do |l|
       l.textAlignment = UIControlContentHorizontalAlignmentLeft
       l.font = UIFont.fontWithName("Helvetica-Bold", size: 16)
     end
 
-    @image_calendar = UIImageView.alloc.initWithImage(UIImage.imageNamed("calendar4.png"))
-    addSubview(@image_calendar)
-    @image_calendar.center = CGPointMake(80, 130)
+    @image_start_time = InviteLayout::make_image("calendar4.png", 80, 130)
+    addSubview(@image_start_time)
 
-    @label_calendar = add UILabel, :label_calendar do
+    @label_start_time = add UILabel, :label_start_time do
       frame [[80, -100],['100%','100%']]
       text "5:00 PM"
       text_color UIColor.blackColor
       text_alignment UITextAlignmentCenter
     end
-    @label_calendar.center = CGPointMake(80, 160)
+    @label_start_time.center = CGPointMake(80, 160)
 
-    @image_runner = UIImageView.alloc.initWithImage(UIImage.imageNamed("running30.png"))
-    addSubview(@image_runner)
-    @image_runner.center = CGPointMake(160, 130)
+    @image_distance = InviteLayout::make_image("running30.png", 160, 130)
+    addSubview(@image_distance)
 
-    @label_runner = add UILabel, :label_runner do
+    @label_distance = add UILabel, :label_distance do
       frame [[160, -100],['100%','100%']]
       text "5.5 mi"
       text_color UIColor.blackColor
       text_alignment UITextAlignmentCenter
     end
-    @label_runner.center = CGPointMake(160, 160)
+    @label_distance.center = CGPointMake(160, 160)
 
-    @image_timer = UIImageView.alloc.initWithImage(UIImage.imageNamed("chronograph1.png"))
-    addSubview(@image_timer)
-    @image_timer.center = CGPointMake(240, 130)
+    @image_pace = InviteLayout::make_image("chronograph1.png", 240, 130)
+    addSubview(@image_pace)
 
-    @label_timer = add UILabel, :label_timer do
+    @label_pace = add UILabel, :label_pace do
       frame [[240, -100],['100%','100%']]
       text "9:00 min/mi"
       text_alignment UITextAlignmentCenter
     end
-    @label_timer.center = CGPointMake(240, 160)
+    @label_pace.center = CGPointMake(240, 160)
 
-    background_color UIColor.grayColor
+    background_color UIColor.whiteColor
+  end
+
+  def self.make_image(image_name, x, y)
+    image = UIImageView.alloc.initWithImage(UIImage.imageNamed(image_name))
+    image.center = CGPointMake(x, y)
+    image
+  end
+
+  def self.make_label(x, y)
+    label = UILabel.alloc.initWithFrame(CGRectMake(x, y, 100, 20))
+    label.font = UIFont.fontWithName("Helvetica", size: 14)
+    label.color = UIColor.whiteColor
+    label
   end
 end

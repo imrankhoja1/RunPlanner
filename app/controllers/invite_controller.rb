@@ -34,6 +34,9 @@ class InviteController < UIViewController
     #puts "Latitude = #{newLocation.coordinate.latitude} Longitude = #{newLocation.coordinate.longitude}"
     #@layout.get(:map).region.center = newLocation.coordinate
   end
+
+  def set_invitation(invitation)
+  end
 end
 
 class MyAnnotation
