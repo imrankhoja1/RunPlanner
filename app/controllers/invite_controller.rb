@@ -2,6 +2,9 @@ class InviteController < UIViewController
 
   def loadView
     @layout = InviteLayout.new
+
+    set_invitation(@invitation)
+
     self.view = @layout.view
     self.title = Constants::AppTitle
 
@@ -36,6 +39,12 @@ class InviteController < UIViewController
   end
 
   def set_invitation(invitation)
+    @invitation = invitation
+    return if @layout.nil?
+    @layout.get(:label_inviter).text = @invitation.sender.first_name + " wants to go on a run with you!"
+    @layout.get(:label_start_time).text = @invitation.start_time
+    @layout.get(:label_distance).text = @invitation.distance
+    @layout.get(:label_pace).text = @invitation.pace
   end
 end
 
