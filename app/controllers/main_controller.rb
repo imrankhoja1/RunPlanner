@@ -164,6 +164,11 @@ class MainController < UIViewController
   def init_map
     @location_manager = CLLocationManager.alloc.init
     @location_manager.delegate = self
+  end
+
+  def locationManager(manager, didChangeAuthorizationStatus: status)
+    return if status != 3 # CLAuthorizationStatus == 3
+
     @location_manager.startUpdatingLocation
     @location_manager.purpose = "asdf"
 
