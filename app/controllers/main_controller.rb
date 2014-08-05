@@ -16,8 +16,20 @@ class MainController < UIViewController
     @mode = :runners
     @layout.reflect_state(@state, @mode)
 
+    set_left_item
+
     NSNotificationCenter.defaultCenter.addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
     NSNotificationCenter.defaultCenter.addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+  end
+
+  def set_left_item
+    right_item = self.navigationItem.rightBarButtonItem
+    left_item = UIBarButtonItem.alloc.initWithTitle("Options", style: right_item.style, target: self, action: "pop_to_options")
+    self.navigationItem.setLeftBarButtonItem(left_item)
+  end
+
+  def pop_to_options
+    navigationController.popToRootViewControllerAnimated(true)
   end
 
   def keyboardWillShow(notification)
@@ -124,7 +136,11 @@ class MainController < UIViewController
       @state = :default
       @layout.slide_elements(@state)
 
-      RunSession.send(@contact_list.selected_contacts)
+      if FBSession.activeSession.isOpen
+        RunSession.send(@contact_list.selected_contacts)
+      else
+        navigationController.popToRootViewControllerAnimated(true)
+      end
     }
   end
 

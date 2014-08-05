@@ -17,7 +17,7 @@ config = Psych.load(File.open('./config/settings.yml'))
 Motion::Project::App.setup do |app|
   app.name = 'RunPlanner'
   app.identifier = 'com.werunplanner'
-  app.frameworks += ["CoreLocation", "MapKit", "AddressBook", "StoreKit"]
+  app.frameworks += ["CoreLocation", "MapKit", "AddressBook", "StoreKit", "FacebookSDK"]
 
   app.pods do
     pod 'Parse-iOS-SDK'
@@ -42,4 +42,10 @@ Motion::Project::App.setup do |app|
   app.info_plist['Bundle identifier'] = 'com.werunplanner.RunPlanner'
 
   app.info_plist['UIBackgroundModes'] = ['location']
+
+  # Facebook SDK
+  facebook_app_id = '269678416568070'
+  app.info_plist['FacebookAppID'] = facebook_app_id
+  app.info_plist['FacebookDisplayName'] = 'We Run'
+  app.info_plist['CFBundleURLTypes'] = [{'CFBundleURLSchemes' => ['fb' + facebook_app_id]}]
 end

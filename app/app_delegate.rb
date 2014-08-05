@@ -3,16 +3,19 @@ class AppDelegate
   attr_reader :main_controller, :invite_controller, :invite_list_controller, :nav_controller
 
   def application(application, didFinishLaunchingWithOptions: launch_options)
+    NSLog("did finish launching")
+
     application.registerForRemoteNotificationTypes(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)
     Parse.setApplicationId("w73zBja8m0FY17rUC1jtyxXEGSuvvu53NuAf14be", clientKey: "Oko261xSzym0188Df7Ig9M380ElN7QMti8WzomFl")
 
     @window = UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)
     @window.makeKeyAndVisible
 
+    @fb_login_controller = FBLoginController.alloc.initWithNibName(nil, bundle: nil)
     @main_controller = MainController.alloc.initWithNibName(nil, bundle: nil)
     @invite_controller = InviteController.alloc.initWithNibName(nil, bundle: nil)
     @invite_list_controller = InviteListController.alloc.initWithNibName(nil, bundle: nil)
-    @nav_controller = UINavigationController.alloc.initWithRootViewController(@main_controller)
+    @nav_controller = UINavigationController.alloc.initWithRootViewController(@fb_login_controller)
     @nav_controller.setDelegate(self)
     @window.rootViewController = nav_controller
 
@@ -20,6 +23,13 @@ class AppDelegate
       notification = launch_options.objectForKey(UIApplicationLaunchOptionsRemoteNotificationKey)
       NSLog("notification on app launch: %@", notification)
       nav_to_invitation
+    end
+
+    NSLog("Facebook session active: %@", FBSession.activeSession.isOpen)
+    if FBSession.activeSession.isOpen
+      @nav_controller.pushViewController(@main_controller, animated: false)
+    else
+      FBSession.openActiveSessionWithAllowLoginUI(false)
     end
 
     true
@@ -66,6 +76,11 @@ class AppDelegate
     end
     @nav_controller.pushViewController(invite_controller, animated: true)
 =end
+  end
+
+  def application(application, openURL: open_url, sourceApplication: source_application, annotation: annotation)
+    was_handled = FBAppCall.handleOpenURL(open_url, sourceApplication: source_application)
+    was_handled
   end
 
   def nav_to_invitation
