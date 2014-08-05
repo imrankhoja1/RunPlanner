@@ -164,12 +164,11 @@ class MainController < UIViewController
   def init_map
     @location_manager = CLLocationManager.alloc.init
     @location_manager.delegate = self
+    @location_manager.startUpdatingLocation
   end
 
   def locationManager(manager, didChangeAuthorizationStatus: status)
     return if status != 3 # CLAuthorizationStatus == 3
-
-    @location_manager.startUpdatingLocation
     @location_manager.purpose = "asdf"
 
     @layout.get(:map).region = MapKit::CoordinateRegion.new(@location_manager.location.coordinate, [3.5, 3.5])
