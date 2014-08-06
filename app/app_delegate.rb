@@ -1,6 +1,6 @@
 
 class AppDelegate
-  attr_reader :main_controller, :invite_controller, :invite_list_controller, :nav_controller
+  attr_reader :main_controller, :invite_controller, :invite_list_controller, :nav_controller, :fb_login_controller
 
   def application(application, didFinishLaunchingWithOptions: launch_options)
     NSLog("did finish launching")
@@ -27,7 +27,9 @@ class AppDelegate
 
     NSLog("Facebook session active: %@", FBSession.activeSession.isOpen)
     if FBSession.activeSession.isOpen
-      @nav_controller.pushViewController(@main_controller, animated: false)
+      if @nav_controller.topViewController == @fb_login_controller
+        @nav_controller.pushViewController(@main_controller, animated: false)
+      end
     else
       FBSession.openActiveSessionWithAllowLoginUI(false)
     end
@@ -84,8 +86,13 @@ class AppDelegate
   end
 
   def nav_to_invitation
-    @nav_controller.pushViewController(@invite_list_controller, animated: false)
-    @nav_controller.pushViewController(@invite_controller, animated: true)
+    top_controller = @nav_controller.topViewController
+    if top_controller != @invite_list_controller
+      @nav_controller.pushViewController(@invite_list_controller, animated: false)
+    end
+    if top_controller != @invite_controller
+      @nav_controller.pushViewController(@invite_controller, animated: true)
+    end
     @invite_controller.set_invitation(Invitation.mock_list[0])
   end
 end

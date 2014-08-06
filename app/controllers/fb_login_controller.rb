@@ -17,7 +17,9 @@ class FBLoginController < UIViewController
   end
 
   def loginViewShowingLoggedInUser(login_view)
-    navigationController.pushViewController(navigationController.delegate.main_controller, animated: false)
+    if navigationController.topViewController == @fb_login_controller
+      navigationController.pushViewController(navigationController.delegate.main_controller, animated: false)
+    end
   end
 
   def loginViewShowingLoggedOutUser(login_view)
