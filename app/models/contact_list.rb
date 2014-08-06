@@ -3,11 +3,12 @@ class ContactList
 
   def initialize
     address_book = AddressBook::AddrBook.new
-    @contacts = address_book.people.map do |x|
+    @contacts = address_book.people.select{ |x|
+      x.phones.size != 0 && x.first_name != nil && x.last_name != nil
+    }.map{ |x|
       Contact.new(x.first_name, x.last_name, x.phones)
-    end
+    }
     @contacts = Contact.mock_list if @contacts.empty?
-    NSLog("phone: %@", @contacts[0].phones[0][:value])
   end
 
   def tableView(table_view, numberOfRowsInSection:section)
@@ -44,10 +45,8 @@ class ContactList
   end
 
   def ordered_contacts
-    contacts = []
-    contacts += selected_contacts.sort{|a,b| a.first_name <=> b.first_name}
-    contacts += unselected_contacts.sort{|a,b| a.first_name <=> b.first_name}
-    contacts
+    selected_contacts.sort{|a,b| a.first_name <=> b.first_name} +
+    unselected_contacts.sort{|a,b| a.first_name <=> b.first_name}
   end
 
   def selected_contacts
