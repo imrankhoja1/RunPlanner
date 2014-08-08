@@ -50,7 +50,7 @@ class RunSession
     }
     ap json
 
-    client.post("1/functions/invite_runners", json) do |result|
+    client.post("1/functions/send_push", json) do |result|
       if result.object
         ap result.object
         @@active = true
