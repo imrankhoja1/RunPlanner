@@ -243,9 +243,9 @@ class MainController < UIViewController
   end
 
   def pickerView(picker_view, didSelectRow: row, inComponent: component)
-    if picker_view == @distance_picker
+    if picker_view == @layout.get(:distance_picker)
       @layout.get(:button_distance_value).setTitle(distance_picker_values[row], forState: UIControlStateNormal)
-    elsif picker_view == @pace_picker
+    elsif picker_view == @layout.get(:pace_picker)
       @layout.get(:button_pace_value).setTitle(pace_picker_values[row], forState: UIControlStateNormal)
     end
   end
