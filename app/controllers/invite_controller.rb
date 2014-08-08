@@ -36,6 +36,10 @@ class InviteController < UIViewController
   def locationManager(manager, didUpdateToLocation: newLocation, fromLocation: oldLocation)
     #puts "Latitude = #{newLocation.coordinate.latitude} Longitude = #{newLocation.coordinate.longitude}"
     #@layout.get(:map).region.center = newLocation.coordinate
+    @countdown ||= 500
+    @start ||= Time.now + @countdown
+    @layout.get(:label_countdown).setText((@start + @countdown).strftime('%M:%S'))
+    @countdown -= 1
   end
 
   def set_invitation(invitation)
