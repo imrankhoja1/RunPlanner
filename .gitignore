@@ -4,3 +4,5 @@ vendor/Pods
 vendor/Parse.framework
 config/settings.yml
 notes
+*.swp
+.DS_Store
